@@ -4,6 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
+import authRouter from "./routes/authRouter";
+
 dotenv.config();
 
 const app = express();
@@ -21,6 +23,8 @@ mongoose
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
+
+app.use("/api/users", authRouter);
 
 app.use(express.static("public"));
 
@@ -42,5 +46,3 @@ const port = process.env.PORT;
 app.listen(port, () => {
     console.log(`Server is running. Use our API on port: ${port}`);
 });
-
-export default app;
