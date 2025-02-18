@@ -11,16 +11,17 @@ export class Email {
     this.name = user.name;
     this.to = user.email;
     this.url = url;
-    this.from = process.env.EMAIL_FROM;
+    this.from = process.env.META_USER;
   }
 
   _initTransporter() {
     const transportConfig = {
-      host: process.env.MAILGUN_HOST,
-      port: process.env.MAILGUN_PORT,
+      host: process.env.META_HOST,
+      port: process.env.META_PORT,
+      secure: true,
       auth: {
-        user: process.env.MAILGUN_USER,
-        pass: process.env.MAILGUN_PASS,
+        user: process.env.META_USER,
+        pass: process.env.META_PASS,
       },
     };
 
