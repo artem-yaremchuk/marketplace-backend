@@ -8,6 +8,7 @@ dotenv.config();
 
 export class Email {
   constructor(user, url) {
+    this.name = user.name;
     this.to = user.email;
     this.url = url;
     this.from = process.env.EMAIL_FROM;
@@ -30,6 +31,7 @@ export class Email {
     const html = pug.renderFile(
       path.join(process.cwd(), "views", "email", `${template}.pug`),
       {
+        name: this.name,
         url: this.url,
         subject,
       },
