@@ -14,7 +14,10 @@ export const registerUserSchema = Joi.object({
       "any.required": "Name is required",
     }),
   email: Joi.string()
-    .email({ minDomainSegments: 2 })
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io"] },
+    })
     .required()
     .messages({
       "string.empty": "Email cannot be empty",
@@ -53,4 +56,18 @@ export const registerUserSchema = Joi.object({
       "any.only": "Invalid user type",
       "any.required": "User type is required",
   }),
+});
+
+export const verifyUserSchema = Joi.object({
+  email: Joi.string()
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io"] },
+    })
+    .required()
+    .messages({
+      "string.empty": "Email cannot be empty",
+      "string.email": "Enter a valid email address",
+      "any.required": "Email is required",
+    }),
 });
