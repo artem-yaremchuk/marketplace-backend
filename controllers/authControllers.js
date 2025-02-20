@@ -1,7 +1,8 @@
-import catchAsync from "../helpers/catchAsync.js";
-import { signup, verify, reverify } from "../services/userServices.js";
-import { Email } from "../services/emailService.js";
 import dotenv from "dotenv";
+import catchAsync from "../helpers/catchAsync.js";
+import { signup, verify, reverify, login } from "../services/userServices.js";
+import { Email } from "../services/emailService.js";
+import User from "../models/userModel.js"
 
 dotenv.config();
 
@@ -64,4 +65,26 @@ export const reverifyUser = catchAsync(async (req, res) => {
   res.status(200).json({
     message: "Verification email sent",
   });
+});
+
+export const loginUser = catchAsync(async (req, res) => {
+  const { token, name, email, phone, userType } = await login(req.body);
+
+  res.status(200).json({
+    token,
+    user: {
+      name,
+      email,
+      phone,
+      userType,
+    },
+  });
+});
+
+export const logoutUser = catchAsync(async (req, res) => {
+  const { _id } = req.user;
+
+  await User.findByIdAndUpdate(_id, { token: "" });
+
+  res.status(204).send();
 });
