@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { PASSWD_REGEX, PHONE_REGEX } from "../constants.js";
+import { PASSWD_REGEX, PHONE_REGEX, themeTypes } from "../constants.js";
 
 export const registerUserSchema = Joi.object({
   name: Joi.string()
@@ -93,4 +93,15 @@ export const loginUserSchema = Joi.object({
       "string.pattern.base":
       "Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character",
   }),
+});
+
+export const themeUserSchema = Joi.object({
+  theme: Joi.string()
+    .valid(...themeTypes)
+    .required()
+    .messages({
+      "string.empty": "Theme cannot be empty",
+      "any.required": "Theme is required",
+      "any.only": `Theme must be one of: ${themeTypes.join(", ")}`,
+    })
 });
