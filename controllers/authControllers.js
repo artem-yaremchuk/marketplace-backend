@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import catchAsync from "../helpers/catchAsync.js";
 import { signup, verify, reverify, login } from "../services/userServices.js";
 import { Email } from "../services/emailService.js";
-import User from "../models/userModel.js"
+import User from "../models/userModel.js";
 
 dotenv.config();
 
@@ -68,7 +68,9 @@ export const reverifyUser = catchAsync(async (req, res) => {
 });
 
 export const loginUser = catchAsync(async (req, res) => {
-  const { token, name, email, phone, userType } = await login(req.body);
+  const { token, name, email, phone, userType, avatarURL, theme } = await login(
+    req.body,
+  );
 
   res.status(200).json({
     token,
@@ -77,6 +79,8 @@ export const loginUser = catchAsync(async (req, res) => {
       email,
       phone,
       userType,
+      avatarURL,
+      theme,
     },
   });
 });
@@ -87,4 +91,19 @@ export const logoutUser = catchAsync(async (req, res) => {
   await User.findByIdAndUpdate(_id, { token: "" });
 
   res.status(204).send();
+});
+
+export const getCurrentUser = catchAsync(async (req, res) => {
+  const { name, email, phone, userType, avatarURL, theme } = req.user;
+
+  res.status(200).json({
+    user: {
+      name,
+      email,
+      phone,
+      userType,
+      avatarURL,
+      theme,
+    },
+  });
 });
