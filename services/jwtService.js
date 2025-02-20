@@ -14,8 +14,6 @@ export const signToken = (id) => {
 };
 
 export const checkToken = (token) => {
-  if (!token) throw HttpError(401, "Not authorized");
-
   try {
     const { id } = jwt.verify(token, jwtSecret);
 
