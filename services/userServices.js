@@ -2,6 +2,7 @@ import { v4 } from "uuid";
 import User from "../models/userModel.js";
 import HttpError from "../helpers/HttpError.js";
 import { signToken } from "../services/jwtService.js";
+import { ImageService } from "./imageService.js";
 
 export const signup = async (userData) => {
   const { email } = userData;
@@ -63,4 +64,33 @@ export const login = async ({ email, password }) => {
   );
 
   return loggedInUser;
+};
+
+export const updateUserProfile = async (_id, userData, file) => {
+  const user = await User.findOne({ _id });
+
+  if (!user) throw HttpError(404, "User not found");
+
+  if (file) {
+    user.avatarURL = await ImageService.saveImage(
+      file,
+      {
+        width: 250,
+        height: 250,
+      },
+      "avatars",
+    );
+  }
+
+  if (userData) {
+    const { name, email, phone, password } = userData;
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (phone) user.phone = phone;
+    if (password) user.password = password;
+  }
+
+  await user.save();
+
+  return user;
 };
