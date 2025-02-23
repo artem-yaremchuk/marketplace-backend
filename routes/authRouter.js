@@ -10,6 +10,7 @@ import {
   getCurrentUser,
   updateUserTheme,
   updateUser,
+  deleteUser
 } from "../controllers/authControllers.js";
 import { authorization } from "../middlewares/authMiddleware.js";
 import { uploadAvatar } from "../middlewares/userMiddleware.js";
@@ -24,5 +25,6 @@ authRouter.post("/logout", authorization, logoutUser);
 authRouter.get("/current", authorization, getCurrentUser);
 authRouter.patch("/theme", authorization, validateBody(themeUserSchema), updateUserTheme);
 authRouter.patch("/update", authorization, uploadAvatar, updateUser);
+authRouter.post("/delete", authorization, deleteUser);
 
 export default authRouter;
