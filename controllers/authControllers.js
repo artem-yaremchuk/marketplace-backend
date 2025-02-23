@@ -1,8 +1,10 @@
 import dotenv from "dotenv";
 import catchAsync from "../helpers/catchAsync.js";
-import { signup, verify, reverify, login } from "../services/userServices.js";
+import { signup, verify, reverify, login, updateUserProfile } from "../services/userServices.js";
 import { Email } from "../services/emailService.js";
 import User from "../models/userModel.js";
+import { updateUserSchema } from "../schemas/userSchemas.js";
+import HttpError from "../helpers/HttpError.js";
 
 dotenv.config();
 
@@ -117,5 +119,33 @@ export const updateUserTheme = catchAsync(async (req, res) => {
   res.status(200).json({
     message: "Theme successfully updated",
     theme,
+  });
+});
+
+export const updateUser = catchAsync(async (req, res) => {
+  const { _id } = req.user;
+  
+  const userData = JSON.parse(req.body.userData);
+  
+  Object.keys(userData).forEach(key => {
+    if (userData[key] === "") {
+      delete userData[key];
+    }
+  });
+
+  const { value, error } = updateUserSchema.validate(userData);
+
+  if (error) throw HttpError(400, error.message);
+
+  const { name, email, phone, avatarURL } = await updateUserProfile(_id, value, req.file);
+
+  res.status(200).json({
+    message: "User profile has been updated",
+    user: {
+      name,
+      email,
+      phone,
+      avatarURL,
+    },
   });
 });

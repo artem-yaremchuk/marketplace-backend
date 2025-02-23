@@ -9,8 +9,10 @@ import {
   logoutUser,
   getCurrentUser,
   updateUserTheme,
+  updateUser,
 } from "../controllers/authControllers.js";
 import { authorization } from "../middlewares/authMiddleware.js";
+import { uploadAvatar } from "../middlewares/userMiddleware.js";
 
 const authRouter = express.Router();
 
@@ -21,5 +23,6 @@ authRouter.post("/login", validateBody(loginUserSchema), loginUser);
 authRouter.post("/logout", authorization, logoutUser);
 authRouter.get("/current", authorization, getCurrentUser);
 authRouter.patch("/theme", authorization, validateBody(themeUserSchema), updateUserTheme);
+authRouter.patch("/update", authorization, uploadAvatar, updateUser);
 
 export default authRouter;
