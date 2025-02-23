@@ -17,7 +17,7 @@ export const registerUser = catchAsync(async (req, res) => {
 
     await new Email(newUser, url).sendVerification();
   } catch (err) {
-    console.log(err);
+    console.log("Failed to send verification email:", err);
   }
 
   res.status(201).json({
@@ -56,13 +56,9 @@ export const reverifyUser = catchAsync(async (req, res) => {
 
   const { verificationToken } = user;
 
-  try {
-    const url = `${req.protocol}://${req.get("host")}/api/users/verify/${verificationToken}`;
+  const url = `${req.protocol}://${req.get("host")}/api/users/verify/${verificationToken}`;
 
-    await new Email(user, url).sendVerification();
-  } catch (err) {
-    console.log(err);
-  }
+  await new Email(user, url).sendVerification();
 
   res.status(200).json({
     message: "Verification email sent",
@@ -148,4 +144,12 @@ export const updateUser = catchAsync(async (req, res) => {
       avatarURL,
     },
   });
+});
+
+export const deleteUser = catchAsync(async (req, res) => {
+  const { _id } = req.user;
+
+  await User.findByIdAndDelete(_id);
+
+  res.status(204).send();
 });

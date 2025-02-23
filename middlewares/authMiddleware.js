@@ -8,15 +8,15 @@ export const authorization = catchAsync(async (req, res, next) => {
     req.headers.authorization?.startsWith("Bearer") &&
     req.headers.authorization.split(" ")[1];
 
-  if (!token) throw HttpError(401, "Not authorized");
+  if (!token) throw HttpError(401, "Token is missing");
   
   const userId = checkToken(token);
 
-  if (!userId) throw HttpError(401, "Not authorized");
+  if (!userId) throw HttpError(401, "Invalid or expired token");
 
   const currentUser = await User.findById(userId);
 
-  if (!currentUser) throw HttpError(401, "Not authorized");
+  if (!currentUser) throw HttpError(401, "User not found");
 
   req.user = currentUser;
 
