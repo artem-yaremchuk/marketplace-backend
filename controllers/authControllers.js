@@ -120,20 +120,34 @@ export const updateUserTheme = catchAsync(async (req, res) => {
 
 export const updateUser = catchAsync(async (req, res) => {
   const { _id } = req.user;
-  
-  const userData = JSON.parse(req.body.userData);
-  
-  Object.keys(userData).forEach(key => {
-    if (userData[key] === "") {
-      delete userData[key];
+
+  let userData = {};
+
+  if (req.body.userData) {
+    try {
+      userData = JSON.parse(req.body.userData);
+    } catch {
+      throw HttpError(400, "Invalid JSON format");
     }
-  });
 
-  const { value, error } = updateUserSchema.validate(userData);
+    Object.keys(userData).forEach((key) => {
+      if (userData[key] === "") {
+        delete userData[key];
+      }
+    });
 
-  if (error) throw HttpError(400, error.message);
+    if (Object.keys(userData).length > 0) {
+      const { value, error } = updateUserSchema.validate(userData);
+      if (error) throw HttpError(400, error.message);
+      userData = value;
+    }
+  }
 
-  const { name, email, phone, avatarURL } = await updateUserProfile(_id, value, req.file);
+  const { name, email, phone, avatarURL } = await updateUserProfile(
+    _id,
+    userData,
+    req.file,
+  );
 
   res.status(200).json({
     message: "User profile has been updated",
@@ -153,3 +167,4 @@ export const deleteUser = catchAsync(async (req, res) => {
 
   res.status(204).send();
 });
+

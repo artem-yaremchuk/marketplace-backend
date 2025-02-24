@@ -2,7 +2,7 @@ import { v4 } from "uuid";
 import User from "../models/userModel.js";
 import HttpError from "../helpers/HttpError.js";
 import { signToken } from "../services/jwtService.js";
-import { ImageService } from "./imageService.js";
+import cloudinary from "../helpers/cloudinary.js";
 
 export const signup = async (userData) => {
   const { email } = userData;
@@ -72,23 +72,23 @@ export const updateUserProfile = async (_id, userData, file) => {
   if (!user) throw HttpError(404, "User not found");
 
   if (file) {
-    user.avatarURL = await ImageService.saveImage(
-      file,
-      {
-        width: 250,
-        height: 250,
-      },
-      "avatars",
-    );
+    const uploadedImage = await cloudinary.uploader.upload(file.path);
+
+    const { public_id } = uploadedImage;
+
+    const optimizedImageUrl = cloudinary.url(public_id, {
+      fetch_format: "auto",
+      quality: "auto",
+      crop: "auto",
+      gravity: "auto",
+      width: 500,
+      height: 500,
+    });
+
+    user.avatarURL = optimizedImageUrl;
   }
 
-  if (userData) {
-    const { name, email, phone, password } = userData;
-    if (name) user.name = name;
-    if (email) user.email = email;
-    if (phone) user.phone = phone;
-    if (password) user.password = password;
-  }
+  Object.assign(user, userData);
 
   await user.save();
 
