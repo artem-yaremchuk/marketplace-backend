@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { PASSWD_REGEX, PHONE_REGEX, themeTypes } from "../constants.js";
+import { PASSWD_REGEX, PHONE_REGEX, themeTypes, userTypes } from "../constants.js";
 
 export const registerUserSchema = Joi.object({
   name: Joi.string().trim().min(3).max(30).required().messages({
@@ -19,6 +19,10 @@ export const registerUserSchema = Joi.object({
       "string.email": "Enter a valid email address",
       "any.required": "Email is required",
     }),
+  location: Joi.string().trim().required().messages({
+    "string.empty": "Location cannot be empty",
+    "any.required": "Location is required",
+  }),
   phone: Joi.string().trim().pattern(PHONE_REGEX).required().messages({
     "string.empty": "Phone number cannot be empty",
     "string.pattern.base":
@@ -35,7 +39,7 @@ export const registerUserSchema = Joi.object({
     "any.only": "Passwords must match",
     "any.required": "Repeat password is required",
   }),
-  userType: Joi.string().valid("guardian", "adopter").required().messages({
+  userType: Joi.string().valid(...userTypes).required().messages({
     "any.only": "Invalid user type",
     "any.required": "User type is required",
   }),
@@ -99,6 +103,10 @@ export const updateUserSchema = Joi.object({
     .messages({
       "string.email": "Enter a valid email address",
     }),
+  location: Joi.string().trim().messages({
+    "string.empty": "Location cannot be empty",
+    "any.required": "Location is required",
+  }),
   phone: Joi.string().trim().pattern(PHONE_REGEX).messages({
     "string.pattern.base":
       "Phone number must be a valid Ukrainian phone number",
