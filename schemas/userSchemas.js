@@ -9,6 +9,7 @@ export const registerUserSchema = Joi.object({
     "any.required": "Name is required",
   }),
   email: Joi.string()
+    .trim()
     .email({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io"] },
@@ -47,6 +48,7 @@ export const registerUserSchema = Joi.object({
 
 export const verifyUserSchema = Joi.object({
   email: Joi.string()
+    .trim()
     .email({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io"] },
@@ -61,6 +63,7 @@ export const verifyUserSchema = Joi.object({
 
 export const loginUserSchema = Joi.object({
   email: Joi.string()
+    .trim()
     .email({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io"] },
@@ -96,6 +99,7 @@ export const updateUserSchema = Joi.object({
     "string.max": "Name must not be more than {#limit} characters long",
   }),
   email: Joi.string()
+    .trim()
     .email({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io"] },
