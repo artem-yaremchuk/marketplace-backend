@@ -10,7 +10,7 @@ dotenv.config();
 
 export const registerUser = catchAsync(async (req, res) => {
   const newUser = await signup(req.body);
-  const { name, email, phone, userType, verificationToken } = newUser;
+  const { name, email, location, phone, userType, verificationToken } = newUser;
 
   try {
     const url = `${req.protocol}://${req.get("host")}/api/users/verify/${verificationToken}`;
@@ -24,6 +24,7 @@ export const registerUser = catchAsync(async (req, res) => {
     user: {
       name,
       email,
+      location,
       phone,
       userType,
     },
@@ -34,7 +35,7 @@ export const verifyUser = catchAsync(async (req, res) => {
   const { verificationToken } = req.params;
 
   const verifiedUser = await verify(verificationToken);
-  const { token, name, email, phone, userType } = verifiedUser;
+  const { token, name, email, location, phone, userType } = verifiedUser;
 
   const redirectUrl = process.env.FRONTEND_VERIFICATION_URL;
 
@@ -45,6 +46,7 @@ export const verifyUser = catchAsync(async (req, res) => {
     user: {
       name,
       email,
+      location,
       phone,
       userType,
     },
@@ -66,7 +68,7 @@ export const reverifyUser = catchAsync(async (req, res) => {
 });
 
 export const loginUser = catchAsync(async (req, res) => {
-  const { token, name, email, phone, userType, avatarURL, theme } = await login(
+  const { token, name, email, location, phone, userType, avatarURL, theme } = await login(
     req.body,
   );
 
@@ -75,6 +77,7 @@ export const loginUser = catchAsync(async (req, res) => {
     user: {
       name,
       email,
+      location,
       phone,
       userType,
       avatarURL,
@@ -92,12 +95,13 @@ export const logoutUser = catchAsync(async (req, res) => {
 });
 
 export const getCurrentUser = catchAsync(async (req, res) => {
-  const { name, email, phone, userType, avatarURL, theme } = req.user;
+  const { name, email, location, phone, userType, avatarURL, theme } = req.user;
 
   res.status(200).json({
     user: {
       name,
       email,
+      location,
       phone,
       userType,
       avatarURL,
@@ -143,7 +147,7 @@ export const updateUser = catchAsync(async (req, res) => {
     }
   }
 
-  const { name, email, phone, avatarURL } = await updateUserProfile(
+  const { name, email, location, phone, avatarURL } = await updateUserProfile(
     _id,
     userData,
     req.file,
@@ -154,6 +158,7 @@ export const updateUser = catchAsync(async (req, res) => {
     user: {
       name,
       email,
+      location,
       phone,
       avatarURL,
     },
