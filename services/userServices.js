@@ -66,26 +66,30 @@ export const login = async ({ email, password }) => {
   return loggedInUser;
 };
 
-export const updateUserProfile = async (_id, userData, file) => {
-  const user = await User.findOne({ _id });
+export const updateUserProfile = async (userId, userData, file) => {
+  const user = await User.findById(userId);
 
   if (!user) throw HttpError(404, "User not found");
 
-  if (file) {
-    const uploadedImage = await cloudinary.uploader.upload(file.path);
+  try {
+    if (file) {
+      const uploadedImage = await cloudinary.uploader.upload(file.path);
 
-    const { public_id } = uploadedImage;
+      const { public_id } = uploadedImage;
 
-    const optimizedImageUrl = cloudinary.url(public_id, {
-      fetch_format: "auto",
-      quality: "auto",
-      crop: "auto",
-      gravity: "auto",
-      width: 500,
-      height: 500,
-    });
+      const optimizedImageUrl = cloudinary.url(public_id, {
+        fetch_format: "auto",
+        quality: "auto",
+        crop: "auto",
+        gravity: "auto",
+        width: 500,
+        height: 500,
+      });
 
-    user.avatarURL = optimizedImageUrl;
+      user.avatarURL = optimizedImageUrl;
+    }
+  } catch (error) {
+    throw HttpError(400, "Image upload failed");
   }
 
   Object.assign(user, userData);

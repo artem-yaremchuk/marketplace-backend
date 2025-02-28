@@ -114,7 +114,7 @@ export const updateUserTheme = catchAsync(async (req, res) => {
   const { _id } = req.user;
   const { theme } = req.body;
 
-  await User.findByIdAndUpdate( _id, req.body);
+  await User.findByIdAndUpdate(_id, req.body);
 
   res.status(200).json({
     message: "Theme successfully updated",
@@ -123,7 +123,7 @@ export const updateUserTheme = catchAsync(async (req, res) => {
 });
 
 export const updateUser = catchAsync(async (req, res) => {
-  const { _id } = req.user;
+  const { _id: userId } = req.user;
 
   let userData = {};
 
@@ -148,7 +148,7 @@ export const updateUser = catchAsync(async (req, res) => {
   }
 
   const { name, email, location, phone, avatarURL } = await updateUserProfile(
-    _id,
+    userId,
     userData,
     req.file,
   );

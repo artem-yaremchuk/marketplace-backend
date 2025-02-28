@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 
 const animalSchema = new Schema(
   {
-    name: {
+    animalName: {
       type: String,
       required: [true, "Animal name is required"],
     },
@@ -23,7 +23,7 @@ const animalSchema = new Schema(
       enum: ["male", "female"],
       required: [true, "Gender is required"],
     },
-    location: {
+    animalLocation: {
       type: String,
       required: [true, "Animal location is required"],
     },
@@ -35,9 +35,9 @@ const animalSchema = new Schema(
       type: String,
       required: [true, "Ad text is required"],
     },
-    photos: {
+    avatar: {
       type: String,
-      default: [],
+      default: "",
     },
     status: {
       type: String,

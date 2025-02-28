@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 import authRouter from "./routes/authRouter.js";
+import animalsRouter from "./routes/animalsRouter.js";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/users", authRouter);
+app.use("/api/animals", animalsRouter)
 
 app.use(express.static("public"));
 
