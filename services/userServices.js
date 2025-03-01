@@ -73,13 +73,15 @@ export const updateUserProfile = async (userId, userData, file) => {
 
   try {
     if (file) {
-      const uploadedImage = await cloudinary.uploader.upload(file.path);
+      const uploadedImage = await cloudinary.uploader.upload(file.path, {
+        folder: "users",
+      });
 
       const { public_id } = uploadedImage;
 
       const optimizedImageUrl = cloudinary.url(public_id, {
         fetch_format: "auto",
-        quality: "auto",
+        quality: "auto:best",
         crop: "auto",
         gravity: "auto",
         width: 500,

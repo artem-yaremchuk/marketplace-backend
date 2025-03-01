@@ -4,7 +4,7 @@ import { v4 } from "uuid";
 import HttpError from "../helpers/HttpError.js";
 
 export class ImageService {
-  static initUploadImageMiddleware(name) {
+  static initUploadImageMiddleware(name, maxCount = 1) {
     const uploadDir = path.join(process.cwd(), "uploads");
 
     const storage = multer.diskStorage({
@@ -31,8 +31,11 @@ export class ImageService {
       storage: storage,
       fileFilter: multerFilter,
       limits: { fileSize: 3 * 1024 * 1024 },
-    }).single(name);
+    });
 
-    return upload;
+    if (maxCount === 1) {
+      return upload.single(name);
+    }
+    return upload.array(name, maxCount);
   }
 }
