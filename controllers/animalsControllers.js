@@ -26,8 +26,8 @@ export const createAnimal = catchAsync(async (req, res) => {
     animalLocation,
     adTitle,
     adText,
-    avatar,
-  } = await createAnimalAd(ownerId, value, req.file);
+    animalImages,
+  } = await createAnimalAd(ownerId, value, req.files);
 
   res.status(200).json({
     animal: {
@@ -39,7 +39,7 @@ export const createAnimal = catchAsync(async (req, res) => {
       animalLocation,
       adTitle,
       adText,
-      avatar,
+      animalImages,
       ownerName,
       ownerPhone,
     },

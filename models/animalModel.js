@@ -35,9 +35,9 @@ const animalSchema = new Schema(
       type: String,
       required: [true, "Ad text is required"],
     },
-    avatar: {
-      type: String,
-      default: "",
+    animalImages: {
+      type: [ String ],
+      default: [],
     },
     status: {
       type: String,
