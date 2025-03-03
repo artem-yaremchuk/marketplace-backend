@@ -2,6 +2,7 @@ import HttpError from "../helpers/HttpError.js";
 import catchAsync from "../helpers/catchAsync.js";
 import { createAnimalSchema } from "../schemas/animalsSchemas.js";
 import { createAnimalAd } from "../services/animalServices.js";
+import removeFiles from "../helpers/removeFiles.js";
 
 export const createAnimal = catchAsync(async (req, res) => {
   const { _id: ownerId, name: ownerName, phone: ownerPhone } = req.user;
@@ -11,6 +12,7 @@ export const createAnimal = catchAsync(async (req, res) => {
   try {
     animalData = JSON.parse(req.body.animalData);
   } catch {
+    await removeFiles(req.files);
     throw HttpError(400, "Invalid JSON format");
   }
 

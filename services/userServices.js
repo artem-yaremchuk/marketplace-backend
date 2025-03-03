@@ -3,7 +3,7 @@ import User from "../models/userModel.js";
 import HttpError from "../helpers/HttpError.js";
 import { signToken } from "../services/jwtService.js";
 import cloudinary from "../helpers/cloudinary.js";
-import fse from "fs-extra";
+import removeFiles from "../helpers/removeFiles.js";
 
 export const signup = async (userData) => {
   const { email } = userData;
@@ -92,9 +92,7 @@ export const updateUserProfile = async (userId, userData, file) => {
   } catch (error) {
     throw HttpError(400, "Image upload failed");
   } finally {
-    await fse
-      .remove(file?.path)
-      .catch((err) => console.log(`Failed to remove file: ${file?.path}`, err));
+    await removeFiles(file);
   }
 
   Object.assign(user, userData);
