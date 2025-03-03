@@ -25,6 +25,10 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
     },
+    resetPasswordToken: {
+      type: String,
+      default: null,
+    },
     userType: {
       type: String,
       required: [true, "User type is required"],

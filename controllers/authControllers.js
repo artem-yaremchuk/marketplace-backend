@@ -1,6 +1,15 @@
 import dotenv from "dotenv";
 import catchAsync from "../helpers/catchAsync.js";
-import { signup, verify, reverify, login, updateUserProfile } from "../services/userServices.js";
+import {
+  signup,
+  verify,
+  reverify,
+  login,
+  updateUserProfile,
+  createResetPasswordToken,
+  verifyResetPasswordToken,
+  resetPassword,
+} from "../services/userServices.js";
 import { Email } from "../services/emailService.js";
 import User from "../models/userModel.js";
 import { updateUserSchema } from "../schemas/userSchemas.js";
@@ -12,8 +21,10 @@ export const registerUser = catchAsync(async (req, res) => {
   const newUser = await signup(req.body);
   const { name, email, location, phone, userType, verificationToken } = newUser;
 
+  const { FRONTEND_URL } = process.env;
+
   try {
-    const url = `${req.protocol}://${req.get("host")}/api/users/verify/${verificationToken}`;
+    const url = `${FRONTEND_URL}/verify/${verificationToken}`;
 
     await new Email(newUser, url).sendVerification();
   } catch (err) {
@@ -37,12 +48,9 @@ export const verifyUser = catchAsync(async (req, res) => {
   const verifiedUser = await verify(verificationToken);
   const { token, name, email, location, phone, userType } = verifiedUser;
 
-  const redirectUrl = process.env.FRONTEND_VERIFICATION_URL;
-
   res.status(200).json({
     message: "Verification successful",
     token,
-    redirectUrl,
     user: {
       name,
       email,
@@ -58,19 +66,20 @@ export const reverifyUser = catchAsync(async (req, res) => {
 
   const { verificationToken } = user;
 
-  const url = `${req.protocol}://${req.get("host")}/api/users/verify/${verificationToken}`;
+  const { FRONTEND_URL } = process.env;
+
+  const url = `${FRONTEND_URL}/verify/${verificationToken}`;
 
   await new Email(user, url).sendVerification();
 
   res.status(200).json({
-    message: "Verification email sent",
+    message: "Verification email has been sent",
   });
 });
 
 export const loginUser = catchAsync(async (req, res) => {
-  const { token, name, email, location, phone, userType, avatarURL, theme } = await login(
-    req.body,
-  );
+  const { token, name, email, location, phone, userType, avatarURL, theme } =
+    await login(req.body);
 
   res.status(200).json({
     token,
@@ -89,7 +98,7 @@ export const loginUser = catchAsync(async (req, res) => {
 export const logoutUser = catchAsync(async (req, res) => {
   const { _id } = req.user;
 
-  await User.findByIdAndUpdate(_id, { token: "" });
+  await User.findByIdAndUpdate(_id, { token: null });
 
   res.status(204).send();
 });
@@ -117,7 +126,7 @@ export const updateUserTheme = catchAsync(async (req, res) => {
   await User.findByIdAndUpdate(_id, req.body);
 
   res.status(200).json({
-    message: "Theme successfully updated",
+    message: "Theme has been successfully updated",
     theme,
   });
 });
@@ -173,3 +182,52 @@ export const deleteUser = catchAsync(async (req, res) => {
   res.status(204).send();
 });
 
+export const requestResetPassword = catchAsync(async (req, res) => {
+  const { email } = req.body;
+
+  const user = await createResetPasswordToken(email);
+
+  const { resetPasswordToken } = user;
+
+  const { FRONTEND_URL } = process.env;
+
+  const url = `${FRONTEND_URL}/reset-password/${resetPasswordToken}`;
+
+  await new Email(user, url).sendResetPasswordEmail();
+
+  res.status(200).json({
+    message: "Password reset email has been sent",
+  });
+});
+
+export const confirmResetPassword = catchAsync(async (req, res) => {
+  const { resetPasswordToken } = req.params;
+
+  const verifiedUser = await verifyResetPasswordToken(resetPasswordToken);
+
+  const { token, name, email, location, phone, userType } = verifiedUser;
+
+  res.status(200).json({
+    message: "Reset password verification successful",
+    token,
+    user: {
+      name,
+      email,
+      location,
+      phone,
+      userType,
+    },
+  });
+});
+
+export const resetUserPassword = catchAsync(async (req, res) => {
+  const { _id: userId } = req.user;
+
+  const { password: newPassword } = req.body;
+
+  await resetPassword(userId, newPassword);
+
+  res.status(200).json({
+    message: "User password has been updated",
+  });
+});

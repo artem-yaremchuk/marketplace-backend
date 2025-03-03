@@ -50,6 +50,10 @@ export class Email {
   }
 
   async sendVerification() {
-    await this._send("verify", "Account Verification");
+    await this._send("verify", "Підтвердження акаунта");
+  }
+
+  async sendResetPasswordEmail() {
+    await this._send("reset-password", "Скидання пароля")
   }
 }
