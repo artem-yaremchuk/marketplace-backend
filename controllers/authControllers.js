@@ -14,6 +14,7 @@ import { Email } from "../services/emailService.js";
 import User from "../models/userModel.js";
 import { updateUserSchema } from "../schemas/userSchemas.js";
 import HttpError from "../helpers/HttpError.js";
+import removeFiles from "../helpers/removeFiles.js";
 
 dotenv.config();
 
@@ -140,6 +141,7 @@ export const updateUser = catchAsync(async (req, res) => {
     try {
       userData = JSON.parse(req.body.userData);
     } catch {
+      await removeFiles(req.file);
       throw HttpError(400, "Invalid JSON format");
     }
 
