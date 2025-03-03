@@ -3,14 +3,13 @@ import User from "../models/userModel.js";
 import HttpError from "../helpers/HttpError.js";
 import { signToken } from "../services/jwtService.js";
 import cloudinary from "../helpers/cloudinary.js";
+import fse from "fs-extra";
 
 export const signup = async (userData) => {
   const { email } = userData;
   const user = await User.findOne({ email });
 
-  if (user) {
-    throw HttpError(409, "Email in use");
-  }
+  if (user) throw HttpError(409, "Email in use");
 
   userData.verificationToken = v4();
 
@@ -92,6 +91,10 @@ export const updateUserProfile = async (userId, userData, file) => {
     }
   } catch (error) {
     throw HttpError(400, "Image upload failed");
+  } finally {
+    await fse
+      .remove(file?.path)
+      .catch((err) => console.log(`Failed to remove file: ${file?.path}`, err));
   }
 
   Object.assign(user, userData);
@@ -99,4 +102,39 @@ export const updateUserProfile = async (userId, userData, file) => {
   await user.save();
 
   return user;
+};
+
+export const createResetPasswordToken = async (email) => {
+  const user = await User.findOne({ email });
+
+  if (!user) throw HttpError(404, "User not found");
+
+  user.resetPasswordToken = v4();
+
+  await user.save();
+
+  return user;
+};
+
+export const verifyResetPasswordToken = async (resetPasswordToken) => {
+  const user = await User.findOne({ resetPasswordToken });
+
+  if (!user) throw HttpError(404, "User not found");
+
+  user.resetPasswordToken = null;
+  user.token = signToken(user.id);
+
+  await user.save();
+
+  return user;
+};
+
+export const resetPassword = async (userId, newPassword) => {
+  const user = await User.findById(userId);
+
+  if (!user) throw HttpError(404, "User not found");
+
+  user.password = newPassword;
+
+  await user.save();
 };

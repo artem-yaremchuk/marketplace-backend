@@ -1,6 +1,6 @@
 import express from "express";
 import validateBody from "../helpers/validateBody.js";
-import { registerUserSchema, verifyUserSchema, loginUserSchema, themeUserSchema } from "../schemas/userSchemas.js";
+import { registerUserSchema, verifyUserSchema, loginUserSchema, themeUserSchema, forgotPasswordSchema, resetPasswordSchema } from "../schemas/userSchemas.js";
 import {
   registerUser,
   verifyUser,
@@ -10,7 +10,10 @@ import {
   getCurrentUser,
   updateUserTheme,
   updateUser,
-  deleteUser
+  deleteUser,
+  requestResetPassword,
+  confirmResetPassword,
+  resetUserPassword,
 } from "../controllers/authControllers.js";
 import { authorization } from "../middlewares/authMiddleware.js";
 import { uploadAvatar } from "../middlewares/userMiddleware.js";
@@ -26,5 +29,8 @@ authRouter.get("/current", authorization, getCurrentUser);
 authRouter.patch("/theme", authorization, validateBody(themeUserSchema), updateUserTheme);
 authRouter.patch("/update", authorization, uploadAvatar, updateUser);
 authRouter.post("/delete", authorization, deleteUser);
+authRouter.post("/forgot-password", validateBody(forgotPasswordSchema), requestResetPassword);
+authRouter.get("/reset-password/:resetPasswordToken", confirmResetPassword);
+authRouter.patch("/reset-password", authorization, validateBody(resetPasswordSchema), resetUserPassword);
 
 export default authRouter;

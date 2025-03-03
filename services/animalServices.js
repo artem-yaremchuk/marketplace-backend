@@ -1,6 +1,7 @@
 import Animal from "../models/animalModel.js";
 import cloudinary from "../helpers/cloudinary.js";
 import HttpError from "../helpers/HttpError.js";
+import fse from "fs-extra";
 
 export const createAnimalAd = async (ownerId, animalData, files) => {
   let animalImages = [];
@@ -25,6 +26,12 @@ export const createAnimalAd = async (ownerId, animalData, files) => {
           });
 
           animalImages.push(optimizedImageUrl);
+
+          await fse
+            .remove(file?.path)
+            .catch((err) =>
+              console.log(`Failed to remove file: ${file?.path}`, err),
+            );
         }
       }
   } catch (error) {
