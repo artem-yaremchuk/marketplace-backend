@@ -28,7 +28,7 @@ authRouter.post("/logout", authorization, logoutUser);
 authRouter.get("/current", authorization, getCurrentUser);
 authRouter.patch("/theme", authorization, validateBody(themeUserSchema), updateUserTheme);
 authRouter.patch("/update", authorization, uploadAvatar, updateUser);
-authRouter.post("/delete", authorization, deleteUser);
+authRouter.delete("/delete", authorization, deleteUser);
 authRouter.post("/forgot-password", validateBody(forgotPasswordSchema), requestResetPassword);
 authRouter.get("/reset-password/:resetPasswordToken", confirmResetPassword);
 authRouter.patch("/reset-password", authorization, validateBody(resetPasswordSchema), resetUserPassword);

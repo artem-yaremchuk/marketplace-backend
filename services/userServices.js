@@ -9,7 +9,7 @@ export const signup = async (userData) => {
   const { email } = userData;
   const user = await User.findOne({ email });
 
-  if (user) throw HttpError(409, "Email in use");
+  if (user) throw HttpError(409, "User with this email is already registered");
 
   userData.verificationToken = v4();
 
