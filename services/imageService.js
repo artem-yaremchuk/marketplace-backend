@@ -1,11 +1,14 @@
 import multer from "multer";
 import path from "path";
+import fse from "fs-extra";
 import { v4 } from "uuid";
 import HttpError from "../helpers/HttpError.js";
 
 export class ImageService {
   static initUploadImageMiddleware(name, maxCount = 1) {
     const uploadDir = path.join(process.cwd(), "uploads");
+
+    fse.ensureDir(uploadDir);
 
     const storage = multer.diskStorage({
       destination: (req, file, cb) => {
