@@ -6,7 +6,7 @@ export const registerUserSchema = Joi.object({
     "string.empty": "Name cannot be empty",
     "string.min": "Name must be at least {#limit} characters long",
     "string.max": "Name must not be more than {#limit} characters long",
-    "string.pattern.base": "Name can only contain letters and apostrophes",
+    "string.pattern.base": "Name can only contain letters, hyphens, apostrophes, and spaces",
     "any.required": "Name is required",
   }),
   email: Joi.string()
@@ -104,7 +104,7 @@ export const updateUserSchema = Joi.object({
   name: Joi.string().trim().min(3).max(30).pattern(NAME_REGEX).messages({
     "string.min": "Name must be at least {#limit} characters long",
     "string.max": "Name must not be more than {#limit} characters long",
-    "string.pattern.base": "Name can only contain letters and apostrophes",
+    "string.pattern.base": "Name can only contain letters, hyphens, apostrophes, and spaces",
   }),
   email: Joi.string()
     .trim()
