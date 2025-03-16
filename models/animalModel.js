@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import HttpError from "../helpers/HttpError.js";
 
 const animalSchema = new Schema(
   {
@@ -37,7 +38,13 @@ const animalSchema = new Schema(
     },
     animalImages: {
       type: [ String ],
-      default: [],
+      required: true,
+      validate: {
+        validator: function (images) {
+          return images.length > 0;
+        },
+        message: "At least 1 animal image is required",
+      },
     },
     status: {
       type: String,
