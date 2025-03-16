@@ -3,6 +3,19 @@ import cloudinary from "../helpers/cloudinary.js";
 import HttpError from "../helpers/HttpError.js";
 import removeFiles from "../helpers/removeFiles.js";
 
+export const listAnimals = async (query) => {
+  const page = query.page ? +query.page : 1;
+  const limit = query.limit ? +query.limit : 5;
+
+  const docsToSkip = (page - 1) * limit;
+
+  const animals = await Animal.find({}).sort({ createdAd: -1 }).skip(docsToSkip).limit(limit);
+
+  const total = await Animal.countDocuments();
+
+  return { total, animals };
+};
+
 export const createAnimalAd = async (ownerId, animalData, files) => {
   let animalImages = [];
 
