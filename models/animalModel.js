@@ -1,5 +1,4 @@
 import { model, Schema } from "mongoose";
-import HttpError from "../helpers/HttpError.js";
 
 const animalSchema = new Schema(
   {
@@ -27,10 +26,6 @@ const animalSchema = new Schema(
     animalLocation: {
       type: String,
       required: [true, "Animal location is required"],
-    },
-    adTitle: {
-      type: String,
-      required: [true, "Ad title is required"],
     },
     adText: {
       type: String,

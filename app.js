@@ -3,6 +3,8 @@ import morgan from "morgan";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger.json" assert { type: "json" };
 
 import authRouter from "./routes/authRouter.js";
 import animalsRouter from "./routes/animalsRouter.js";
@@ -25,8 +27,9 @@ app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/users", authRouter);
-app.use("/api/animals", animalsRouter)
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/users", authRouter);
+app.use("/animals", animalsRouter);
 
 app.use(express.static("public"));
 
@@ -39,7 +42,7 @@ app.use((_, res) => {
 
 app.use((err, req, res, next) => {
   res.status(err.status ?? 500).json({
-    message: err.message ?? "Internal server error",
+    message: err.message ?? "Internal Server Error",
   });
 });
 

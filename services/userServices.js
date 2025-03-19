@@ -21,7 +21,7 @@ export const signup = async (userData) => {
 export const verify = async (verificationToken) => {
   const user = await User.findOne({ verificationToken });
 
-  if (!user) throw HttpError(404, "User not found");
+  if (!user) throw HttpError(404, "User not found or verification token has already been used");
 
   user.verificationToken = null;
   user.verify = true;
@@ -46,13 +46,13 @@ export const reverify = async ({ email }) => {
 export const login = async ({ email, password }) => {
   const user = await User.findOne({ email });
 
-  if (!user) throw HttpError(401, "Invalid email address");
+  if (!user) throw HttpError(401, "Invalid credentials");
 
-  if (!user.verify) throw HttpError(401, "User is not verified");
+  if (!user.verify) throw HttpError(403, "User is not verified");
 
   const isPasswordValid = await user.checkPassword(password, user.password);
 
-  if (!isPasswordValid) throw HttpError(401, "Invalid password");
+  if (!isPasswordValid) throw HttpError(401, "Invalid credentials");
 
   const token = signToken(user.id);
 
