@@ -13,7 +13,10 @@ export const signToken = (id) => {
 };
 
 export const checkToken = (token) => {
+  try {
     const { id } = jwt.verify(token, jwtSecret);
-
     return id;
+  } catch (error) {
+    return null;
+  }
 };

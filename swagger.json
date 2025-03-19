@@ -50,7 +50,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body, validation error, or missing fields)",
+            "description": "Invalid input",
             "content": {
               "application/json": {
                 "schema": {
@@ -60,7 +60,7 @@
             }
           },
           "404": {
-            "description": "Not Found (route does not exist or resource not found)",
+            "description": "Not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -70,7 +70,7 @@
             }
           },
           "409": {
-            "description": "Conflict (provided email already exists)",
+            "description": "Email in use",
             "content": {
               "application/json": {
                 "schema": {
@@ -83,7 +83,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error (unexpected error on the server side)",
+            "description": "Internal server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -124,7 +124,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid or missing verification token)",
+            "description": "Invalid or missing verification token",
             "content": {
               "application/json": {
                 "schema": {
@@ -134,7 +134,7 @@
             }
           },
           "404": {
-            "description": "Not Found (user with this verification token does not exist or token has already been used)",
+            "description": "User not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -144,7 +144,93 @@
             }
           },
           "500": {
-            "description": "Internal Server Error (unexpected error on the server side)",
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/verify": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Resend verification email",
+        "description": "This endpoint allows users to request a new verification email if they did not receive the original one during registration.",
+        "parameters": [],
+        "requestBody": {
+          "description": "User email for verification",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email"],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "User's email",
+                    "example": "adrien.brody@gmail.com",
+                    "format": "email"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resend verification email successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Verification email has been sent" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or missing email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "User is already verified",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "User is already verified" }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/json": {
                 "schema": {
