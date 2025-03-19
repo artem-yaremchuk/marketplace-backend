@@ -46,6 +46,8 @@ export const registerUser = catchAsync(async (req, res) => {
 export const verifyUser = catchAsync(async (req, res) => {
   const { verificationToken } = req.params;
 
+  if (!verificationToken) throw HttpError(400, "Verification token is missing");
+
   const verifiedUser = await verify(verificationToken);
   const { token, name, email, location, phone, userType } = verifiedUser;
 

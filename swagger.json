@@ -1,0 +1,315 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Dim Tvaryn API",
+    "description": "Dim Tvaryn API provides a comprehensive set of endpoints for managing animal adoption listings, user interactions, and platform functionalities. This online platform aims to connect homeless animals with potential adopters efficiently and securely.\n\nSome useful links:\n- [The Dim Tvaryn repository](https://github.com/orgs/Dim-Tvarin/repositories)"
+  },
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json"],
+  "servers": [
+    { "url": "https://marketplace-backend-wrk2.onrender.com" },
+    { "url": "http://localhost:3001" }
+  ],
+  "tags": [
+    {
+      "name": "User",
+      "description": "Operations about user"
+    },
+    {
+      "name": "Animal",
+      "description": "Everything about your Animals"
+    }
+  ],
+  "paths": {
+    "/users/register": {
+      "post": {
+        "tags": ["User"],
+        "summary": "User registration",
+        "parameters": [],
+        "requestBody": {
+          "description": "Created user object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body, validation error, or missing fields)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found (route does not exist or resource not found)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict (provided email already exists)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "User with this email is already registered" }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error (unexpected error on the server side)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/verify/{verificationToken}": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Verify user registration",
+        "description": "This endpoint verifies the user's registration using the provided verification token.",
+        "parameters": [
+          {
+            "name": "verificationToken",
+            "in": "path",
+            "required": true,
+            "description": "The verification token for the user",
+            "schema": {
+              "type": "string",
+              "example": "8d318807-e898-4962-a469-34fcab8aa692"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Verification successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerificationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid or missing verification token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found (user with this verification token does not exist or token has already been used)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error (unexpected error on the server side)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "location", "phone", "password", "repeat_password", "userType"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Едріан Броуді"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "adrien.brody@gmail.com",
+            "format": "email"
+          },
+          "location": {
+            "type": "string",
+            "description": "User's location",
+            "example": "Київ"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone",
+            "example": "+380637372966"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Brutalist_2025"
+          },
+          "repeat_password": {
+            "type": "string",
+            "description": "User's repeated password to verify correctness",
+            "example": "Brutalist_2025"
+          },
+          "userType": {
+            "type": "string",
+            "description": "User's role in the platform. Can be either 'guardian' (person who takes care of an animal) or 'adopter' (person looking to adopt an animal).",
+            "enum": ["guardian", "adopter"],
+            "example": "guardian"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Едріан Броуді"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "adrien.brody@gmail.com",
+                "format": "email"
+              },
+              "location": {
+                "type": "string",
+                "description": "User's location",
+                "example": "Київ"
+              },
+              "phone": {
+                "type": "string",
+                "description": "User's phone",
+                "example": "+380637372966"
+              },
+              "userType": {
+                "type": "string",
+                "description": "User's role in the platform. Can be either 'guardian' (person who takes care of an animal) or 'adopter' (person looking to adopt an animal).",
+                "enum": ["guardian", "adopter"],
+                "example": "guardian"
+              }
+            }
+          }
+        }
+      },
+      "Error400": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "example": "Invalid request data" }
+        }
+      },
+      "Error404": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "example": "Resource not found" }
+        }
+      },
+      "Error500": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "example": "Internal server error. Please try again later" }
+        }
+      },
+      "VerificationResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Verification successful"
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDk3YmViYjIxZjVlZGY4YWE4MzI5MCIsImlhdCI6MTc0MjMwNjMwNywiZXhwIjoxNzQyMzkyNzA3fQ.NmFDmJm-q7K2xpm5WOvUlelmmAnco5QEcjVBo13WSXE"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Едріан Броуді"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "adrien.brody@gmail.com",
+                "format": "email"
+              },
+              "location": {
+                "type": "string",
+                "description": "User's location",
+                "example": "Київ"
+              },
+              "phone": {
+                "type": "string",
+                "description": "User's phone",
+                "example": "+380637372966"
+              },
+              "userType": {
+                "type": "string",
+                "description": "User's role in the platform. Can be either 'guardian' (person who takes care of an animal) or 'adopter' (person looking to adopt an animal).",
+                "enum": ["guardian", "adopter"],
+                "example": "guardian"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ import removeFiles from "../helpers/removeFiles.js";
 
 export const listAnimals = async (query) => {
   const page = query.page ? +query.page : 1;
-  const limit = query.limit ? +query.limit : 5;
+  const limit = query.limit ? +query.limit : 4;
 
   const docsToSkip = (page - 1) * limit;
 

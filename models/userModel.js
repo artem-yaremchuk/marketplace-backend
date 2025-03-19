@@ -31,6 +31,7 @@ const userSchema = new Schema(
     },
     userType: {
       type: String,
+      enum: ["guardian", "adopter"],
       required: [true, "User type is required"],
     },
     avatarURL: {

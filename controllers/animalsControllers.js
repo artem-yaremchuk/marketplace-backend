@@ -35,7 +35,6 @@ export const createAnimal = catchAsync(async (req, res) => {
     age,
     gender,
     animalLocation,
-    adTitle,
     adText,
     animalImages,
   } = await createAnimalAd(ownerId, value, req.files);
@@ -48,7 +47,6 @@ export const createAnimal = catchAsync(async (req, res) => {
       age,
       gender,
       animalLocation,
-      adTitle,
       adText,
       animalImages,
       ownerName,
