@@ -3,8 +3,8 @@ import morgan from "morgan";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import fs from "fs";
 import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "./swagger.json" assert { type: "json" };
 
 import authRouter from "./routes/authRouter.js";
 import animalsRouter from "./routes/animalsRouter.js";
@@ -12,6 +12,8 @@ import animalsRouter from "./routes/animalsRouter.js";
 dotenv.config();
 
 const app = express();
+
+const swaggerDocument = JSON.parse(fs.readFileSync("./swagger.json", "utf-8"));
 
 mongoose
   .connect(process.env.MONGO_URL)
