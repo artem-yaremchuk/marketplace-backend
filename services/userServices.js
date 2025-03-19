@@ -38,7 +38,7 @@ export const reverify = async ({ email }) => {
   if (!user)
     throw HttpError(404, "No user registered with the provided email address");
 
-  if (user.verify) throw HttpError(400, "Verification has already been passed");
+  if (user.verify) throw HttpError(409, "User is already verified");
 
   return user;
 };
