@@ -125,13 +125,6 @@ export const updateUserSchema = Joi.object({
     "string.pattern.base":
       "Phone number must be a valid Ukrainian phone number",
   }),
-  password: Joi.string().regex(PASSWD_REGEX).messages({
-    "string.pattern.base":
-      "Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character",
-  }),
-  repeat_password: Joi.string().valid(Joi.ref("password")).messages({
-    "any.only": "Passwords must match",
-  }),
 });
 
 export const forgotPasswordSchema = Joi.object({
