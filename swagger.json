@@ -241,6 +241,180 @@
           }
         }
       }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Logs user into the system",
+        "parameters": [],
+        "requestBody": {
+          "description": "User login credentials",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid login input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User is not verified",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Logs out current logged in user session",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "204": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get current user's information",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -325,24 +499,6 @@
           }
         }
       },
-      "Error400": {
-        "type": "object",
-        "properties": {
-          "message": { "type": "string", "example": "Invalid request data" }
-        }
-      },
-      "Error404": {
-        "type": "object",
-        "properties": {
-          "message": { "type": "string", "example": "Resource not found" }
-        }
-      },
-      "Error500": {
-        "type": "object",
-        "properties": {
-          "message": { "type": "string", "example": "Internal server error. Please try again later" }
-        }
-      },
       "VerificationResponse": {
         "type": "object",
         "properties": {
@@ -387,6 +543,152 @@
               }
             }
           }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "adrien.brody@gmail.com",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Brutalist_2025"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDk3YmViYjIxZjVlZGY4YWE4MzI5MCIsImlhdCI6MTc0MjMwNjMwNywiZXhwIjoxNzQyMzkyNzA3fQ.NmFDmJm-q7K2xpm5WOvUlelmmAnco5QEcjVBo13WSXE"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Едріан Броуді"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "adrien.brody@gmail.com",
+                "format": "email"
+              },
+              "location": {
+                "type": "string",
+                "description": "User's location",
+                "example": "Київ"
+              },
+              "phone": {
+                "type": "string",
+                "description": "User's phone",
+                "example": "+380637372966"
+              },
+              "userType": {
+                "type": "string",
+                "description": "User's role in the platform. Can be either 'guardian' (person who takes care of an animal) or 'adopter' (person looking to adopt an animal).",
+                "enum": ["guardian", "adopter"],
+                "example": "guardian"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatar",
+                "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_500,q_auto:best,w_500/v1/users/wzii0crzi0foppdrwf0e?_a=BAMCkGP80"
+              },
+              "theme": {
+                "type": "string",
+                "description": "User's theme",
+                "example": "light"
+              }
+            }
+          }
+        }
+      },
+      "CurrentResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Едріан Броуді"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "adrien.brody@gmail.com",
+                "format": "email"
+              },
+              "location": {
+                "type": "string",
+                "description": "User's location",
+                "example": "Київ"
+              },
+              "phone": {
+                "type": "string",
+                "description": "User's phone",
+                "example": "+380637372966"
+              },
+              "userType": {
+                "type": "string",
+                "description": "User's role in the platform. Can be either 'guardian' (person who takes care of an animal) or 'adopter' (person looking to adopt an animal).",
+                "enum": ["guardian", "adopter"],
+                "example": "guardian"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatar",
+                "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_500,q_auto:best,w_500/v1/users/wzii0crzi0foppdrwf0e?_a=BAMCkGP80"
+              },
+              "theme": {
+                "type": "string",
+                "description": "User's theme",
+                "example": "light"
+              }
+            }
+          }
+        }
+      },
+      "Error400": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "example": "Invalid request data" }
+        }
+      },
+      "Error401": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "example": "Invalid credentials" }
+        }
+      },
+      "Error403": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "example": "User is not verified" }
+        }
+      },
+      "Error404": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "example": "Resource not found" }
+        }
+      },
+      "Error500": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "example": "Internal server error. Please try again later" }
         }
       }
     },
