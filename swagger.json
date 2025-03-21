@@ -95,7 +95,7 @@
         }
       }
     },
-    "/verify/{verificationToken}": {
+    "/users/verify/{verificationToken}": {
       "get": {
         "tags": ["User"],
         "summary": "Verify user registration",
@@ -156,7 +156,7 @@
         }
       }
     },
-    "/verify": {
+    "/users/verify": {
       "post": {
         "tags": ["User"],
         "summary": "Resend verification email",
@@ -378,7 +378,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CurrentResponse"
+                  "$ref": "#/components/schemas/CurrentUserDataResponse"
                 }
               }
             }
@@ -399,6 +399,146 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/theme": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Update user's theme",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "User's theme preference update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["theme"],
+                "properties": {
+                  "theme": {
+                    "type": "string",
+                    "description": "Preferred theme mode for the user",
+                    "enum": ["light", "dark"],
+                    "example": "light"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Theme has been successfully updated"
+                    },
+                    "theme": {
+                      "type": "string",
+                      "example": "light"
+                    }
+                  }
+                }
+              }
+            }
+          },
+           "400": {
+            "description": "Invalid theme input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/update": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Update current user's information",
+        "description": "Updates user's profile data, including name, email, location, phone, and avatar",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  
+                }
+              }
+            }
+          },
+           "400": {
+            "description": "Invalid JSON format or invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
                 }
               }
             }
@@ -614,7 +754,7 @@
           }
         }
       },
-      "CurrentResponse": {
+      "CurrentUserDataResponse": {
         "type": "object",
         "properties": {
           "user": {
@@ -656,6 +796,54 @@
                 "type": "string",
                 "description": "User's theme",
                 "example": "light"
+              }
+            }
+          }
+        }
+      },
+      "UpdateUserRequest": {
+        "type": "object",
+        "properties": {
+          "userData": {
+            "type": "string",
+            "description": "JSON string containing user data (name, email, location, phone)"
+          },
+          "avatar": {
+            "type": "string",
+            "format": "binary",
+            "description": "Image file to update the user's avatar"
+          }
+        }
+      },
+      "UpdateUserResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User profile has been updated"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Едріан Броуді"
+              },
+              "email": {
+                "type": "string",
+                "example": "adrien.brody@gmail.com"
+              },
+              "location": {
+                "type": "string",
+                "example": "Київ"
+              },
+              "phone": {
+                "type": "string",
+                "example": "+380637372966"
+              },
+              "avatarURL": {
+                "type": "string",
+                "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_500,q_auto:best,w_500/v1/users/wzii0crzi0foppdrwf0e?_a=BAMCkGP80"
               }
             }
           }
