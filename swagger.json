@@ -74,10 +74,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": { "type": "string", "example": "User with this email is already registered" }
-                  }
+                  "$ref": "#/components/schemas/Error409"
                 }
               }
             }
@@ -456,6 +453,7 @@
                     },
                     "theme": {
                       "type": "string",
+                      "enum": ["light", "dark"],
                       "example": "light"
                     }
                   }
@@ -539,6 +537,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Email in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error409"
                 }
               }
             }
@@ -839,6 +847,7 @@
               "theme": {
                 "type": "string",
                 "description": "User's theme",
+                "enum": ["light", "dark"],
                 "example": "light"
               }
             }
@@ -850,7 +859,8 @@
         "properties": {
           "userData": {
             "type": "string",
-            "description": "JSON string containing user data (name, email, location, phone)"
+            "description": "JSON string containing user data (name, email, location, phone)",
+            "example": "{\"name\": \"Едріан Броуді\", \"email\": \"adrien.brody@yahoo.com\", \"location\": \"Львів\", \"phone\": \"+380630000001\"}"
           },
           "avatar": {
             "type": "string",
@@ -871,23 +881,35 @@
             "properties": {
               "name": {
                 "type": "string",
+                "description": "User's name",
                 "example": "Едріан Броуді"
               },
               "email": {
                 "type": "string",
-                "example": "adrien.brody@gmail.com"
+                "description": "User's email",
+                "example": "adrien.brody@gmail.com",
+                "format": "email"
               },
               "location": {
                 "type": "string",
+                "description": "User's location",
                 "example": "Київ"
               },
               "phone": {
                 "type": "string",
+                "description": "User's phone",
                 "example": "+380637372966"
               },
               "avatarURL": {
                 "type": "string",
+                "description": "User's avatar",
                 "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_500,q_auto:best,w_500/v1/users/wzii0crzi0foppdrwf0e?_a=BAMCkGP80"
+              },
+              "theme": {
+                "type": "string",
+                "description": "User's theme",
+                "enum": ["light", "dark"],
+                "example": "light"
               }
             }
           }
@@ -915,6 +937,12 @@
         "type": "object",
         "properties": {
           "message": { "type": "string", "example": "Resource not found" }
+        }
+      },
+      "Error409": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "example": "User with this email is already registered" }
         }
       },
       "Error500": {
