@@ -502,6 +502,7 @@
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
+          "description": "User's profile data, including name, email, location, phone, and avatar",
           "content": {
             "multipart/form-data": {
               "schema": {
@@ -522,7 +523,7 @@
             }
           },
            "400": {
-            "description": "Invalid JSON format or invalid data",
+            "description": "Invalid JSON format, invalid data or image upload failed",
             "content": {
               "application/json": {
                 "schema": {
@@ -591,6 +592,125 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/animals": {
+      "get": {
+        "tags": ["Animals"],
+        "summary": "Get all animal ads",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "example": "1"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "description": "Limit ads per page",
+            "schema": {
+              "type": "integer",
+              "example": "4"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllAnimalsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Animals"],
+        "summary": "Create animal ad",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Created animal ad object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAnimalRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAnimalResponse"
+                }
+              }
+            }
+          },
+           "400": {
+            "description": "Invalid JSON format, invalid data or image upload failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
                 }
               }
             }
@@ -910,6 +1030,197 @@
                 "description": "User's theme",
                 "enum": ["light", "dark"],
                 "example": "light"
+              }
+            }
+          }
+        }
+      },
+      "GetAllAnimalsResponse": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "Total number of animal ads",
+            "example": 12
+          },
+          "animals": {
+            "type": "array",
+            "description": "List of animal ads",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Unique identifier for the animal ad",
+                  "example": "67dae0170c7810a7f785dee7"
+                },
+                "animalName": {
+                  "type": "string",
+                  "description": "Name of the animal",
+                  "example": "Спарк"
+                },
+                "animalType": {
+                  "type": "string",
+                  "description": "Type of the animal",
+                  "example": "собака"
+                },
+                "breed": {
+                  "type": "string",
+                  "description": "Breed of the animal",
+                  "example": "Джек-рассел-тер'єр"
+                },
+                "age": {
+                  "type": "string",
+                  "description": "Age of the animal",
+                  "example": "2"
+                },
+                "gender": {
+                  "type": "string",
+                  "description": "Gender of the animal",
+                  "enum": ["male", "female"],
+                  "example": "male"
+                },
+                "animalLocation": {
+                  "type": "string",
+                  "description": "Location where the animal is available",
+                  "example": "Київ"
+                },
+                "adText": {
+                  "type": "string",
+                  "description": "Description of the animal",
+                  "example": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами."
+                },
+                "animalImages": {
+                  "type": "array",
+                  "description": "List of URLs for animal images",
+                  "items": {
+                    "type": "string",
+                    "format": "uri",
+                    "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80"
+                  },
+                  "example": [
+                    "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
+                    "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Status of the animal ad",
+                  "enum": ["active", "inactive"],
+                  "example": "active"
+                },
+                "owner": {
+                  "type": "string",
+                  "description": "User ID of the owner",
+                  "example": "67dadd700c7810a7f785decd"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Timestamp when the ad was created",
+                  "example": "2025-03-19T15:17:43.934Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Timestamp when the ad was last updated",
+                  "example": "2025-03-19T15:17:43.934Z"
+                }
+              }
+            }
+          }
+        }
+      },
+      "CreateAnimalRequest": {
+        "type": "object",
+        "required": ["animalData", "images"],
+        "properties": {
+          "animalData": {
+            "type": "string",
+            "description": "JSON string containing animal data (animalName, animalType, breed, age, gender, animalLocation, adText)",
+            "example": "{\"animalName\": \"Спарк\", \"animalType\": \"собака\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": \"2\", \"gender\": \"male\", \"animalLocation\": \"Київ\", \"adText\": \"Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.\"}"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Array of image files (up to 4 images) for the animal ad",
+            "maxItems": 4
+          }
+        }
+      },
+      "CreateAnimalResponse": {
+        "type": "object",
+        "properties": {
+          "animal": {
+            "type": "object",
+            "properties": {
+              "animalName": {
+                "type": "string",
+                "description": "Name of the animal",
+                "example": "Спарк"
+              },
+              "animalType": {
+                "type": "string",
+                "description": "Type of the animal",
+                "example": "собака"
+              },
+              "breed": {
+                "type": "string",
+                "description": "Breed of the animal",
+                "example": "Джек-рассел-тер'єр"
+              },
+              "age": {
+                "type": "string",
+                "description": "Age of the animal",
+                "example": "2"
+              },
+              "gender": {
+                "type": "string",
+                "description": "Gender of the animal",
+                "enum": ["male", "female"],
+                "example": "male"
+              },
+              "animalLocation": {
+                "type": "string",
+                "description": "Location where the animal is available",
+                "example": "Київ"
+              },
+              "adText": {
+                "type": "string",
+                "description": "Description of the animal",
+                "example": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами."
+              },
+              "animalImages": {
+                "type": "array",
+                "description": "List of URLs for animal images",
+                "items": {
+                  "type": "string",
+                  "format": "uri",
+                  "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80"
+                },
+                "example": [
+                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
+                    "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "description": "Status of the animal ad",
+                "enum": ["active", "inactive"],
+                "example": "active"
+              },
+              "ownerName": {
+                "type": "string",
+                "description": "Owner's name",
+                "example": "Едріан Броуді"
+              },
+              "ownerPhone": {
+                "type": "string",
+                "description": "Owner's phone",
+                "example": "+380637372966"
               }
             }
           }
