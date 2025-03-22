@@ -148,7 +148,7 @@ export const updateUser = catchAsync(async (req, res) => {
     }
 
     Object.keys(userData).forEach((key) => {
-      if (userData[key] === "") {
+      if (userData[key] === "" || userData[key] === null || userData[key] === undefined) {
         delete userData[key];
       }
     });
@@ -160,7 +160,7 @@ export const updateUser = catchAsync(async (req, res) => {
     }
   }
 
-  const { name, email, location, phone, avatarURL } = await updateUserProfile(
+  const { name, email, location, phone, avatarURL, theme } = await updateUserProfile(
     userId,
     userData,
     req.file,
@@ -174,6 +174,7 @@ export const updateUser = catchAsync(async (req, res) => {
       location,
       phone,
       avatarURL,
+      theme
     },
   });
 });

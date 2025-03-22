@@ -95,6 +95,14 @@ export const updateUserProfile = async (userId, userData, file) => {
     await removeFiles(file);
   }
 
+  if (userData.email) {
+    const { email } = userData;
+
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) throw HttpError(409, "User with this email is already registered");
+  }
+  
   Object.assign(user, userData);
 
   await user.save();
