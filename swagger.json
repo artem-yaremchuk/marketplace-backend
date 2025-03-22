@@ -1041,7 +1041,7 @@
           "total": {
             "type": "integer",
             "description": "Total number of animal ads",
-            "example": 12
+            "example": 2
           },
           "animals": {
             "type": "array",
@@ -1127,7 +1127,44 @@
                   "example": "2025-03-19T15:17:43.934Z"
                 }
               }
-            }
+            },
+            "example": [
+              {
+                "_id": "67dae0170c7810a7f785dee7",
+                "animalName": "Спарк",
+                "animalType": "собака",
+                "breed": "Джек-рассел-тер'єр",
+                "age": "2",
+                "gender": "male",
+                "animalLocation": "Київ",
+                "adText": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.",
+                "animalImages": [
+                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
+                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
+                ],
+                "status": "active",
+                "owner": "67dadd700c7810a7f785decd",
+                "createdAt": "2025-03-19T15:17:43.934Z",
+                "updatedAt": "2025-03-19T15:17:43.934Z"
+              },
+              {
+                "_id": "67dae0170c7810a7f785dee8",
+                "animalName": "Луна",
+                "animalType": "собака",
+                "breed": "Німецька вівчарка",
+                "age": "3",
+                "gender": "female",
+                "animalLocation": "Львів",
+                "adText": "Рокі - спокійна та віддана собака, шукає добрих господарів. Вона любить довгі прогулянки та добре ладнає з іншими тваринами.",
+                "animalImages": [
+                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP81"
+                ],
+                "status": "active",
+                "owner": "67dadd700c7810a7f785decd",
+                "createdAt": "2025-03-19T15:18:43.934Z",
+                "updatedAt": "2025-03-19T15:18:43.934Z"
+              }
+            ]
           }
         }
       },
