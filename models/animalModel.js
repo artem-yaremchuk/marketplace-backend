@@ -33,13 +33,6 @@ const animalSchema = new Schema(
     },
     animalImages: {
       type: [ String ],
-      required: true,
-      validate: {
-        validator: function (images) {
-          return images.length > 0;
-        },
-        message: "At least 1 animal image is required",
-      },
     },
     status: {
       type: String,

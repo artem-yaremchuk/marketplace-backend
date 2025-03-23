@@ -39,6 +39,30 @@ export class ImageService {
     if (maxCount === 1) {
       return upload.single(name);
     }
-    return upload.array(name, maxCount);
+
+    return (req, res, next) => {
+      // Створюємо middleware-функцію для обробки завантаження файлів
+      const handleUpload = upload.array(name, maxCount);
+
+      // Викликаємо middleware Multer і передаємо йому req, res та кастомний обробник помилок
+      handleUpload(req, res, (err) => {
+        if (!err) {
+          return next(); // Якщо помилки немає, передаємо управління далі
+        }
+
+        // Перевіряємо, чи помилка є MulterError і чи вона пов'язана з лімітом файлів
+        if (
+          err instanceof multer.MulterError &&
+          err.code === "LIMIT_UNEXPECTED_FILE"
+        ) {
+          return next(
+            HttpError(400, `Exceeded max image upload limit of ${maxCount}`),
+          );
+        }
+
+        // Передаємо інші можливі помилки далі
+        next(err);
+      });
+    };
   }
 }
