@@ -1,3 +1,8 @@
 import { ImageService } from "../services/imageService.js";
+import dotenv from "dotenv";
 
-export const uploadAnimalImages = ImageService.initUploadImageMiddleware("images", 4);
+dotenv.config();
+
+const MAX_ANIMAL_IMAGES = Number(process.env.MAX_ANIMAL_IMAGES) || 4;
+
+export const uploadAnimalImages = ImageService.initUploadImageMiddleware("images", MAX_ANIMAL_IMAGES);

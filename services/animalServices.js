@@ -47,6 +47,8 @@ export const createAnimalAd = async (ownerId, animalData, files) => {
     throw HttpError(400, "Image upload failed");
   }
 
+  if (animalImages.length === 0) throw HttpError(400, "At least 1 animal image is required");
+
   const newAnimal = await Animal.create({
     ...animalData,
     animalImages,
