@@ -20,7 +20,7 @@ dotenv.config();
 
 export const registerUser = catchAsync(async (req, res) => {
   const newUser = await signup(req.body);
-  const { name, email, location, phone, userType, verificationToken } = newUser;
+  const { _id: id, name, email, location, phone, userType, verificationToken } = newUser;
 
   const { FRONTEND_URL } = process.env;
 
@@ -29,11 +29,12 @@ export const registerUser = catchAsync(async (req, res) => {
 
     await new Email(newUser, { url }).sendVerification();
   } catch (err) {
-    console.log("Failed to send verification email:", err);
+    console.error("Failed to send verification email:", err);
   }
 
   res.status(201).json({
     user: {
+      id,
       name,
       email,
       location,
@@ -49,12 +50,13 @@ export const verifyUser = catchAsync(async (req, res) => {
   if (!verificationToken) throw HttpError(400, "Verification token is missing");
 
   const verifiedUser = await verify(verificationToken);
-  const { token, name, email, location, phone, userType } = verifiedUser;
+  const { token, _id: id, name, email, location, phone, userType } = verifiedUser;
 
   res.status(200).json({
     message: "Verification successful",
     token,
     user: {
+      id,
       name,
       email,
       location,
@@ -81,12 +83,13 @@ export const reverifyUser = catchAsync(async (req, res) => {
 });
 
 export const loginUser = catchAsync(async (req, res) => {
-  const { token, name, email, location, phone, userType, avatarURL, theme } =
+  const { token, _id: id, name, email, location, phone, userType, avatarURL, theme } =
     await login(req.body);
 
   res.status(200).json({
     token,
     user: {
+      id,
       name,
       email,
       location,
@@ -107,10 +110,11 @@ export const logoutUser = catchAsync(async (req, res) => {
 });
 
 export const getCurrentUser = catchAsync(async (req, res) => {
-  const { name, email, location, phone, userType, avatarURL, theme } = req.user;
+  const { _id: id, name, email, location, phone, userType, avatarURL, theme } = req.user;
 
   res.status(200).json({
     user: {
+      id,
       name,
       email,
       location,
@@ -169,6 +173,7 @@ export const updateUser = catchAsync(async (req, res) => {
   res.status(200).json({
     message: "User profile has been updated",
     user: {
+      id: userId,
       name,
       email,
       location,
@@ -204,12 +209,13 @@ export const confirmResetPassword = catchAsync(async (req, res) => {
 
   const verifiedUser = await verifyResetPasswordCode(resetPasswordCode);
 
-  const { token, name, email, location, phone, userType, avatarURL, theme } = verifiedUser;
+  const { token, _id: id, name, email, location, phone, userType, avatarURL, theme } = verifiedUser;
 
   res.status(200).json({
     message: "Reset password verification successful",
     token,
     user: {
+      id,
       name,
       email,
       location,
