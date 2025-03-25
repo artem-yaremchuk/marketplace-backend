@@ -6,8 +6,8 @@ import {
   reverify,
   login,
   updateUserProfile,
-  createResetPasswordToken,
-  verifyResetPasswordToken,
+  createResetPasswordCode,
+  verifyResetPasswordCode,
   resetPassword,
 } from "../services/userServices.js";
 import { Email } from "../services/emailService.js";
@@ -27,7 +27,7 @@ export const registerUser = catchAsync(async (req, res) => {
   try {
     const url = `${FRONTEND_URL}/verify/${verificationToken}`;
 
-    await new Email(newUser, url).sendVerification();
+    await new Email(newUser, { url }).sendVerification();
   } catch (err) {
     console.log("Failed to send verification email:", err);
   }
@@ -73,7 +73,7 @@ export const reverifyUser = catchAsync(async (req, res) => {
 
   const url = `${FRONTEND_URL}/verify/${verificationToken}`;
 
-  await new Email(user, url).sendVerification();
+  await new Email(user, { url }).sendVerification();
 
   res.status(200).json({
     message: "Verification email has been sent",
@@ -190,27 +190,21 @@ export const deleteUser = catchAsync(async (req, res) => {
 export const requestResetPassword = catchAsync(async (req, res) => {
   const { email } = req.body;
 
-  const user = await createResetPasswordToken(email);
+  const user = await createResetPasswordCode(email);
 
-  const { resetPasswordToken } = user;
-
-  const { FRONTEND_URL } = process.env;
-
-  const url = `${FRONTEND_URL}/reset-password/${resetPasswordToken}`;
-
-  await new Email(user, url).sendResetPasswordEmail();
+  await new Email(user).sendResetPasswordCode();
 
   res.status(200).json({
-    message: "Password reset email has been sent",
+    message: "Reset password code has been sent to your email",
   });
 });
 
 export const confirmResetPassword = catchAsync(async (req, res) => {
-  const { resetPasswordToken } = req.params;
+  const { resetPasswordCode } = req.body;
 
-  const verifiedUser = await verifyResetPasswordToken(resetPasswordToken);
+  const verifiedUser = await verifyResetPasswordCode(resetPasswordCode);
 
-  const { token, name, email, location, phone, userType } = verifiedUser;
+  const { token, name, email, location, phone, userType, avatarURL, theme } = verifiedUser;
 
   res.status(200).json({
     message: "Reset password verification successful",
@@ -221,6 +215,8 @@ export const confirmResetPassword = catchAsync(async (req, res) => {
       location,
       phone,
       userType,
+      avatarURL,
+      theme
     },
   });
 });

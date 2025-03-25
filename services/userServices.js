@@ -110,24 +110,32 @@ export const updateUserProfile = async (userId, userData, file) => {
   return user;
 };
 
-export const createResetPasswordToken = async (email) => {
+export const createResetPasswordCode = async (email) => {
   const user = await User.findOne({ email });
 
   if (!user) throw HttpError(404, "User not found");
 
-  user.resetPasswordToken = v4();
+  const resetCode = Math.floor(100000 + Math.random() * 900000).toString(); // Генерація 6-значного коду
+
+  user.resetPasswordCode = resetCode;
+
+  user.resetPasswordExpires = Date.now() + 20 * 60 * 1000; // Код діє 20 хвилин
 
   await user.save();
 
   return user;
 };
 
-export const verifyResetPasswordToken = async (resetPasswordToken) => {
-  const user = await User.findOne({ resetPasswordToken });
+export const verifyResetPasswordCode = async (resetPasswordCode) => {
+  const user = await User.findOne({ resetPasswordCode });
 
-  if (!user) throw HttpError(404, "User not found");
+ if (!user || user.resetPasswordExpires < Date.now()) {
+    throw HttpError(400, "Invalid or expired reset password code");
+  }
 
-  user.resetPasswordToken = null;
+  user.resetPasswordCode = null;
+  user.resetPasswordExpires = null;
+
   user.token = signToken(user.id);
 
   await user.save();
