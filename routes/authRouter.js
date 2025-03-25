@@ -30,7 +30,7 @@ authRouter.patch("/theme", authorization, validateBody(themeUserSchema), updateU
 authRouter.patch("/update", authorization, uploadAvatar, updateUser);
 authRouter.delete("/delete", authorization, deleteUser);
 authRouter.post("/forgot-password", validateBody(forgotPasswordSchema), requestResetPassword);
-authRouter.get("/reset-password", validateBody(resetPasswordCodeSchema), confirmResetPassword);
+authRouter.post("/reset-password", validateBody(resetPasswordCodeSchema), confirmResetPassword);
 authRouter.patch("/reset-password", authorization, validateBody(resetPasswordSchema), resetUserPassword);
 
 export default authRouter;
