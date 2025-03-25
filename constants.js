@@ -2,6 +2,8 @@ export const themeTypes = ["light", "dark"];
 
 export const userTypes = ["guardian", "adopter"];
 
+export const animalGender = ["male", "female", "unknown"];
+
 export const NAME_REGEX =
   /^(?!.*\s{2,})(?!.*-\s)(?!.*\s-)(?!.*'\s)(?!.*\s')(?!.*--)[a-zA-Zа-яА-ЯёЁіІїЇєЄ'-]+(?: [a-zA-Zа-яА-ЯёЁіІїЇєЄ'-]+)*$/;
 
