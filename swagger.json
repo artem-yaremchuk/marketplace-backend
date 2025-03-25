@@ -1077,7 +1077,7 @@
                 "gender": {
                   "type": "string",
                   "description": "Gender of the animal",
-                  "enum": ["male", "female"],
+                  "enum": ["male", "female", "unknown"],
                   "example": "male"
                 },
                 "animalLocation": {
@@ -1194,6 +1194,11 @@
           "animal": {
             "type": "object",
             "properties": {
+              "_id": {
+                  "type": "string",
+                  "description": "Unique identifier for the animal ad",
+                  "example": "67dae0170c7810a7f785dee7"
+                },
               "animalName": {
                 "type": "string",
                 "description": "Name of the animal",
@@ -1217,7 +1222,7 @@
               "gender": {
                 "type": "string",
                 "description": "Gender of the animal",
-                "enum": ["male", "female"],
+                "enum": ["male", "female", "unknown"],
                 "example": "male"
               },
               "animalLocation": {
@@ -1249,17 +1254,34 @@
                 "enum": ["active", "inactive"],
                 "example": "active"
               },
-              "ownerName": {
+              "owner": {
                 "type": "string",
-                "description": "Owner's name",
-                "example": "Едріан Броуді"
+                "description": "User ID of the owner",
+                "example": "67dadd700c7810a7f785decd"
               },
-              "ownerPhone": {
+              "createdAt": {
                 "type": "string",
-                "description": "Owner's phone",
-                "example": "+380637372966"
+                "format": "date-time",
+                "description": "Timestamp when the ad was created",
+                "example": "2025-03-19T15:17:43.934Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Timestamp when the ad was last updated",
+                "example": "2025-03-19T15:17:43.934Z"
               }
             }
+          },
+          "ownerName": {
+            "type": "string",
+            "description": "Owner's name",
+            "example": "Едріан Броуді"
+          },
+            "ownerPhone": {
+            "type": "string",
+            "description": "Owner's phone",
+            "example": "+380637372966"
           }
         }
       },
