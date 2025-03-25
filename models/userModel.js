@@ -48,7 +48,7 @@ const userSchema = new Schema(
         function () {
           return !this.verify;
         },
-        "Verify token is required",
+        "Verification token is required",
       ],
     },
     token: {
@@ -60,6 +60,14 @@ const userSchema = new Schema(
       enum: themeTypes,
       default: "light",
     },
+    resetPasswordCode: {
+      type: String,
+      default: null
+    },
+    resetPasswordExpires: {
+      type: Number,
+      default: null
+    }
   },
   { versionKey: false, timestamps: true },
 );

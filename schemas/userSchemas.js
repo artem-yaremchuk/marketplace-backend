@@ -144,6 +144,14 @@ export const forgotPasswordSchema = Joi.object({
     }),
 });
 
+export const resetPasswordCodeSchema = Joi.object({
+  resetPasswordCode: Joi.string().trim().length(6).required().messages({
+    "string.empty": "Reset password code cannot be empty",
+    "any.required": "Reset password code is required",
+    "string.length": "Reset password code must be exactly 6 characters long",
+  }),
+});
+
 export const resetPasswordSchema = Joi.object({
   password: Joi.string().regex(PASSWD_REGEX).required().messages({
     "string.empty": "Password cannot be empty",

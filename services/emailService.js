@@ -7,10 +7,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export class Email {
-  constructor(user, url) {
+  constructor(user, options = {}) {
     this.name = user.name;
     this.to = user.email;
-    this.url = url;
+    this.url = options.url || null;
+    this.resetCode = user.resetPasswordCode;
     this.from = process.env.META_USER;
   }
 
@@ -34,6 +35,7 @@ export class Email {
       {
         name: this.name,
         url: this.url,
+        resetCode: this.resetCode,
         subject,
       },
     );
@@ -53,7 +55,7 @@ export class Email {
     await this._send("verify", "Підтвердження акаунта");
   }
 
-  async sendResetPasswordEmail() {
+  async sendResetPasswordCode() {
     await this._send("reset-password", "Скидання пароля")
   }
 }
