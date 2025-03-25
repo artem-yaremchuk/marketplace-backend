@@ -70,7 +70,7 @@
             }
           },
           "409": {
-            "description": "Email in use",
+            "description": "User with this email is already registered",
             "content": {
               "application/json": {
                 "schema": {
@@ -543,7 +543,7 @@
             }
           },
           "409": {
-            "description": "Email in use",
+            "description": "User with this email is already registered",
             "content": {
               "application/json": {
                 "schema": {
@@ -770,6 +770,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "New password cannot be the same as the old one",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error409"
                 }
               }
             }
@@ -1615,7 +1625,7 @@
       "Error409": {
         "type": "object",
         "properties": {
-          "message": { "type": "string", "example": "User with this email is already registered" }
+          "message": { "type": "string", "example": "Request cannot be processed due to conflicting duplicate data" }
         }
       },
       "Error500": {
