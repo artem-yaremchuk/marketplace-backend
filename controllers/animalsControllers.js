@@ -7,7 +7,12 @@ import removeFiles from "../helpers/removeFiles.js";
 export const getAllAnimals = catchAsync(async (req, res) => {
   const { total, animals } = await listAnimals(req.query);
 
-  res.status(200).json({ total, animals });
+  const formattedAnimals = animals.map((animal) => {
+    const { _id, ...rest } = animal.toObject();
+    return { id: _id, ...rest };
+  });
+
+  res.status(200).json({ total, animals: formattedAnimals });
 });
 
 export const createAnimal = catchAsync(async (req, res) => {
@@ -29,10 +34,11 @@ export const createAnimal = catchAsync(async (req, res) => {
   }
 
   const newAnimal = await createAnimalAd(ownerId, value, req.files);
+  const { _id, ...rest } = newAnimal.toObject();
 
   res.status(200).json({
-    newAnimal,
+    newAnimal: { id: _id, ...rest },
     ownerName,
-    ownerPhone
+    ownerPhone,
   });
 });
