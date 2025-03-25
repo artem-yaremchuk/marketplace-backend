@@ -675,7 +675,7 @@
       }
     },
     "/users/reset-password": {
-      "get": {
+      "post": {
         "tags": ["User"],
         "summary": "Confirm user's reset password code",
         "parameters": [],
