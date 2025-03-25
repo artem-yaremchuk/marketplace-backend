@@ -148,6 +148,10 @@ export const resetPassword = async (userId, newPassword) => {
 
   if (!user) throw HttpError(404, "User not found");
 
+  const isPasswordSame = await user.checkPassword(newPassword, user.password);
+
+  if (isPasswordSame) throw HttpError(409, "New password cannot be the same as the old one");
+
   user.password = newPassword;
 
   await user.save();
