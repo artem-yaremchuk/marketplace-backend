@@ -609,6 +609,184 @@
         }
       }
     },
+    "/users/forgot-password": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Forgot user's password request",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset code sent to the user's email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Reset password code has been sent to your email"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email format or missing email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/reset-password": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Confirm user's reset password code",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmResetPasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reset password code verified successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfirmResetPasswordResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or expired reset password code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["User"],
+        "summary": "Reset user's password",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User password has been updated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Password format is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/animals": {
       "get": {
         "tags": ["Animals"],
@@ -1057,6 +1235,106 @@
                 "example": "light"
               }
             }
+          }
+        }
+      },
+      "ForgotPasswordRequest": {
+        "type": "object",
+        "required": ["email"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email address",
+            "example": "adrien.brody@gmail.com"
+          }
+        }
+      },
+      "ConfirmResetPasswordRequest": {
+        "type": "object",
+        "required": ["resetPasswordCode"],
+        "properties": {
+          "resetPasswordCode": {
+            "type": "string",
+            "description": "User's reset password code",
+            "example": "570062"
+          }
+        }
+      },
+      "ConfirmResetPasswordResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Reset password verification successful"
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDk3YmViYjIxZjVlZGY4YWE4MzI5MCIsImlhdCI6MTc0MjMwNjMwNywiZXhwIjoxNzQyMzkyNzA3fQ.NmFDmJm-q7K2xpm5WOvUlelmmAnco5QEcjVBo13WSXE"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the user",
+                "example": "67e29d3fa5c25980c6a582c5"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Едріан Броуді"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "adrien.brody@gmail.com",
+                "format": "email"
+              },
+              "location": {
+                "type": "string",
+                "description": "User's location",
+                "example": "Київ"
+              },
+              "phone": {
+                "type": "string",
+                "description": "User's phone",
+                "example": "+380637372966"
+              },
+              "userType": {
+                "type": "string",
+                "description": "User's role in the platform. Can be either 'guardian' (person who takes care of an animal) or 'adopter' (person looking to adopt an animal).",
+                "enum": ["guardian", "adopter"],
+                "example": "guardian"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatar",
+                "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_500,q_auto:best,w_500/v1/users/wzii0crzi0foppdrwf0e?_a=BAMCkGP80"
+              },
+              "theme": {
+                "type": "string",
+                "description": "User's theme",
+                "enum": ["light", "dark"],
+                "example": "light"
+              }
+            }
+          }
+        }
+      },
+      "ResetPasswordRequest": {
+        "type": "object",
+        "required": ["password", "repeat_password"],
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "New password for the user",
+            "example": "Brutalist_0001"
+          },
+          "repeat_password": {
+            "type": "string",
+            "description": "Repeat new password for the user",
+            "example": "Brutalist_0001"
           }
         }
       },
