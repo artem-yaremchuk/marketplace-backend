@@ -780,6 +780,11 @@
           "user": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the user",
+                "example": "67e29d3fa5c25980c6a582c5"
+              },
               "name": {
                 "type": "string",
                 "description": "User's name",
@@ -826,6 +831,11 @@
           "user": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the user",
+                "example": "67e29d3fa5c25980c6a582c5"
+              },
               "name": {
                 "type": "string",
                 "description": "User's name",
@@ -885,6 +895,11 @@
           "user": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the user",
+                "example": "67e29d3fa5c25980c6a582c5"
+              },
               "name": {
                 "type": "string",
                 "description": "User's name",
@@ -932,6 +947,11 @@
           "user": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the user",
+                "example": "67e29d3fa5c25980c6a582c5"
+              },
               "name": {
                 "type": "string",
                 "description": "User's name",
@@ -999,6 +1019,11 @@
           "user": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the user",
+                "example": "67e29d3fa5c25980c6a582c5"
+              },
               "name": {
                 "type": "string",
                 "description": "User's name",
@@ -1049,7 +1074,7 @@
             "items": {
               "type": "object",
               "properties": {
-                "_id": {
+                "id": {
                   "type": "string",
                   "description": "Unique identifier for the animal ad",
                   "example": "67dae0170c7810a7f785dee7"
@@ -1130,7 +1155,7 @@
             },
             "example": [
               {
-                "_id": "67dae0170c7810a7f785dee7",
+                "id": "67dae0170c7810a7f785dee7",
                 "animalName": "Спарк",
                 "animalType": "собака",
                 "breed": "Джек-рассел-тер'єр",
@@ -1148,7 +1173,7 @@
                 "updatedAt": "2025-03-19T15:17:43.934Z"
               },
               {
-                "_id": "67dae0170c7810a7f785dee8",
+                "id": "67dae0170c7810a7f785dee8",
                 "animalName": "Луна",
                 "animalType": "собака",
                 "breed": "Німецька вівчарка",
@@ -1194,7 +1219,7 @@
           "animal": {
             "type": "object",
             "properties": {
-              "_id": {
+              "id": {
                   "type": "string",
                   "description": "Unique identifier for the animal ad",
                   "example": "67dae0170c7810a7f785dee7"
