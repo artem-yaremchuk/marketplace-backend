@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { NAME_REGEX, ANIMAL_TYPE_REGEX, BREED_REGEX, ANIMAL_AGE_REGEX, ANIMAL_AD_TEXT_REGEX } from "../constants.js"
+import { NAME_REGEX, ANIMAL_TYPE_REGEX, BREED_REGEX, ANIMAL_AGE_REGEX, animalGender, ANIMAL_AD_TEXT_REGEX } from "../constants.js"
 
 export const createAnimalSchema = Joi.object({
   animalName: Joi.string().trim().min(2).max(50).pattern(NAME_REGEX).required().messages({
@@ -26,8 +26,8 @@ export const createAnimalSchema = Joi.object({
     "string.pattern.base": "Age must contain only digits",
     "any.required": "Age is required",
   }),
-  gender: Joi.string().valid("male", "female").required().messages({
-    "any.only": "Gender must be either 'male' or 'female'",
+  gender: Joi.string().valid(...animalGender).required().messages({
+    "any.only": `Animal gender must be one of: ${animalGender.join(", ")}`,
     "any.required": "Gender is required",
   }),
   animalLocation: Joi.string().required().messages({
