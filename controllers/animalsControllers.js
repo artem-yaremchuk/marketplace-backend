@@ -28,31 +28,11 @@ export const createAnimal = catchAsync(async (req, res) => {
     throw HttpError(400, error.message);
   }
 
-  const {
-    animalName,
-    animalType,
-    breed,
-    age,
-    gender,
-    animalLocation,
-    adText,
-    animalImages,
-    status
-  } = await createAnimalAd(ownerId, value, req.files);
+  const newAnimal = await createAnimalAd(ownerId, value, req.files);
 
   res.status(200).json({
-    animal: {
-      animalName,
-      animalType,
-      breed,
-      age,
-      gender,
-      animalLocation,
-      adText,
-      animalImages,
-      status,
-      ownerName,
-      ownerPhone,
-    },
+    newAnimal,
+    ownerName,
+    ownerPhone
   });
 });
