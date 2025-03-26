@@ -1551,12 +1551,12 @@
                     "years": {
                       "type": "integer",
                       "description": "Number of years of the animal",
-                      "example": "3"
+                      "example": "2"
                     },
                     "months": {
                       "type": "integer",
                       "description": "Number of months of the animal",
-                      "example": "11"
+                      "example": "3"
                     }
                   }
               },
