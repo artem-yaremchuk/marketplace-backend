@@ -18,4 +18,4 @@ export const BREED_REGEX = /^[A-Za-zА-Яа-яІЇЄҐієїґ'-]+(?:\s[A-Za-zА
 
 export const ANIMAL_AGE_REGEX = /^\d+$/;
 
-export const ANIMAL_AD_TEXT_REGEX = /^[A-Za-zА-Яа-яЇїЄєІіҐґ\s'’\-\.,!?():;"&]+$/;
+export const ANIMAL_AD_TEXT_REGEX = /^[A-Za-zА-Яа-яЇїЄєІіҐґ\s'’\-\.,!?():;"&\u{1F300}-\u{1FAD6}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}]+$/u;

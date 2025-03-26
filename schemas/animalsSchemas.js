@@ -16,8 +16,9 @@ export const createAnimalSchema = Joi.object({
     "string.pattern.base": "Animal type must contain only letters and properly placed spaces, without special characters or HTML tags",
     "any.required": "Animal type is required",
   }),
-  breed: Joi.string().trim().pattern(BREED_REGEX).required().messages({
+  breed: Joi.string().trim().max(50).pattern(BREED_REGEX).required().messages({
     "string.empty": "Breed cannot be empty",
+     "string.max": "Breed must not be more than {#limit} characters long",
     "string.pattern.base": "Breed name must consist only of letters, single spaces, properly placed hyphens, and apostrophes. Special characters and numbers are not allowed",
     "any.required": "Breed is required",
   }),
@@ -30,11 +31,13 @@ export const createAnimalSchema = Joi.object({
     "any.only": `Animal gender must be one of: ${animalGender.join(", ")}`,
     "any.required": "Gender is required",
   }),
-  animalLocation: Joi.string().required().messages({
-    "string.empty": "Location cannot be empty",
+  animalLocation: Joi.string().trim().min(2).max(50).required().messages({
+    "string.empty": "Animal location cannot be empty",
+    "string.min": "Animal location must be at least {#limit} characters long",
+    "string.max": "Animal location must not be more than {#limit} characters long",
     "any.required": "Animal location is required",
   }),
-  adText: Joi.string().trim().min(10).max(1000).pattern(ANIMAL_AD_TEXT_REGEX).required().messages({
+  adText: Joi.string().trim().min(100).max(500).pattern(ANIMAL_AD_TEXT_REGEX).required().messages({
     "string.empty": "Ad text cannot be empty",
     "string.min": "Ad text must be at least {#limit} characters long",
     "string.max": "Ad text must not be more than {#limit} characters long",
