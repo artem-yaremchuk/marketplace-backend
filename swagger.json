@@ -1383,9 +1383,20 @@
                   "example": "Джек-рассел-тер'єр"
                 },
                 "age": {
-                  "type": "string",
+                  "type": "object",
                   "description": "Age of the animal",
-                  "example": "2"
+                  "properties": {
+                    "years": {
+                      "type": "integer",
+                      "description": "Number of years of the animal",
+                      "example": "3"
+                    },
+                    "months": {
+                      "type": "integer",
+                      "description": "Number of months of the animal",
+                      "example": "11"
+                    }
+                  }
                 },
                 "gender": {
                   "type": "string",
@@ -1447,7 +1458,10 @@
                 "animalName": "Спарк",
                 "animalType": "собака",
                 "breed": "Джек-рассел-тер'єр",
-                "age": "2",
+                "age": {
+                  "years": 4,
+                  "months": 5
+                },
                 "gender": "male",
                 "animalLocation": "Київ",
                 "adText": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.",
@@ -1465,7 +1479,10 @@
                 "animalName": "Луна",
                 "animalType": "собака",
                 "breed": "Німецька вівчарка",
-                "age": "3",
+                "age": {
+                  "years": 3,
+                  "months": 11
+                },
                 "gender": "female",
                 "animalLocation": "Львів",
                 "adText": "Рокі - спокійна та віддана собака, шукає добрих господарів. Вона любить довгі прогулянки та добре ладнає з іншими тваринами.",
@@ -1488,7 +1505,7 @@
           "animalData": {
             "type": "string",
             "description": "JSON string containing animal data (animalName, animalType, breed, age, gender, animalLocation, adText)",
-            "example": "{\"animalName\": \"Спарк\", \"animalType\": \"собака\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": \"2\", \"gender\": \"male\", \"animalLocation\": \"Київ\", \"adText\": \"Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.\"}"
+            "example": "{\"animalName\": \"Спарк\", \"animalType\": \"собака\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": {\"years\": 2, \"months\": 3}, \"gender\": \"male\", \"animalLocation\": \"Київ\", \"adText\": \"Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.\"}"
           },
           "images": {
             "type": "array",
@@ -1528,9 +1545,20 @@
                 "example": "Джек-рассел-тер'єр"
               },
               "age": {
-                "type": "string",
-                "description": "Age of the animal",
-                "example": "2"
+                  "type": "object",
+                  "description": "Age of the animal",
+                  "properties": {
+                    "years": {
+                      "type": "integer",
+                      "description": "Number of years of the animal",
+                      "example": "3"
+                    },
+                    "months": {
+                      "type": "integer",
+                      "description": "Number of months of the animal",
+                      "example": "11"
+                    }
+                  }
               },
               "gender": {
                 "type": "string",
