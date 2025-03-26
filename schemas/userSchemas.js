@@ -2,7 +2,7 @@ import Joi from "joi";
 import { NAME_REGEX, PASSWD_REGEX, PHONE_REGEX, themeTypes, userTypes } from "../constants.js";
 
 export const registerUserSchema = Joi.object({
-  name: Joi.string().trim().min(2).max(30).pattern(NAME_REGEX).required().messages({
+  name: Joi.string().trim().min(2).max(50).pattern(NAME_REGEX).required().messages({
     "string.empty": "Name cannot be empty",
     "string.min": "Name must be at least {#limit} characters long",
     "string.max": "Name must not be more than {#limit} characters long",
@@ -23,8 +23,10 @@ export const registerUserSchema = Joi.object({
       "string.max": "Email must not be more than {#limit} characters long",
       "any.required": "Email is required",
     }),
-  location: Joi.string().trim().required().messages({
+  location: Joi.string().trim().min(2).max(50).required().messages({
     "string.empty": "Location cannot be empty",
+    "string.min": "Location must be at least {#limit} characters long",
+    "string.max": "Location must not be more than {#limit} characters long",
     "any.required": "Location is required",
   }),
   phone: Joi.string().trim().pattern(PHONE_REGEX).required().messages({
@@ -101,7 +103,7 @@ export const themeUserSchema = Joi.object({
 });
 
 export const updateUserSchema = Joi.object({
-  name: Joi.string().trim().min(2).max(30).pattern(NAME_REGEX).messages({
+  name: Joi.string().trim().min(2).max(50).pattern(NAME_REGEX).messages({
     "string.min": "Name must be at least {#limit} characters long",
     "string.max": "Name must not be more than {#limit} characters long",
     "string.pattern.base": "Name can only contain letters, hyphens, apostrophes, and spaces",
@@ -117,8 +119,10 @@ export const updateUserSchema = Joi.object({
       "string.email": "Enter a valid email address",
       "string.max": "Email must not be more than {#limit} characters long",
     }),
-  location: Joi.string().trim().messages({
+   location: Joi.string().trim().min(2).max(50).required().messages({
     "string.empty": "Location cannot be empty",
+    "string.min": "Location must be at least {#limit} characters long",
+    "string.max": "Location must not be more than {#limit} characters long",
     "any.required": "Location is required",
   }),
   phone: Joi.string().trim().pattern(PHONE_REGEX).messages({
