@@ -18,13 +18,25 @@ export const createAnimalSchema = Joi.object({
   }),
   breed: Joi.string().trim().max(50).pattern(BREED_REGEX).required().messages({
     "string.empty": "Breed cannot be empty",
-     "string.max": "Breed must not be more than {#limit} characters long",
+    "string.max": "Breed must not be more than {#limit} characters long",
     "string.pattern.base": "Breed name must consist only of letters, single spaces, properly placed hyphens, and apostrophes. Special characters and numbers are not allowed",
     "any.required": "Breed is required",
   }),
-  age: Joi.string().trim().pattern(ANIMAL_AGE_REGEX).required().messages({
-    "string.empty": "Age cannot be empty",
-    "string.pattern.base": "Age must contain only digits",
+  age: Joi.object({
+    years: Joi.number().integer().min(0).required().messages({
+      "number.base": "Years must be a number",
+      "number.integer": "Years must be an integer",
+      "number.min": "Years cannot be negative",
+      "any.required": "Years is required",
+    }),
+    months: Joi.number().integer().min(0).max(11).required().messages({
+      "number.base": "Months must be a number",
+      "number.integer": "Months must be an integer",
+      "number.min": "Months cannot be negative",
+      "number.max": "Months must be between 0 and 11",
+      "any.required": "Months is required",
+    }),
+  }).required().messages({
     "any.required": "Age is required",
   }),
   gender: Joi.string().valid(...animalGender).required().messages({
