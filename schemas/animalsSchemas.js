@@ -37,11 +37,11 @@ export const createAnimalSchema = Joi.object({
     "string.max": "Animal location must not be more than {#limit} characters long",
     "any.required": "Animal location is required",
   }),
-  adText: Joi.string().trim().min(100).max(500).pattern(ANIMAL_AD_TEXT_REGEX).required().messages({
+  adText: Joi.string().trim().min(50).max(500).pattern(ANIMAL_AD_TEXT_REGEX).required().messages({
     "string.empty": "Ad text cannot be empty",
     "string.min": "Ad text must be at least {#limit} characters long",
     "string.max": "Ad text must not be more than {#limit} characters long",
-    "string.pattern.base": "Ad text can only contain letters, numbers, properly placed spaces, apostrophes, and basic punctuation marks",
+    "string.pattern.base": "Ad text can only contain letters, numbers, properly placed spaces, apostrophes, basic punctuation marks and emoji",
     "any.required": "Ad text is required",
   }),
 });
