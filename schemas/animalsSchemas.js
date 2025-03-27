@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { NAME_REGEX, ANIMAL_TYPE_REGEX, BREED_REGEX, ANIMAL_AGE_REGEX, animalGender, ANIMAL_AD_TEXT_REGEX } from "../constants.js"
+import { NAME_REGEX, ANIMAL_TYPE_REGEX, BREED_REGEX, animalGender, ANIMAL_AD_TEXT_REGEX } from "../constants.js"
 
 export const createAnimalSchema = Joi.object({
   animalName: Joi.string().trim().min(2).max(50).pattern(NAME_REGEX).required().messages({
