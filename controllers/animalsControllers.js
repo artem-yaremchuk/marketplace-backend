@@ -1,7 +1,7 @@
 import HttpError from "../helpers/HttpError.js";
 import catchAsync from "../helpers/catchAsync.js";
 import { createAnimalSchema } from "../schemas/animalsSchemas.js";
-import { listAnimals, createAnimalAd } from "../services/animalServices.js";
+import { listAnimals, createAnimalAd, updateFavorite } from "../services/animalServices.js";
 import removeFiles from "../helpers/removeFiles.js";
 
 export const getAllAnimals = catchAsync(async (req, res) => {
@@ -40,5 +40,17 @@ export const createAnimal = catchAsync(async (req, res) => {
     newAnimal: { id: _id, ...rest },
     ownerName,
     ownerPhone,
+  });
+});
+
+export const updateFavoriteStatus = catchAsync(async (req, res) => {
+  const animalId = req.params.id;
+
+  const updatedAnimal = await updateFavorite(animalId, req.body);
+
+  const { _id, ...rest } = updatedAnimal.toObject();
+
+  res.status(200).json({
+    updatedAnimal: { id: _id, ...rest },
   });
 });

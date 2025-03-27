@@ -57,3 +57,11 @@ export const createAnimalSchema = Joi.object({
     "any.required": "Ad text is required",
   }),
 });
+
+
+export const updateFavoriteStatusSchema = Joi.object({
+  favorite: Joi.boolean().required().messages({
+    "any.required": "Favorite status bis required",
+    "boolean.base": "Favorite status must be a boolean value",
+  }),
+});

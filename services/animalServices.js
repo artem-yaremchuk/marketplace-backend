@@ -57,3 +57,17 @@ export const createAnimalAd = async (ownerId, animalData, files) => {
 
   return newAnimal;
 };
+
+export const updateFavorite = async (animalId, favoriteStatus) => {
+  const updatedAnimal = await Animal.findByIdAndUpdate(
+    animalId,
+    favoriteStatus,
+    { new: true },
+  );
+
+  if (!updatedAnimal) {
+    throw HttpError(404, "Animal not found");
+  }
+ 
+  return updatedAnimal;
+};
