@@ -774,12 +774,68 @@
               }
             }
           },
-          "409": {
-            "description": "New password cannot be the same as the old one",
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error409"
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/change-password": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Change user's password",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password change successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User password has been changed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "New password format is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
                 }
               }
             }
@@ -1345,6 +1401,27 @@
             "type": "string",
             "description": "Repeat new password for the user",
             "example": "Brutalist_0001"
+          }
+        }
+      },
+      "ChangePasswordRequest": {
+        "type": "object",
+        "required": ["password", "newPassword", "repeat_newPassword"],
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "Current user's password",
+            "example": "Brutalist_2025"
+          },
+          "newPassword": {
+            "type": "string",
+            "description": "New password for the user",
+            "example": "Brutalist_0000"
+          },
+          "repeat_newPassword": {
+            "type": "string",
+            "description": "Repeat new password for the user",
+            "example": "Brutalist_0000"
           }
         }
       },
