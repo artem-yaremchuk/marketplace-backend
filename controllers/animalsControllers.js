@@ -1,11 +1,11 @@
 import HttpError from "../helpers/HttpError.js";
 import catchAsync from "../helpers/catchAsync.js";
 import { createAnimalSchema } from "../schemas/animalsSchemas.js";
-import { listAnimals, createAnimalAd, updateFavorite } from "../services/animalServices.js";
+import { listActiveAnimals, createAnimalAd, updateFavorite } from "../services/animalServices.js";
 import removeFiles from "../helpers/removeFiles.js";
 
-export const getAllAnimals = catchAsync(async (req, res) => {
-  const { total, animals } = await listAnimals(req.query);
+export const getAllActiveAnimals = catchAsync(async (req, res) => {
+  const { total, animals } = await listActiveAnimals(req.query);
 
   const formattedAnimals = animals.map((animal) => {
     const { _id, ...rest } = animal.toObject();

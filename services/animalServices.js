@@ -3,13 +3,13 @@ import cloudinary from "../helpers/cloudinary.js";
 import HttpError from "../helpers/HttpError.js";
 import removeFiles from "../helpers/removeFiles.js";
 
-export const listAnimals = async (query) => {
+export const listActiveAnimals = async (query) => {
   const page = query.page ? +query.page : 1;
   const limit = query.limit ? +query.limit : 4;
 
   const docsToSkip = (page - 1) * limit;
 
-  const animals = await Animal.find({}).sort({ createdAd: -1 }).skip(docsToSkip).limit(limit);
+  const animals = await Animal.find({ status: "active" }).sort({ createdAd: -1 }).skip(docsToSkip).limit(limit);
 
   const total = await Animal.countDocuments();
 
