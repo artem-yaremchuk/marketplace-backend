@@ -152,3 +152,13 @@ export const resetPassword = async (userId, newPassword) => {
 
   await user.save();
 };
+
+export const changePassword = async (userId, newPassword) => {
+  const user = await User.findById(userId);
+
+  if (!user) throw HttpError(404, "User not found");
+
+  user.password = newPassword;
+
+  await user.save();
+};

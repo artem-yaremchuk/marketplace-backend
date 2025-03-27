@@ -168,3 +168,22 @@ export const resetPasswordSchema = Joi.object({
     "any.required": "Repeat password is required",
   }),
 });
+
+export const changePasswordSchema = Joi.object({
+  password: Joi.string().regex(PASSWD_REGEX).required().messages({
+    "string.empty": "Password cannot be empty",
+    "any.required": "Password is required",
+    "string.pattern.base":
+      "Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character",
+  }),
+  newPassword: Joi.string().regex(PASSWD_REGEX).required().messages({
+    "string.empty": "Password cannot be empty",
+    "any.required": "Password is required",
+    "string.pattern.base":
+      "Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character",
+  }),
+  repeat_newPassword: Joi.string().valid(Joi.ref("newPassword")).required().messages({
+    "any.only": "New password must match",
+    "any.required": "Repeat new password is required",
+  }),
+});
