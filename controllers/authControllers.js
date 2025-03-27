@@ -9,6 +9,7 @@ import {
   createResetPasswordCode,
   verifyResetPasswordCode,
   resetPassword,
+  changePassword
 } from "../services/userServices.js";
 import { Email } from "../services/emailService.js";
 import User from "../models/userModel.js";
@@ -237,4 +238,17 @@ export const resetUserPassword = catchAsync(async (req, res) => {
   res.status(200).json({
     message: "User password has been updated",
   });
+});
+
+export const changeUserPassword = catchAsync(async (req, res) => {
+  const { _id: userId } = req.user;
+
+  const { newPassword } = req.body; 
+
+  await changePassword(userId, newPassword);
+
+  res.status(200).json({
+    message: "User password has been changed",
+  });
+  
 });
