@@ -2,7 +2,7 @@ import express from "express";
 import { authorization } from "../middlewares/authMiddleware.js";
 import { uploadAnimalImages, checkOwner, checkAnimalId } from "../middlewares/animalMiddleware.js";
 import {
-  getAllAnimals,
+  getAllActiveAnimals,
   createAnimal,
   updateFavoriteStatus,
 } from "../controllers/animalsControllers.js";
@@ -11,7 +11,7 @@ import { updateFavoriteStatusSchema } from "../schemas/animalsSchemas.js";
 
 const animalsRouter = express.Router();
 
-animalsRouter.get("/", getAllAnimals);
+animalsRouter.get("/", getAllActiveAnimals);
 animalsRouter.post("/", authorization, uploadAnimalImages, createAnimal);
 animalsRouter.patch(
   "/:id/favorite",
