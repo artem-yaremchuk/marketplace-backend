@@ -20,7 +20,7 @@ export class ImageService {
       },
     });
 
-    const allowedMimeTypes = ["image/jpeg", "image/png", "image/gif"];
+    const allowedMimeTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
 
     const multerFilter = (req, file, cb) => {
       if (allowedMimeTypes.includes(file.mimetype)) {

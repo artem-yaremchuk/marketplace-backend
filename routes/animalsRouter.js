@@ -5,6 +5,7 @@ import {
   getAllActiveAnimals,
   createAnimal,
   updateFavoriteStatus,
+  updateAnimal,
 } from "../controllers/animalsControllers.js";
 import validateBody from "../helpers/validateBody.js";
 import { updateFavoriteStatusSchema } from "../schemas/animalsSchemas.js";
@@ -21,5 +22,6 @@ animalsRouter.patch(
   validateBody(updateFavoriteStatusSchema),
   updateFavoriteStatus,
 );
+animalsRouter.put("/:id", authorization, checkOwner, uploadAnimalImages, updateAnimal);
 
 export default animalsRouter;
