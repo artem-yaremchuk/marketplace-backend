@@ -28,7 +28,10 @@ export const createAnimal = catchAsync(async (req, res) => {
 
   let animalData;
 
-  if (!req.body.animalData) throw HttpError(400, "Animal data required");
+  if (!req.body.animalData) {
+    removeFiles(req.files);
+    throw HttpError(400, "Animal data required");
+  }
 
   try {
     animalData = JSON.parse(req.body.animalData);
@@ -70,7 +73,10 @@ export const updateAnimal = catchAsync(async (req, res) => {
 
   let animalData;
 
-  if (!req.body.animalData) throw HttpError(400, "Animal data required");
+  if (!req.body.animalData) {
+    removeFiles(req.files);
+    throw HttpError(400, "Animal data required");
+  }
 
   try {
     animalData = JSON.parse(req.body.animalData);
