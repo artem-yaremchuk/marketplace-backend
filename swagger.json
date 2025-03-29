@@ -1062,6 +1062,89 @@
           }
         }
       }
+    },
+    "/animals/{animalId}": {
+      "put": {
+        "tags": ["Animals"],
+        "summary": "Update animal ad",
+        "parameters": [
+          {
+            "name": "animalId",
+            "in": "path",
+            "required": true,
+            "description": "Unique animal ad identifier",
+            "schema": {
+              "type": "string",
+              "description": "Unique identifier for the animal ad",
+              "example": "67dae0170c7810a7f785dee7"
+            }
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Updated animal ad object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAnimalRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateAnimalResponse"
+                }
+              }
+            }
+          },
+           "400": {
+            "description": "Invalid JSON format, invalid data or image upload failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Animal not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1887,6 +1970,128 @@
                   "type": "boolean",
                   "description": "Animal ad favorite status",
                   "example": true
+              },
+              "owner": {
+                "type": "string",
+                "description": "User ID of the owner",
+                "example": "67dadd700c7810a7f785decd"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Timestamp when the ad was created",
+                "example": "2025-03-19T15:17:43.934Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Timestamp when the ad was last updated",
+                "example": "2025-03-19T15:17:43.934Z"
+              }
+            }
+          }
+        }
+      },
+      "UpdateAnimalRequest": {
+        "type": "object",
+        "required": ["animalData", "images"],
+        "properties": {
+          "animalData": {
+            "type": "string",
+            "description": "JSON string containing animal data (animalName, animalType, breed, age, gender, animalLocation, adText)",
+            "example": "{\"animalName\": \"Спарк\", \"animalType\": \"собака\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": {\"years\": 3, \"months\": 1}, \"gender\": \"male\", \"animalLocation\": \"Львів\", \"adText\": \"Спарк - життєрадісний та доброзичливий пес, який мріє про турботливих господарів. Він любить гратися на вулиці, із задоволенням бавиться з дітьми та швидко знаходить спільну мову з іншими тваринами.\", \"status\": \"active\"}"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Array of image files (up to 4 images) for the animal ad",
+            "maxItems": 4
+          }
+        }
+      },
+      "UpdateAnimalResponse": {
+        "type": "object",
+        "properties": {
+          "animal": {
+            "type": "object",
+            "properties": {
+              "id": {
+                  "type": "string",
+                  "description": "Unique identifier for the animal ad",
+                  "example": "67dae0170c7810a7f785dee7"
+                },
+              "animalName": {
+                "type": "string",
+                "description": "Name of the animal",
+                "example": "Спарк"
+              },
+              "animalType": {
+                "type": "string",
+                "description": "Type of the animal",
+                "example": "собака"
+              },
+              "breed": {
+                "type": "string",
+                "description": "Breed of the animal",
+                "example": "Джек-рассел-тер'єр"
+              },
+              "age": {
+                  "type": "object",
+                  "description": "Age of the animal",
+                  "properties": {
+                    "years": {
+                      "type": "integer",
+                      "description": "Number of years of the animal",
+                      "example": "3"
+                    },
+                    "months": {
+                      "type": "integer",
+                      "description": "Number of months of the animal",
+                      "example": "1"
+                    }
+                  }
+              },
+              "gender": {
+                "type": "string",
+                "description": "Gender of the animal",
+                "enum": ["male", "female", "unknown"],
+                "example": "male"
+              },
+              "animalLocation": {
+                "type": "string",
+                "description": "Location where the animal is available",
+                "example": "Львів"
+              },
+              "adText": {
+                "type": "string",
+                "description": "Description of the animal",
+                "example": "Спарк - життєрадісний та доброзичливий пес, який мріє про турботливих господарів. Він любить гратися на вулиці, із задоволенням бавиться з дітьми та швидко знаходить спільну мову з іншими тваринами."
+              },
+              "animalImages": {
+                "type": "array",
+                "description": "List of URLs for animal images",
+                "items": {
+                  "type": "string",
+                  "format": "uri",
+                  "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/zqdu7iecsxp7cpmm03a1?_a=BAMCkGP80"
+                },
+                "example": [
+                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/zqdu7iecsxp7cpmm03a1?_a=BAMCkGP80"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "description": "Status of the animal ad",
+                "enum": ["active", "inactive"],
+                "example": "active"
+              },
+              "favorite": {
+                "type": "boolean",
+                "description": "Animal ad favorite status",
+                "example": true
               },
               "owner": {
                 "type": "string",
