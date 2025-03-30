@@ -9,7 +9,7 @@ import {
   createResetPasswordCode,
   verifyResetPasswordCode,
   resetPassword,
-  changePassword
+  changePassword,
 } from "../services/userServices.js";
 import { Email } from "../services/emailService.js";
 import User from "../models/userModel.js";
@@ -21,7 +21,15 @@ dotenv.config();
 
 export const registerUser = catchAsync(async (req, res) => {
   const newUser = await signup(req.body);
-  const { _id: id, name, email, location, phone, userType, verificationToken } = newUser;
+  const {
+    _id: id,
+    name,
+    email,
+    location,
+    phone,
+    userType,
+    verificationToken,
+  } = newUser;
 
   const { FRONTEND_URL } = process.env;
 
@@ -51,7 +59,15 @@ export const verifyUser = catchAsync(async (req, res) => {
   if (!verificationToken) throw HttpError(400, "Verification token is missing");
 
   const verifiedUser = await verify(verificationToken);
-  const { token, _id: id, name, email, location, phone, userType } = verifiedUser;
+  const {
+    token,
+    _id: id,
+    name,
+    email,
+    location,
+    phone,
+    userType,
+  } = verifiedUser;
 
   res.status(200).json({
     message: "Verification successful",
@@ -84,8 +100,17 @@ export const reverifyUser = catchAsync(async (req, res) => {
 });
 
 export const loginUser = catchAsync(async (req, res) => {
-  const { token, _id: id, name, email, location, phone, userType, avatarURL, theme } =
-    await login(req.body);
+  const {
+    token,
+    _id: id,
+    name,
+    email,
+    location,
+    phone,
+    userType,
+    avatarURL,
+    theme,
+  } = await login(req.body);
 
   res.status(200).json({
     token,
@@ -111,7 +136,16 @@ export const logoutUser = catchAsync(async (req, res) => {
 });
 
 export const getCurrentUser = catchAsync(async (req, res) => {
-  const { _id: id, name, email, location, phone, userType, avatarURL, theme } = req.user;
+  const {
+    _id: id,
+    name,
+    email,
+    location,
+    phone,
+    userType,
+    avatarURL,
+    theme,
+  } = req.user;
 
   res.status(200).json({
     user: {
@@ -153,7 +187,11 @@ export const updateUser = catchAsync(async (req, res) => {
     }
 
     Object.keys(userData).forEach((key) => {
-      if (userData[key] === "" || userData[key] === null || userData[key] === undefined) {
+      if (
+        userData[key] === "" ||
+        userData[key] === null ||
+        userData[key] === undefined
+      ) {
         delete userData[key];
       }
     });
@@ -165,11 +203,8 @@ export const updateUser = catchAsync(async (req, res) => {
     }
   }
 
-  const { name, email, location, phone, avatarURL, theme } = await updateUserProfile(
-    userId,
-    userData,
-    req.file,
-  );
+  const { name, email, location, phone, avatarURL, theme } =
+    await updateUserProfile(userId, userData, req.file);
 
   res.status(200).json({
     message: "User profile has been updated",
@@ -180,17 +215,9 @@ export const updateUser = catchAsync(async (req, res) => {
       location,
       phone,
       avatarURL,
-      theme
+      theme,
     },
   });
-});
-
-export const deleteUser = catchAsync(async (req, res) => {
-  const { _id } = req.user;
-
-  await User.findByIdAndDelete(_id);
-
-  res.status(204).send();
 });
 
 export const requestResetPassword = catchAsync(async (req, res) => {
@@ -210,7 +237,17 @@ export const confirmResetPassword = catchAsync(async (req, res) => {
 
   const verifiedUser = await verifyResetPasswordCode(resetPasswordCode);
 
-  const { token, _id: id, name, email, location, phone, userType, avatarURL, theme } = verifiedUser;
+  const {
+    token,
+    _id: id,
+    name,
+    email,
+    location,
+    phone,
+    userType,
+    avatarURL,
+    theme,
+  } = verifiedUser;
 
   res.status(200).json({
     message: "Reset password verification successful",
@@ -223,7 +260,7 @@ export const confirmResetPassword = catchAsync(async (req, res) => {
       phone,
       userType,
       avatarURL,
-      theme
+      theme,
     },
   });
 });
@@ -243,12 +280,19 @@ export const resetUserPassword = catchAsync(async (req, res) => {
 export const changeUserPassword = catchAsync(async (req, res) => {
   const { _id: userId } = req.user;
 
-  const { newPassword } = req.body; 
+  const { newPassword } = req.body;
 
   await changePassword(userId, newPassword);
 
   res.status(200).json({
     message: "User password has been changed",
   });
-  
+});
+
+export const deleteUser = catchAsync(async (req, res) => {
+  const { _id } = req.user;
+
+  await User.findByIdAndDelete(_id);
+
+  res.status(204).send();
 });
