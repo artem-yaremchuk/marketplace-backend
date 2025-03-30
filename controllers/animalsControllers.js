@@ -5,23 +5,13 @@ import {
   updateAnimalSchema,
 } from "../schemas/animalsSchemas.js";
 import {
-  listActiveAnimals,
   createAnimalAd,
+  listActiveAnimals,
   updateFavorite,
   updateAnimalAd,
+  removeAnimal,
 } from "../services/animalServices.js";
 import removeFiles from "../helpers/removeFiles.js";
-
-export const getAllActiveAnimals = catchAsync(async (req, res) => {
-  const { total, animals } = await listActiveAnimals(req.query);
-
-  const formattedAnimals = animals.map((animal) => {
-    const { _id, ...rest } = animal.toObject();
-    return { id: _id, ...rest };
-  });
-
-  res.status(200).json({ total, animals: formattedAnimals });
-});
 
 export const createAnimal = catchAsync(async (req, res) => {
   const { _id: ownerId, name: ownerName, phone: ownerPhone } = req.user;
@@ -54,6 +44,17 @@ export const createAnimal = catchAsync(async (req, res) => {
     ownerName,
     ownerPhone,
   });
+});
+
+export const getAllActiveAnimals = catchAsync(async (req, res) => {
+  const { total, animals } = await listActiveAnimals(req.query);
+
+  const formattedAnimals = animals.map((animal) => {
+    const { _id, ...rest } = animal.toObject();
+    return { id: _id, ...rest };
+  });
+
+  res.status(200).json({ total, animals: formattedAnimals });
 });
 
 export const updateFavoriteStatus = catchAsync(async (req, res) => {
@@ -98,5 +99,17 @@ export const updateAnimal = catchAsync(async (req, res) => {
 
   res.status(200).json({
     updatedAnimal: { id: _id, ...rest },
+  });
+});
+
+export const deleteAnimal = catchAsync(async (req, res) => {
+  const { id: animalId } = req.params;
+
+  const removedAnimal = await removeAnimal(animalId);
+
+  const { _id, ...rest } = removedAnimal.toObject();
+
+  res.status(200).json({
+    removedAnimal: { id: _id, ...rest },
   });
 });

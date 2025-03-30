@@ -3,22 +3,6 @@ import cloudinary from "../helpers/cloudinary.js";
 import HttpError from "../helpers/HttpError.js";
 import removeFiles from "../helpers/removeFiles.js";
 
-export const listActiveAnimals = async (query) => {
-  const page = query.page ? +query.page : 1;
-  const limit = query.limit ? +query.limit : 4;
-
-  const docsToSkip = (page - 1) * limit;
-
-  const animals = await Animal.find({ status: "active" })
-    .sort({ createdAd: -1 })
-    .skip(docsToSkip)
-    .limit(limit);
-
-  const total = await Animal.countDocuments();
-
-  return { total, animals };
-};
-
 export const createAnimalAd = async (ownerId, animalData, files) => {
   let animalImages = [];
 
@@ -60,6 +44,22 @@ export const createAnimalAd = async (ownerId, animalData, files) => {
   });
 
   return newAnimal;
+};
+
+export const listActiveAnimals = async (query) => {
+  const page = query.page ? +query.page : 1;
+  const limit = query.limit ? +query.limit : 4;
+
+  const docsToSkip = (page - 1) * limit;
+
+  const animals = await Animal.find({ status: "active" })
+    .sort({ createdAd: -1 })
+    .skip(docsToSkip)
+    .limit(limit);
+
+  const total = await Animal.countDocuments();
+
+  return { total, animals };
 };
 
 export const updateFavorite = async (animalId, favoriteStatus) => {
@@ -116,4 +116,10 @@ export const updateAnimalAd = async (animalId, animalData, files) => {
   );
 
   return updatedAnimal;
+};
+
+export const removeAnimal = async (animalId) => {
+  const removedAnimal = await Animal.findByIdAndDelete(animalId, { new: true });
+
+  return removedAnimal;
 };
