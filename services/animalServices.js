@@ -117,9 +117,3 @@ export const updateAnimalAd = async (animalId, animalData, files) => {
 
   return updatedAnimal;
 };
-
-export const removeAnimal = async (animalId) => {
-  const removedAnimal = await Animal.findByIdAndDelete(animalId, { new: true });
-
-  return removedAnimal;
-};

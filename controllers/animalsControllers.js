@@ -9,9 +9,9 @@ import {
   listActiveAnimals,
   updateFavorite,
   updateAnimalAd,
-  removeAnimal,
 } from "../services/animalServices.js";
 import removeFiles from "../helpers/removeFiles.js";
+import Animal from "../models/animalModel.js";
 
 export const createAnimal = catchAsync(async (req, res) => {
   const { _id: ownerId, name: ownerName, phone: ownerPhone } = req.user;
@@ -39,8 +39,9 @@ export const createAnimal = catchAsync(async (req, res) => {
   const newAnimal = await createAnimalAd(ownerId, value, req.files);
   const { _id, ...rest } = newAnimal.toObject();
 
-  res.status(200).json({
-    newAnimal: { id: _id, ...rest },
+  res.status(201).json({
+    message: "Animal ad has been created",
+    animal: { id: _id, ...rest },
     ownerName,
     ownerPhone,
   });
@@ -60,12 +61,11 @@ export const getAllActiveAnimals = catchAsync(async (req, res) => {
 export const updateFavoriteStatus = catchAsync(async (req, res) => {
   const animalId = req.params.id;
 
-  const updatedAnimal = await updateFavorite(animalId, req.body);
-
-  const { _id, ...rest } = updatedAnimal.toObject();
+  const { favorite } = await updateFavorite(animalId, req.body);
 
   res.status(200).json({
-    updatedAnimal: { id: _id, ...rest },
+    message: "Animal favorite status has been updated",
+    favorite,
   });
 });
 
@@ -98,18 +98,15 @@ export const updateAnimal = catchAsync(async (req, res) => {
   const { _id, ...rest } = updatedAnimal.toObject();
 
   res.status(200).json({
-    updatedAnimal: { id: _id, ...rest },
+    message: "Animal ad has been updated",
+    animal: { id: _id, ...rest },
   });
 });
 
 export const deleteAnimal = catchAsync(async (req, res) => {
   const { id: animalId } = req.params;
 
-  const removedAnimal = await removeAnimal(animalId);
+  await Animal.findByIdAndDelete(animalId);
 
-  const { _id, ...rest } = removedAnimal.toObject();
-
-  res.status(200).json({
-    removedAnimal: { id: _id, ...rest },
-  });
+  res.status(204).json();
 });
