@@ -449,7 +449,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "Theme has been successfully updated"
+                      "example": "User theme has been updated"
                     },
                     "theme": {
                       "type": "string",
@@ -1265,6 +1265,10 @@
       "RegistrationResponse": {
         "type": "object",
         "properties": {
+          "message": {
+            "type": "string",
+            "example": "User has been registered"
+          },
           "user": {
             "type": "object",
             "properties": {
@@ -1309,7 +1313,7 @@
         "properties": {
           "message": {
             "type": "string",
-            "example": "Verification successful"
+            "example": "User has been verified"
           },
           "token": {
             "type": "string",
@@ -1375,6 +1379,10 @@
       "LoginResponse": {
         "type": "object",
         "properties": {
+          "message": {
+            "type": "string",
+            "example": "User has been logged in"
+          },
           "token": {
             "type": "string",
             "description": "User's token",
