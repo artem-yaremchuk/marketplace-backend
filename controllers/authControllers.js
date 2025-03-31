@@ -42,6 +42,7 @@ export const registerUser = catchAsync(async (req, res) => {
   }
 
   res.status(201).json({
+    message: "User has been registered",
     user: {
       id,
       name,
@@ -70,7 +71,7 @@ export const verifyUser = catchAsync(async (req, res) => {
   } = verifiedUser;
 
   res.status(200).json({
-    message: "Verification successful",
+    message: "User has been verified",
     token,
     user: {
       id,
@@ -113,6 +114,7 @@ export const loginUser = catchAsync(async (req, res) => {
   } = await login(req.body);
 
   res.status(200).json({
+    message: "User has been logged in",
     token,
     user: {
       id,
@@ -163,12 +165,11 @@ export const getCurrentUser = catchAsync(async (req, res) => {
 
 export const updateUserTheme = catchAsync(async (req, res) => {
   const { _id } = req.user;
-  const { theme } = req.body;
 
-  await User.findByIdAndUpdate(_id, req.body);
+  const { theme } = await User.findByIdAndUpdate(_id, req.body, { new: true });
 
   res.status(200).json({
-    message: "Theme has been successfully updated",
+    message: "User theme has been updated",
     theme,
   });
 });
