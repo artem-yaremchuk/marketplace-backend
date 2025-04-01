@@ -20,7 +20,7 @@ const animalsRouter = express.Router();
 
 animalsRouter.post("/", authorization, uploadAnimalImages, createAnimal);
 animalsRouter.get("/", getAllActiveAnimals);
-animalsRouter.get("/:id", getAnimalDetails);
+animalsRouter.get("/:id", checkAnimalId, getAnimalDetails);
 animalsRouter.patch(
   "/:id/favorite",
   authorization,
