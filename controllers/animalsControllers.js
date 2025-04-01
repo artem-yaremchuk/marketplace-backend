@@ -69,6 +69,18 @@ export const updateFavoriteStatus = catchAsync(async (req, res) => {
   });
 });
 
+export const getAnimalDetails = catchAsync(async (req, res) => {
+  const { id: animalId } = req.params;
+
+  const animal = await Animal.findById(animalId);
+
+  const { _id, ...rest } = animal.toObject();
+
+  res.status(200).json({
+    animal: { id: _id, ...rest },
+  });
+});
+
 export const updateAnimal = catchAsync(async (req, res) => {
   const { id: animalId } = req.params;
 
