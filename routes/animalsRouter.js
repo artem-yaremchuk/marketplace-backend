@@ -8,6 +8,7 @@ import {
 import {
   createAnimal,
   getAllActiveAnimals,
+  getAnimalDetails,
   updateFavoriteStatus,
   updateAnimal,
   deleteAnimal,
@@ -19,6 +20,7 @@ const animalsRouter = express.Router();
 
 animalsRouter.post("/", authorization, uploadAnimalImages, createAnimal);
 animalsRouter.get("/", getAllActiveAnimals);
+animalsRouter.get("/:id", getAnimalDetails);
 animalsRouter.patch(
   "/:id/favorite",
   authorization,
