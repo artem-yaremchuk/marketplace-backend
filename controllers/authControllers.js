@@ -226,7 +226,11 @@ export const requestResetPassword = catchAsync(async (req, res) => {
 
   const user = await createResetPasswordCode(email);
 
-  await new Email(user).sendResetPasswordCode();
+  try {
+    await new Email(user).sendResetPasswordCode();
+  } catch {
+    throw HttpError(500, "Failed to send reset password code");
+  }
 
   res.status(200).json({
     message: "Reset password code has been sent to your email",
