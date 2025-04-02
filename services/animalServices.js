@@ -57,7 +57,7 @@ export const listActiveAnimals = async (query) => {
     .skip(docsToSkip)
     .limit(limit);
 
-  const total = await Animal.countDocuments();
+  const total = await Animal.countDocuments({ status: "active" });
 
   return { total, animals };
 };
