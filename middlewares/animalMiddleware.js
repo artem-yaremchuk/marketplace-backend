@@ -31,7 +31,7 @@ export const checkAnimalId = catchAsync(async (req, res, next) => {
 export const checkOwner = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  const owner = req.user.id;
+  const owner = req.user._id;
 
   const animalExists = await Animal.exists({ _id: id, owner });
 

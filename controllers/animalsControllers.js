@@ -58,6 +58,21 @@ export const getAllActiveAnimals = catchAsync(async (req, res) => {
   res.status(200).json({ total, animals: formattedAnimals });
 });
 
+export const getUserProfileAnimals = catchAsync(async (req, res) => {
+  const { _id: owner } = req.user;
+
+  const animals = await Animal.find({ owner });
+
+  const formattedAnimals = animals.map((animal) => {
+    const { _id, ...rest } = animal.toObject();
+    return { id: _id, ...rest };
+  });
+
+  const total = await Animal.countDocuments({ owner });
+
+  res.status(200).json({ total, animals: formattedAnimals });
+});
+
 export const updateFavoriteStatus = catchAsync(async (req, res) => {
   const animalId = req.params.id;
 
