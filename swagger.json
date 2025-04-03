@@ -949,12 +949,63 @@
               }
             }
           },
-          "404": {
-            "description": "Not found",
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error404"
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/animals/my-animals": {
+      "get": {
+        "tags": ["Animals"],
+        "summary": "Get all animal ads in user profile",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "example": "1"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "description": "Limit ads per page",
+            "schema": {
+              "type": "integer",
+              "example": "9"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllAnimalsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid user token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
                 }
               }
             }
@@ -972,7 +1023,6 @@
         }
       }
     },
-    
     "/animals/{animalId}/favorite": {
       "patch": {
         "tags": ["Animals"],
@@ -2011,7 +2061,7 @@
                 },
                 "gender": "female",
                 "animalLocation": "Львів",
-                "adText": "Рокі - спокійна та віддана собака, шукає добрих господарів. Вона любить довгі прогулянки та добре ладнає з іншими тваринами.",
+                "adText": "Луна - спокійна та віддана собака, шукає добрих господарів. Вона любить довгі прогулянки та добре ладнає з іншими тваринами.",
                 "animalImages": [
                   "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP81"
                 ],
