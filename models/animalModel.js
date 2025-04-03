@@ -45,13 +45,9 @@ const animalSchema = new Schema(
       enum: ["active", "inactive"],
       default: "active",
     },
-    favorite: {
-      type: Boolean,
-      default: false,
-    },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: "user",
+      ref: "User",
     },
   },
   { versionKey: false, timestamps: true },
