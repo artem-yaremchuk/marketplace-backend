@@ -7,6 +7,7 @@ import {
 import {
   createAnimalAd,
   listActiveAnimals,
+  listUserAnimals,
   updateFavorite,
   updateAnimalAd,
 } from "../services/animalServices.js";
@@ -61,14 +62,12 @@ export const getAllActiveAnimals = catchAsync(async (req, res) => {
 export const getUserProfileAnimals = catchAsync(async (req, res) => {
   const { _id: owner } = req.user;
 
-  const animals = await Animal.find({ owner });
+  const { total, animals } = await listUserAnimals(owner, req.query);
 
   const formattedAnimals = animals.map((animal) => {
     const { _id, ...rest } = animal.toObject();
     return { id: _id, ...rest };
   });
-
-  const total = await Animal.countDocuments({ owner });
 
   res.status(200).json({ total, animals: formattedAnimals });
 });

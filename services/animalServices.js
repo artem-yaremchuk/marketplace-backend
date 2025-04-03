@@ -62,6 +62,22 @@ export const listActiveAnimals = async (query) => {
   return { total, animals };
 };
 
+export const listUserAnimals = async (owner, query) => {
+  const page = query.page ? +query.page : 1;
+  const limit = query.limit ? +query.limit : 9;
+
+  const docsToSkip = (page - 1) * limit;
+
+  const animals = await Animal.find({ owner })
+    .sort({ createdAd: -1 })
+    .skip(docsToSkip)
+    .limit(limit);
+
+  const total = await Animal.countDocuments({ owner });
+
+  return { total, animals };
+};
+
 export const updateFavorite = async (animalId, favoriteStatus) => {
   const updatedAnimal = await Animal.findByIdAndUpdate(
     animalId,
