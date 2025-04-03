@@ -27,7 +27,6 @@ animalsRouter.patch(
   "/:id/favorite",
   authorization,
   checkAnimalId,
-  checkOwner,
   validateBody(updateFavoriteStatusSchema),
   updateFavoriteStatus,
 );

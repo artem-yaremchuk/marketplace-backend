@@ -1,4 +1,5 @@
 import Animal from "../models/animalModel.js";
+import User from "../models/userModel.js";
 import cloudinary from "../helpers/cloudinary.js";
 import HttpError from "../helpers/HttpError.js";
 import removeFiles from "../helpers/removeFiles.js";
@@ -78,18 +79,24 @@ export const listUserAnimals = async (owner, query) => {
   return { total, animals };
 };
 
-export const updateFavorite = async (animalId, favoriteStatus) => {
-  const updatedAnimal = await Animal.findByIdAndUpdate(
-    animalId,
-    favoriteStatus,
-    { new: true },
-  );
+export const updateFavorite = async (animalId, userId, favoriteStatus) => {
+  const user = await User.findById(userId);
 
-  if (!updatedAnimal) {
-    throw HttpError(404, "Animal not found");
+  const index = user.favorites.indexOf(animalId);
+
+  if (favoriteStatus) {
+    if (index === -1) {
+      user.favorites.push(animalId);
+    }
+  } else {
+    if (index !== -1) {
+      user.favorites.splice(index, 1);
+    }
   }
 
-  return updatedAnimal;
+  await user.save();
+
+  return user;
 };
 
 export const updateAnimalAd = async (animalId, animalData, files) => {

@@ -60,14 +60,18 @@ const userSchema = new Schema(
       enum: themeTypes,
       default: "light",
     },
+    favorites: [{
+      type: Schema.Types.ObjectId,
+      ref: "Animal",
+    }],
     resetPasswordCode: {
       type: String,
-      default: null
+      default: null,
     },
     resetPasswordExpires: {
       type: Number,
-      default: null
-    }
+      default: null,
+    },
   },
   { versionKey: false, timestamps: true },
 );

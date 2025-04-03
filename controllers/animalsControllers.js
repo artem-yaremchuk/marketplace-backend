@@ -13,6 +13,7 @@ import {
 } from "../services/animalServices.js";
 import removeFiles from "../helpers/removeFiles.js";
 import Animal from "../models/animalModel.js";
+import User from "../models/userModel.js";
 
 export const createAnimal = catchAsync(async (req, res) => {
   const { _id: ownerId, name: ownerName, phone: ownerPhone } = req.user;
@@ -73,13 +74,28 @@ export const getUserProfileAnimals = catchAsync(async (req, res) => {
 });
 
 export const updateFavoriteStatus = catchAsync(async (req, res) => {
-  const animalId = req.params.id;
+  const { id: animalId } = req.params;
+  const { _id: userId } = req.user;
+  const { favorite } = req.body;
 
-  const { favorite } = await updateFavorite(animalId, req.body);
+  const user = await updateFavorite(animalId, userId, favorite);
+
+  const favoriteAnimals = await Animal.find({ _id: { $in: user.favorites } });
+
+  const formattedFavoriteAnimals = favoriteAnimals.map((animal) => {
+    const { _id, ...rest } = animal.toObject();
+    return { id: _id, ...rest };
+  });
+
+  // alternative way via "populate"
+  // const userWithFavorites = await User.findById(userId).populate("favorites");
+  // const favoriteAnimals = userWithFavorites.favorites;
 
   res.status(200).json({
-    message: "Animal favorite status has been updated",
-    favorite,
+    message: favorite
+      ? "Animal has been added to user favorites list"
+      : "Animal has been removed from user favorites list",
+    favorites: formattedFavoriteAnimals,
   });
 });
 
