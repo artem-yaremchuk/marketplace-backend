@@ -115,11 +115,11 @@ export const createResetPasswordCode = async (email) => {
 
   if (!user) throw HttpError(404, "User not found");
 
-  const resetCode = Math.floor(100000 + Math.random() * 900000).toString(); // Генерація 6-значного коду
+  const resetCode = Math.floor(100000 + Math.random() * 900000).toString(); // Generate a 6-digit code
 
   user.resetPasswordCode = resetCode;
 
-  user.resetPasswordExpires = Date.now() + 20 * 60 * 1000; // Код діє 20 хвилин
+  user.resetPasswordExpires = Date.now() + 20 * 60 * 1000; // The code is valid for 20 minutes
 
   await user.save();
 

@@ -13,7 +13,6 @@ import {
 } from "../services/animalServices.js";
 import removeFiles from "../helpers/removeFiles.js";
 import Animal from "../models/animalModel.js";
-import User from "../models/userModel.js";
 
 export const createAnimal = catchAsync(async (req, res) => {
   const { _id: ownerId, name: ownerName, phone: ownerPhone } = req.user;
@@ -82,14 +81,14 @@ export const updateFavoriteStatus = catchAsync(async (req, res) => {
 
   const favoriteAnimals = await Animal.find({ _id: { $in: user.favorites } });
 
+  // alternative way via "populate"
+  // const userWithFavorites = await User.findById(userId).populate("favorites");
+  // const favoriteAnimals = userWithFavorites.favorites;
+
   const formattedFavoriteAnimals = favoriteAnimals.map((animal) => {
     const { _id, ...rest } = animal.toObject();
     return { id: _id, ...rest };
   });
-
-  // alternative way via "populate"
-  // const userWithFavorites = await User.findById(userId).populate("favorites");
-  // const favoriteAnimals = userWithFavorites.favorites;
 
   res.status(200).json({
     message: favorite
