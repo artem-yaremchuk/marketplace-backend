@@ -119,11 +119,9 @@ export const updateUserSchema = Joi.object({
       "string.email": "Enter a valid email address",
       "string.max": "Email must not be more than {#limit} characters long",
     }),
-   location: Joi.string().trim().min(2).max(50).required().messages({
-    "string.empty": "Location cannot be empty",
+  location: Joi.string().trim().min(2).max(50).messages({
     "string.min": "Location must be at least {#limit} characters long",
     "string.max": "Location must not be more than {#limit} characters long",
-    "any.required": "Location is required",
   }),
   phone: Joi.string().trim().pattern(PHONE_REGEX).messages({
     "string.pattern.base":
