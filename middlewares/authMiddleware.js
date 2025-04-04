@@ -16,7 +16,7 @@ export const authorization = catchAsync(async (req, res, next) => {
 
   const currentUser = await User.findById(userId);
 
-  if (!currentUser) throw HttpError(401, "User not found");
+  if (!currentUser) throw HttpError(401, "User associated with this token does not exist");
 
   req.user = currentUser;
 

@@ -41,16 +41,16 @@ export class ImageService {
     }
 
     return (req, res, next) => {
-      // Створюємо middleware-функцію для обробки завантаження файлів
+      // Create a middleware function to handle file uploads
       const handleUpload = upload.array(name, maxCount);
 
-      // Викликаємо middleware Multer і передаємо йому req, res та кастомний обробник помилок
+      // Invoke the Multer middleware, passing req, res, and a custom error handler
       handleUpload(req, res, (err) => {
         if (!err) {
-          return next(); // Якщо помилки немає, передаємо управління далі
+          return next(); // If there is no error, pass control to the next middleware
         }
 
-        // Перевіряємо, чи помилка є MulterError і чи вона пов'язана з лімітом файлів
+        // Check if the error is a MulterError and if it's related to the file limit
         if (
           err instanceof multer.MulterError &&
           err.code === "LIMIT_UNEXPECTED_FILE"
@@ -60,7 +60,7 @@ export class ImageService {
           );
         }
 
-        // Передаємо інші можливі помилки далі
+       // Pass any other possible errors to the next middleware
         next(err);
       });
     };
