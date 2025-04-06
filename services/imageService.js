@@ -1,8 +1,13 @@
+import dotenv from "dotenv";
 import multer from "multer";
 import path from "path";
 import fse from "fs-extra";
 import { v4 } from "uuid";
 import HttpError from "../helpers/HttpError.js";
+
+dotenv.config();
+
+const MAX_IMAGE_SIZE = Number(process.env.MAX_IMAGE_SIZE) || 5;
 
 export class ImageService {
   static initUploadImageMiddleware(name, maxCount = 1) {
@@ -33,7 +38,7 @@ export class ImageService {
     const upload = multer({
       storage: storage,
       fileFilter: multerFilter,
-      limits: { fileSize: 3 * 1024 * 1024 },
+      limits: { fileSize: MAX_IMAGE_SIZE * 1024 * 1024 },
     });
 
     if (maxCount === 1) {
