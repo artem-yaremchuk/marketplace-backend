@@ -54,7 +54,7 @@ export const listActiveAnimals = async (query) => {
   const docsToSkip = (page - 1) * limit;
 
   const animals = await Animal.find({ status: "active" })
-    .sort({ createdAd: -1 })
+    .sort({ createdAt: -1 })
     .skip(docsToSkip)
     .limit(limit);
 
@@ -70,7 +70,7 @@ export const listUserAnimals = async (owner, query) => {
   const docsToSkip = (page - 1) * limit;
 
   const animals = await Animal.find({ owner })
-    .sort({ createdAd: -1 })
+    .sort({ createdAt: -1 })
     .skip(docsToSkip)
     .limit(limit);
 
