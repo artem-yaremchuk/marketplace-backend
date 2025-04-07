@@ -16,6 +16,7 @@ import User from "../models/userModel.js";
 import { updateUserSchema } from "../schemas/userSchemas.js";
 import HttpError from "../helpers/HttpError.js";
 import removeFiles from "../helpers/removeFiles.js";
+import getFormattedFavorites from "../helpers/getFormattedFavorites.js";
 
 dotenv.config();
 
@@ -113,6 +114,8 @@ export const loginUser = catchAsync(async (req, res) => {
     theme,
   } = await login(req.body);
 
+  const favorites = await getFormattedFavorites(id);
+
   res.status(200).json({
     message: "User has been logged in",
     token,
@@ -125,6 +128,7 @@ export const loginUser = catchAsync(async (req, res) => {
       userType,
       avatarURL,
       theme,
+      favorites,
     },
   });
 });
@@ -149,6 +153,8 @@ export const getCurrentUser = catchAsync(async (req, res) => {
     theme,
   } = req.user;
 
+  const favorites = await getFormattedFavorites(id);
+
   res.status(200).json({
     user: {
       id,
@@ -159,6 +165,7 @@ export const getCurrentUser = catchAsync(async (req, res) => {
       userType,
       avatarURL,
       theme,
+      favorites,
     },
   });
 });
@@ -204,7 +211,7 @@ export const updateUser = catchAsync(async (req, res) => {
     }
   }
 
-  const { name, email, location, phone, avatarURL, theme } =
+  const { name, email, location, phone, avatarURL } =
     await updateUserProfile(userId, userData, req.file);
 
   res.status(200).json({
@@ -216,7 +223,6 @@ export const updateUser = catchAsync(async (req, res) => {
       location,
       phone,
       avatarURL,
-      theme,
     },
   });
 });
@@ -254,6 +260,8 @@ export const confirmResetPassword = catchAsync(async (req, res) => {
     theme,
   } = verifiedUser;
 
+  const favorites = await getFormattedFavorites(id);
+
   res.status(200).json({
     message: "Reset password verification successful",
     token,
@@ -266,6 +274,7 @@ export const confirmResetPassword = catchAsync(async (req, res) => {
       userType,
       avatarURL,
       theme,
+      favorites,
     },
   });
 });
