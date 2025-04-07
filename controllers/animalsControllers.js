@@ -13,6 +13,8 @@ import {
 } from "../services/animalServices.js";
 import removeFiles from "../helpers/removeFiles.js";
 import Animal from "../models/animalModel.js";
+import getFormattedFavorites from "../helpers/getFormattedFavorites.js";
+import formatAnimals from "../helpers/formatAnimals.js";
 
 export const createAnimal = catchAsync(async (req, res) => {
   const { _id: ownerId, name: ownerName, phone: ownerPhone } = req.user;
@@ -51,10 +53,7 @@ export const createAnimal = catchAsync(async (req, res) => {
 export const getAllActiveAnimals = catchAsync(async (req, res) => {
   const { total, animals } = await listActiveAnimals(req.query);
 
-  const formattedAnimals = animals.map((animal) => {
-    const { _id, ...rest } = animal.toObject();
-    return { id: _id, ...rest };
-  });
+  const formattedAnimals = formatAnimals(animals);
 
   res.status(200).json({ total, animals: formattedAnimals });
 });
@@ -64,10 +63,7 @@ export const getUserProfileAnimals = catchAsync(async (req, res) => {
 
   const { total, animals } = await listUserAnimals(owner, req.query);
 
-  const formattedAnimals = animals.map((animal) => {
-    const { _id, ...rest } = animal.toObject();
-    return { id: _id, ...rest };
-  });
+  const formattedAnimals = formatAnimals(animals);
 
   res.status(200).json({ total, animals: formattedAnimals });
 });
@@ -77,18 +73,9 @@ export const updateFavoriteStatus = catchAsync(async (req, res) => {
   const { _id: userId } = req.user;
   const { favorite } = req.body;
 
-  const user = await updateFavorite(animalId, userId, favorite);
+  await updateFavorite(animalId, userId, favorite);
 
-  const favoriteAnimals = await Animal.find({ _id: { $in: user.favorites } });
-
-  // alternative way via "populate"
-  // const userWithFavorites = await User.findById(userId).populate("favorites");
-  // const favoriteAnimals = userWithFavorites.favorites;
-
-  const formattedFavoriteAnimals = favoriteAnimals.map((animal) => {
-    const { _id, ...rest } = animal.toObject();
-    return { id: _id, ...rest };
-  });
+  const formattedFavoriteAnimals = await getFormattedFavorites(userId);
 
   res.status(200).json({
     message: favorite
