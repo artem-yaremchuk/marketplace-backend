@@ -1,7 +1,7 @@
 import { v4 } from "uuid";
 import User from "../models/userModel.js";
 import HttpError from "../helpers/HttpError.js";
-import { signToken } from "../services/jwtService.js";
+import { signToken } from "./jwtService.js";
 import cloudinary from "../helpers/cloudinary.js";
 import removeFiles from "../helpers/removeFiles.js";
 
