@@ -22,7 +22,7 @@
     },
     {
       "name": "Animal Traits",
-      "description": "Operations related to animal traits, used for filtering and searching animals"
+      "description": "Operations related to animal traits, used for describing and filtering animals"
     }
   ],
   "paths": {
@@ -1328,7 +1328,7 @@
       "get": {
         "tags": ["Animal Traits"],
         "summary": "Get animal traits data",
-        "description": "Fetch static data about animal traits for dogs, cats, birds, and other animals. Used for searching and filtering animals by breed, size, weight, and coat.",
+        "description": "Fetch static data about animal traits for dogs, cats, birds, and other animals. Used for describing and filtering animals by breed, size, weight, and coat.",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -2893,19 +2893,19 @@
           "dogs": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Trait"
+              "$ref": "#/components/schemas/DogsTrait"
             }
           },
           "cats": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Trait"
+              "$ref": "#/components/schemas/CatsTrait"
             }
           },
           "birds": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Trait"
+              "$ref": "#/components/schemas/BirdsTrait"
             }
           },
           "other": {
@@ -2926,7 +2926,7 @@
           }
         }
       },
-      "Trait": {
+      "DogsTrait": {
         "type": "object",
         "properties": {
           "breed": {
@@ -2944,6 +2944,48 @@
           "coat": {
             "type": "string",
             "example": "Коротка"
+          }
+        }
+      },
+       "CatsTrait": {
+        "type": "object",
+        "properties": {
+          "breed": {
+            "type": "string",
+            "example": "Бенгальська кішка"
+          },
+          "size": {
+            "type": "string",
+            "example": "Середній"
+          },
+          "weight": {
+            "type": "string",
+            "example": "4-7 кг"
+          },
+          "coat": {
+            "type": "string",
+            "example": "Коротка"
+          }
+        }
+      },
+       "BirdsTrait": {
+        "type": "object",
+        "properties": {
+          "breed": {
+            "type": "string",
+            "example": "Хвилястий папуга"
+          },
+          "size": {
+            "type": "string",
+            "example": "Малий"
+          },
+          "weight": {
+            "type": "string",
+            "example": "30-40 г"
+          },
+          "coat": {
+            "type": "string",
+            "example": ""
           }
         }
       },
