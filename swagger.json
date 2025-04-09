@@ -2911,6 +2911,18 @@
           "other": {
             "type": "string",
             "example": "Інша тварина"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when animal traits were created",
+            "example": "2025-03-19T15:17:43.934Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when animal traits were last updated",
+            "example": "2025-03-19T15:17:43.934Z"
           }
         }
       },
