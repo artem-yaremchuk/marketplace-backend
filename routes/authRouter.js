@@ -9,7 +9,7 @@ import {
   resetPasswordCodeSchema,
   resetPasswordSchema,
   changePasswordSchema,
-} from "../schemas/userSchemas.js";
+} from "../schemas/userSchema.js";
 import {
   registerUser,
   verifyUser,
@@ -24,7 +24,7 @@ import {
   resetUserPassword,
   changeUserPassword,
   deleteUser,
-} from "../controllers/authControllers.js";
+} from "../controllers/authController.js";
 import { authorization } from "../middlewares/authMiddleware.js";
 import { uploadAvatar } from "../middlewares/userMiddleware.js";
 

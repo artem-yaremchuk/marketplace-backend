@@ -3,14 +3,14 @@ import catchAsync from "../helpers/catchAsync.js";
 import {
   createAnimalSchema,
   updateAnimalSchema,
-} from "../schemas/animalsSchemas.js";
+} from "../schemas/animalSchema.js";
 import {
   createAnimalAd,
   listActiveAnimals,
   listUserAnimals,
   updateFavorite,
   updateAnimalAd,
-} from "../services/animalServices.js";
+} from "../services/animalService.js";
 import removeFiles from "../helpers/removeFiles.js";
 import Animal from "../models/animalModel.js";
 import getFormattedFavorites from "../helpers/getFormattedFavorites.js";

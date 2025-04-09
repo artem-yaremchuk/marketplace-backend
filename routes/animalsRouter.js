@@ -13,9 +13,9 @@ import {
   updateFavoriteStatus,
   updateAnimal,
   deleteAnimal,
-} from "../controllers/animalsControllers.js";
+} from "../controllers/animalController.js";
 import validateBody from "../helpers/validateBody.js";
-import { updateFavoriteStatusSchema } from "../schemas/animalsSchemas.js";
+import { updateFavoriteStatusSchema } from "../schemas/animalSchema.js";
 
 const animalsRouter = express.Router();
 

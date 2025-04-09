@@ -10,10 +10,10 @@ import {
   verifyResetPasswordCode,
   resetPassword,
   changePassword,
-} from "../services/userServices.js";
+} from "../services/userService.js";
 import { Email } from "../services/emailService.js";
 import User from "../models/userModel.js";
-import { updateUserSchema } from "../schemas/userSchemas.js";
+import { updateUserSchema } from "../schemas/userSchema.js";
 import HttpError from "../helpers/HttpError.js";
 import removeFiles from "../helpers/removeFiles.js";
 import getFormattedFavorites from "../helpers/getFormattedFavorites.js";
