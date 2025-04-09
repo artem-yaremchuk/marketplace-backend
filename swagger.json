@@ -19,6 +19,10 @@
     {
       "name": "Animal",
       "description": "Everything about your Animals"
+    },
+    {
+      "name": "Animal Traits",
+      "description": "Operations related to animal traits, used for filtering and searching animals"
     }
   ],
   "paths": {
@@ -855,7 +859,7 @@
     },
     "/animals": {
       "post": {
-        "tags": ["Animals"],
+        "tags": ["Animal"],
         "summary": "Create animal ad",
         "parameters": [],
         "security": [{ "Bearer": [] }],
@@ -914,7 +918,7 @@
         }
       },
       "get": {
-        "tags": ["Animals"],
+        "tags": ["Animal"],
         "summary": "Get all active animal ads",
         "parameters": [
           {
@@ -964,7 +968,7 @@
     },
     "/animals/my-animals": {
       "get": {
-        "tags": ["Animals"],
+        "tags": ["Animal"],
         "summary": "Get all animal ads in user profile",
         "security": [{ "Bearer": [] }],
         "parameters": [
@@ -1025,7 +1029,7 @@
     },
     "/animals/{animalId}/favorite": {
       "patch": {
-        "tags": ["Animals"],
+        "tags": ["Animal"],
         "summary": "Update animal ad favorite status",
         "parameters": [
           {
@@ -1116,7 +1120,7 @@
     },
     "/animals/{animalId}": {
       "get": {
-        "tags": ["Animals"],
+        "tags": ["Animal"],
         "summary": "Get animal ad details",
         "parameters": [
           {
@@ -1175,7 +1179,7 @@
         }
       },
       "put": {
-        "tags": ["Animals"],
+        "tags": ["Animal"],
         "summary": "Update animal ad",
         "parameters": [
           {
@@ -1256,7 +1260,7 @@
         }
       },
       "delete": {
-        "tags": ["Animals"],
+        "tags": ["Animal"],
         "summary": "Delete animal ad",
         "parameters": [
           {
@@ -1299,6 +1303,45 @@
           },
           "404": {
             "description": "Animal not found or you are not the owner",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/references/animal-traits": {
+      "get": {
+        "tags": ["Animal Traits"],
+        "summary": "Get animal traits data",
+        "description": "Fetch static data about animal traits for dogs, cats, birds, and other animals. Used for searching and filtering animals by breed, size, weight, and coat.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnimalTraitsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Animal traits data not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -2841,6 +2884,54 @@
                 "example": "2025-03-19T15:17:43.934Z"
               }
             }
+          }
+        }
+      },
+      "AnimalTraitsResponse": {
+        "type": "object",
+        "properties": {
+          "dogs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Trait"
+            }
+          },
+          "cats": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Trait"
+            }
+          },
+          "birds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Trait"
+            }
+          },
+          "other": {
+            "type": "string",
+            "example": "Інша тварина"
+          }
+        }
+      },
+      "Trait": {
+        "type": "object",
+        "properties": {
+          "breed": {
+            "type": "string",
+            "example": "Австралійський келпі"
+          },
+          "size": {
+            "type": "string",
+            "example": "Середній"
+          },
+          "weight": {
+            "type": "string",
+            "example": "14-28 кг"
+          },
+          "coat": {
+            "type": "string",
+            "example": "Коротка"
           }
         }
       },
