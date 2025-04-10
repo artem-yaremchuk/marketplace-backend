@@ -9,6 +9,7 @@ import swaggerUi from "swagger-ui-express";
 import authRouter from "./routes/authRouter.js";
 import animalsRouter from "./routes/animalsRouter.js";
 import animalTraitsRouter from "./routes/animalTraitsRouter.js";
+import citiesRouter from "./routes/citiesRouter.js";
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/users", authRouter);
 app.use("/animals", animalsRouter);
 app.use("/references/animal-traits", animalTraitsRouter);
+app.use("/references/cities", citiesRouter);
 
 app.use(express.static("public"));
 

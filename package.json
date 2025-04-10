@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./app.js",
     "dev": "nodemon ./app.js",
-    "import:traits": "node ./scripts/importAnimalTraits.js"
+    "import:traits": "node ./scripts/importAnimalTraits.js",
+    "import:cities": "node ./scripts/importCities.js"
   },
   "keywords": [],
   "author": "",
