@@ -2944,6 +2944,11 @@
           "coat": {
             "type": "string",
             "example": "Коротка"
+          },
+          "_id": {
+            "type": "string",
+            "description": "Unique identifier for the animal traits item",
+            "example": "67f64092868e326cd2071394"
           }
         }
       },
@@ -2964,7 +2969,12 @@
           },
           "coat": {
             "type": "string",
-            "example": "Коротка"
+            "example": "Коротка" 
+          },
+          "_id": {
+          "type": "string",
+          "description": "Unique identifier for the animal traits item",
+          "example": "67f64092868e326cd2071471"
           }
         }
       },
@@ -2985,7 +2995,12 @@
           },
           "coat": {
             "type": "string",
-            "example": ""
+            "example": "" 
+          },
+          "_id": {
+            "type": "string",
+            "description": "Unique identifier for the animal traits item",
+            "example": "67f64092868e326cd20714c3"
           }
         }
       },
