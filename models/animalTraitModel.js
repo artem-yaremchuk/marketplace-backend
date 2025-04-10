@@ -19,7 +19,7 @@ const traitSchema = new Schema({
   },
 });
 
-const animalTraitsSchema = new Schema(
+const animalTraitSchema = new Schema(
   {
     dogs: [traitSchema],
     cats: [traitSchema],
@@ -32,6 +32,6 @@ const animalTraitsSchema = new Schema(
   { versionKey: false, timestamps: true },
 );
 
-const AnimalTraits = model("AnimalTraits", animalTraitsSchema);
+const AnimalTrait = model("AnimalTrait", animalTraitSchema);
 
-export default AnimalTraits;
+export default AnimalTrait;
