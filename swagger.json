@@ -21,8 +21,8 @@
       "description": "Everything about your Animals"
     },
     {
-      "name": "Animal Traits",
-      "description": "Operations related to animal traits, used for describing and filtering animals"
+      "name": "References",
+      "description": "Static reference data used for form inputs and filters"
     }
   ],
   "paths": {
@@ -1326,7 +1326,7 @@
     },
     "/references/animal-traits": {
       "get": {
-        "tags": ["Animal Traits"],
+        "tags": ["References"],
         "summary": "Get animal traits data",
         "description": "Fetch static data about animal traits for dogs, cats, birds, and other animals. Used for describing and filtering animals by breed, size, weight, and coat.",
         "responses": {
@@ -1342,6 +1342,84 @@
           },
           "404": {
             "description": "Animal traits data not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/references/cities": {
+      "get": {
+        "tags": ["References"],
+        "summary": "Get list of cities in Ukraine",
+        "description": "Returns a list of all ukrainian cities with their area and city identifiers.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CitiesResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cities not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/references/regions": {
+      "get": {
+        "tags": ["References"],
+        "summary": "Get list of regions in Ukraine",
+        "description": "Returns a complete list of Ukrainian regions (oblasts) with their corresponding unique identifiers.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegionsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Regions not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -2911,18 +2989,6 @@
           "other": {
             "type": "string",
             "example": "Інша тварина"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Timestamp when animal traits were created",
-            "example": "2025-03-19T15:17:43.934Z"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Timestamp when animal traits were last updated",
-            "example": "2025-03-19T15:17:43.934Z"
           }
         }
       },
@@ -3003,6 +3069,83 @@
             "example": "67f64092868e326cd20714c3"
           }
         }
+      },
+      "CitiesResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "Unique identifier for the city item in database",
+              "example": "67f7daf6405f8609b0a0b5c0"
+            },
+            "idArea": {
+              "type": "string",
+              "description": "Code of the region (oblast) this city belongs to",
+              "example": "0100000000"
+            },
+            "idCity": {
+              "type": "string",
+              "description": "Unique administrative code of the city",
+              "example": "0110100000"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the city or locality",
+              "example": "СІМФЕРОПОЛЬ"
+            }
+          }
+        },
+        "example": [
+          {
+            "_id": "67f7daf6405f8609b0a0b5c0",
+            "idArea": "0100000000",
+            "idCity": "0110100000",
+            "name": "СІМФЕРОПОЛЬ"
+          },
+          {
+            "_id": "67f7daf6405f8609b0a0b5c1",
+            "idArea": "3200000000",
+            "idCity": "3210300000",
+            "name": "Біла Церква, Київська область"
+          }
+        ]
+      },
+      "RegionsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "Unique identifier for the region item in database",
+              "example": "67f8f5950be7456954323428"
+            },
+            "id": {
+              "type": "string",
+              "description": "Administrative code for the region (oblast)",
+              "example": "0500000000"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the Ukrainian region (oblast)",
+              "example": "Вінницька область"
+            }
+          }
+        },
+        "example": [
+          {
+            "_id": "67f8f5950be7456954323428",
+            "id": "0500000000",
+            "name": "Вінницька область"
+          },
+          {
+            "_id": "67f8f5950be7456954323429",
+            "id": "0700000000",
+            "name": "Волинська область"
+          }
+        ]
       },
       "Error400": {
         "type": "object",
