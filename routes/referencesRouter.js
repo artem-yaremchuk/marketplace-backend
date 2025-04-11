@@ -1,12 +1,12 @@
 import express from "express";
 import animalTraitsRouter from "../routes/animalTraitsRouter.js";
 import citiesRouter from "../routes/citiesRouter.js";
-import statesRouter from "../routes/statesRouter.js";
+import regionsRouter from "../routes/regionsRouter.js";
 
 const referencesRouter = express.Router();
 
 referencesRouter.use("/animal-traits", animalTraitsRouter);
 referencesRouter.use("/cities", citiesRouter);
-referencesRouter.use("/states", statesRouter);
+referencesRouter.use("/regions", regionsRouter);
 
 export default referencesRouter;

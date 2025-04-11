@@ -9,7 +9,7 @@
     "dev": "nodemon ./app.js",
     "import:traits": "node ./scripts/importAnimalTraits.js",
     "import:cities": "node ./scripts/importCities.js",
-    "import:states": "node ./scripts/importStates.js"
+    "import:regions": "node ./scripts/importRegions.js"
   },
   "keywords": [],
   "author": "",
