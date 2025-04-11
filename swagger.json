@@ -21,7 +21,7 @@
       "description": "Everything about your Animals"
     },
     {
-      "name": "References",
+      "name": "Reference",
       "description": "Static reference data used for form inputs and filters"
     }
   ],
@@ -1326,7 +1326,7 @@
     },
     "/references/animal-traits": {
       "get": {
-        "tags": ["References"],
+        "tags": ["Reference"],
         "summary": "Get animal traits data",
         "description": "Fetch static data about animal traits for dogs, cats, birds, and other animals. Used for describing and filtering animals by breed, size, weight, and coat.",
         "responses": {
@@ -1365,7 +1365,7 @@
     },
     "/references/cities": {
       "get": {
-        "tags": ["References"],
+        "tags": ["Reference"],
         "summary": "Get list of cities in Ukraine",
         "description": "Returns a list of all ukrainian cities with their area and city identifiers.",
         "responses": {
@@ -1404,7 +1404,7 @@
     },
     "/references/regions": {
       "get": {
-        "tags": ["References"],
+        "tags": ["Reference"],
         "summary": "Get list of regions in Ukraine",
         "description": "Returns a complete list of Ukrainian regions (oblasts) with their corresponding unique identifiers.",
         "responses": {
