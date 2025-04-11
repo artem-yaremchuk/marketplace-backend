@@ -10,6 +10,7 @@ import authRouter from "./routes/authRouter.js";
 import animalsRouter from "./routes/animalsRouter.js";
 import animalTraitsRouter from "./routes/animalTraitsRouter.js";
 import citiesRouter from "./routes/citiesRouter.js";
+import statesRouter from "./routes/statesRouter.js";
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use("/users", authRouter);
 app.use("/animals", animalsRouter);
 app.use("/references/animal-traits", animalTraitsRouter);
 app.use("/references/cities", citiesRouter);
+app.use("/references/states", statesRouter);
 
 app.use(express.static("public"));
 
