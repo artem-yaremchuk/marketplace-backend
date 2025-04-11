@@ -29,7 +29,7 @@ const animalTraitSchema = new Schema(
       required: true,
     },
   },
-  { versionKey: false, timestamps: true },
+  { versionKey: false },
 );
 
 const AnimalTrait = model("AnimalTrait", animalTraitSchema);
