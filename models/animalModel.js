@@ -14,15 +14,24 @@ const animalSchema = new Schema(
       type: String,
       required: [true, "Breed is required"],
     },
+    size: {
+      type: String,
+    },
+    weight: {
+      type: String,
+    },
+    coat: {
+      type: String,
+    },
     age: {
       years: {
         type: Number,
-        required: [true, "Years is required"]
+        required: [true, "Years is required"],
       },
       months: {
         type: Number,
         required: [true, "Months is required"],
-      }
+      },
     },
     gender: {
       type: String,
@@ -38,7 +47,7 @@ const animalSchema = new Schema(
       required: [true, "Ad text is required"],
     },
     animalImages: {
-      type: [ String ],
+      type: [String],
     },
     status: {
       type: String,

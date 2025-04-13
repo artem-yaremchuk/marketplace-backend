@@ -1,4 +1,5 @@
 import Animal from "../models/animalModel.js";
+import AnimalTrait from "../models/animalTraitModel.js";
 import User from "../models/userModel.js";
 import cloudinary from "../helpers/cloudinary.js";
 import HttpError from "../helpers/HttpError.js";
@@ -6,6 +7,7 @@ import removeFiles from "../helpers/removeFiles.js";
 
 export const createAnimalAd = async (ownerId, animalData, files) => {
   let animalImages = [];
+  let searchedTraits = null;
 
   try {
     if (files && files.length)
@@ -37,6 +39,31 @@ export const createAnimalAd = async (ownerId, animalData, files) => {
 
   if (animalImages.length === 0)
     throw HttpError(400, "At least 1 animal image is required");
+
+  const { animalType, breed } = animalData;
+
+  const animalsTraits = await AnimalTrait.findOne();
+
+  if (
+    animalsTraits &&
+    animalsTraits[animalType] &&
+    Array.isArray(animalsTraits[animalType])
+  ) {
+    searchedTraits = animalsTraits[animalType].find(
+      (trait) => trait.breed === breed,
+    );
+  }
+
+  if (searchedTraits) {
+    const { size, weight, coat } = searchedTraits;
+    animalData.size = size;
+    animalData.weight = weight;
+    animalData.coat = coat;
+  } else {
+    console.log(
+      `No specific traits found for the animalType: "${animalType}" and breed: "${breed}"`,
+    );
+  }
 
   const newAnimal = await Animal.create({
     ...animalData,
@@ -101,6 +128,7 @@ export const updateFavorite = async (animalId, userId, favoriteStatus) => {
 
 export const updateAnimalAd = async (animalId, animalData, files) => {
   let animalImages = [];
+  let searchedTraits = null;
 
   try {
     if (files && files.length > 0) {
@@ -131,6 +159,31 @@ export const updateAnimalAd = async (animalId, animalData, files) => {
 
   if (animalImages.length === 0)
     throw HttpError(400, "At least 1 animal image is required");
+
+  const { animalType, breed } = animalData;
+
+  const animalsTraits = await AnimalTrait.findOne();
+
+  if (
+    animalsTraits &&
+    animalsTraits[animalType] &&
+    Array.isArray(animalsTraits[animalType])
+  ) {
+    searchedTraits = animalsTraits[animalType].find(
+      (trait) => trait.breed === breed,
+    );
+  }
+
+  if (searchedTraits) {
+    const { size, weight, coat } = searchedTraits;
+    animalData.size = size;
+    animalData.weight = weight;
+    animalData.coat = coat;
+  } else {
+    console.log(
+      `No specific traits found for the animalType: "${animalType}" and breed: "${breed}"`,
+    );
+  }
 
   const updatedAnimal = await Animal.findOneAndUpdate(
     { _id: animalId },
