@@ -1671,22 +1671,37 @@
                     },
                     "animalName": {
                       "type": "string",
-                      "description": "Name of the animal",
+                      "description": "Animal name",
                       "example": "Спарк"
                     },
                     "animalType": {
                       "type": "string",
-                      "description": "Type of the animal",
-                      "example": "собака"
+                      "description": "Animal type",
+                      "example": "dogs"
                     },
                     "breed": {
                       "type": "string",
-                      "description": "Breed of the animal",
+                      "description": "Animal breed",
                       "example": "Джек-рассел-тер'єр"
+                    },
+                    "size": {
+                      "type": "string",
+                      "description": "Animal size",
+                      "example": "Малий"
+                    },
+                    "weight": {
+                      "type": "string",
+                      "description": "Animal weight",
+                      "example": "5-8 кг"
+                    },
+                    "coat": {
+                      "type": "string",
+                      "description": "Animal coat",
+                      "example": "Середня"
                     },
                     "age": {
                       "type": "object",
-                      "description": "Age of the animal",
+                      "description": "Animal age",
                       "properties": {
                         "years": {
                           "type": "integer",
@@ -1702,7 +1717,7 @@
                     },
                     "gender": {
                       "type": "string",
-                      "description": "Gender of the animal",
+                      "description": "Animal gender",
                       "enum": ["male", "female", "unknown"],
                       "example": "male"
                     },
@@ -1713,7 +1728,7 @@
                     },
                     "adText": {
                       "type": "string",
-                      "description": "Description of the animal",
+                      "description": "Animal description",
                       "example": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами."
                     },
                     "animalImages": {
@@ -1737,7 +1752,7 @@
                     },
                     "owner": {
                       "type": "string",
-                      "description": "User ID of the owner",
+                      "description": "User ID of the animal owner",
                       "example": "67dadd700c7810a7f785decd"
                     },
                     "createdAt": {
@@ -1758,8 +1773,11 @@
                   {
                     "id": "67dae0170c7810a7f785dee7",
                     "animalName": "Спарк",
-                    "animalType": "собака",
+                    "animalType": "dogs",
                     "breed": "Джек-рассел-тер'єр",
+                    "size": "Малий",
+                    "weight": "5-8 кг",
+                    "coat": "Середня",
                     "age": {
                       "years": 4,
                       "months": 5
@@ -1779,7 +1797,7 @@
                   {
                     "id": "67dae0170c7810a7f785dee8",
                     "animalName": "Луна",
-                    "animalType": "собака",
+                    "animalType": "dogs",
                     "breed": "Німецька вівчарка",
                     "age": {
                       "years": 3,
@@ -1864,22 +1882,37 @@
                     },
                     "animalName": {
                       "type": "string",
-                      "description": "Name of the animal",
+                      "description": "Animal name",
                       "example": "Спарк"
                     },
                     "animalType": {
                       "type": "string",
-                      "description": "Type of the animal",
-                      "example": "собака"
+                      "description": "Animal type",
+                      "example": "dogs"
                     },
                     "breed": {
                       "type": "string",
-                      "description": "Breed of the animal",
+                      "description": "Animal breed",
                       "example": "Джек-рассел-тер'єр"
+                    },
+                    "size": {
+                      "type": "string",
+                      "description": "Animal size",
+                      "example": "Малий"
+                    },
+                    "weight": {
+                      "type": "string",
+                      "description": "Animal weight",
+                      "example": "5-8 кг"
+                    },
+                    "coat": {
+                      "type": "string",
+                      "description": "Animal coat",
+                      "example": "Середня"
                     },
                     "age": {
                       "type": "object",
-                      "description": "Age of the animal",
+                      "description": "Animal age",
                       "properties": {
                         "years": {
                           "type": "integer",
@@ -1895,7 +1928,7 @@
                     },
                     "gender": {
                       "type": "string",
-                      "description": "Gender of the animal",
+                      "description": "Animal gender",
                       "enum": ["male", "female", "unknown"],
                       "example": "male"
                     },
@@ -1906,7 +1939,7 @@
                     },
                     "adText": {
                       "type": "string",
-                      "description": "Description of the animal",
+                      "description": "Animal description",
                       "example": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами."
                     },
                     "animalImages": {
@@ -1930,7 +1963,7 @@
                     },
                     "owner": {
                       "type": "string",
-                      "description": "User ID of the owner",
+                      "description": "User ID of the animal owner",
                       "example": "67dadd700c7810a7f785decd"
                     },
                     "createdAt": {
@@ -1951,8 +1984,11 @@
                   {
                     "id": "67dae0170c7810a7f785dee7",
                     "animalName": "Спарк",
-                    "animalType": "собака",
+                    "animalType": "dogs",
                     "breed": "Джек-рассел-тер'єр",
+                    "size": "Малий",
+                    "weight": "5-8 кг",
+                    "coat": "Середня",
                     "age": {
                       "years": 4,
                       "months": 5
@@ -1972,8 +2008,11 @@
                   {
                     "id": "67dae0170c7810a7f785dee8",
                     "animalName": "Луна",
-                    "animalType": "собака",
+                    "animalType": "dogs",
                     "breed": "Німецька вівчарка",
+                    "size": "Великий",
+                    "weight": "30-40 кг",
+                    "coat": "Середня",
                     "age": {
                       "years": 3,
                       "months": 11
@@ -2148,22 +2187,37 @@
                     },
                     "animalName": {
                       "type": "string",
-                      "description": "Name of the animal",
+                      "description": "Animal name",
                       "example": "Спарк"
                     },
                     "animalType": {
                       "type": "string",
-                      "description": "Type of the animal",
-                      "example": "собака"
+                      "description": "Animal type",
+                      "example": "dogs"
                     },
                     "breed": {
                       "type": "string",
-                      "description": "Breed of the animal",
+                      "description": "Animal breed",
                       "example": "Джек-рассел-тер'єр"
+                    },
+                    "size": {
+                      "type": "string",
+                      "description": "Animal size",
+                      "example": "Малий"
+                    },
+                    "weight": {
+                      "type": "string",
+                      "description": "Animal weight",
+                      "example": "5-8 кг"
+                    },
+                    "coat": {
+                      "type": "string",
+                      "description": "Animal coat",
+                      "example": "Середня"
                     },
                     "age": {
                       "type": "object",
-                      "description": "Age of the animal",
+                      "description": "Animal age",
                       "properties": {
                         "years": {
                           "type": "integer",
@@ -2179,7 +2233,7 @@
                     },
                     "gender": {
                       "type": "string",
-                      "description": "Gender of the animal",
+                      "description": "Animal gender",
                       "enum": ["male", "female", "unknown"],
                       "example": "male"
                     },
@@ -2190,7 +2244,7 @@
                     },
                     "adText": {
                       "type": "string",
-                      "description": "Description of the animal",
+                      "description": "Animal description",
                       "example": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами."
                     },
                     "animalImages": {
@@ -2214,7 +2268,7 @@
                     },
                     "owner": {
                       "type": "string",
-                      "description": "User ID of the owner",
+                      "description": "User ID of the animal owner",
                       "example": "67dadd700c7810a7f785decd"
                     },
                     "createdAt": {
@@ -2235,8 +2289,11 @@
                   {
                     "id": "67dae0170c7810a7f785dee7",
                     "animalName": "Спарк",
-                    "animalType": "собака",
+                    "animalType": "dogs",
                     "breed": "Джек-рассел-тер'єр",
+                    "size": "Малий",
+                    "weight": "5-8 кг",
+                    "coat": "Середня",
                     "age": {
                       "years": 4,
                       "months": 5
@@ -2256,8 +2313,11 @@
                   {
                     "id": "67dae0170c7810a7f785dee8",
                     "animalName": "Луна",
-                    "animalType": "собака",
+                    "animalType": "dogs",
                     "breed": "Німецька вівчарка",
+                    "size": "Великий",
+                    "weight": "30-40 кг",
+                    "coat": "Середня",
                     "age": {
                       "years": 3,
                       "months": 11
@@ -2323,7 +2383,7 @@
           "animalData": {
             "type": "string",
             "description": "JSON string containing animal data (animalName, animalType, breed, age, gender, animalLocation, adText)",
-            "example": "{\"animalName\": \"Спарк\", \"animalType\": \"собака\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": {\"years\": 2, \"months\": 3}, \"gender\": \"male\", \"animalLocation\": \"Київ\", \"adText\": \"Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.\"}"
+            "example": "{\"animalName\": \"Спарк\", \"animalType\": \"dogs\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": {\"years\": 2, \"months\": 3}, \"gender\": \"male\", \"animalLocation\": \"Київ\", \"adText\": \"Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.\"}"
           },
           "images": {
             "type": "array",
@@ -2353,22 +2413,37 @@
                 },
               "animalName": {
                 "type": "string",
-                "description": "Name of the animal",
+                "description": "Animal name",
                 "example": "Спарк"
               },
               "animalType": {
                 "type": "string",
-                "description": "Type of the animal",
-                "example": "собака"
+                "description": "Animal type",
+                "example": "dogs"
               },
               "breed": {
                 "type": "string",
-                "description": "Breed of the animal",
+                "description": "Animal breed",
                 "example": "Джек-рассел-тер'єр"
+              },
+              "size": {
+                "type": "string",
+                "description": "Animal size",
+                "example": "Малий"
+              },
+              "weight": {
+                "type": "string",
+                "description": "Animal weight",
+                "example": "5-8 кг"
+              },
+              "coat": {
+                "type": "string",
+                "description": "Animal coat",
+                "example": "Середня"
               },
               "age": {
                   "type": "object",
-                  "description": "Age of the animal",
+                  "description": "Animal age",
                   "properties": {
                     "years": {
                       "type": "integer",
@@ -2384,7 +2459,7 @@
               },
               "gender": {
                 "type": "string",
-                "description": "Gender of the animal",
+                "description": "Animal gender",
                 "enum": ["male", "female", "unknown"],
                 "example": "male"
               },
@@ -2395,7 +2470,7 @@
               },
               "adText": {
                 "type": "string",
-                "description": "Description of the animal",
+                "description": "Animal description",
                 "example": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами."
               },
               "animalImages": {
@@ -2419,7 +2494,7 @@
               },
               "owner": {
                 "type": "string",
-                "description": "User ID of the owner",
+                "description": "User ID of the animal owner",
                 "example": "67dadd700c7810a7f785decd"
               },
               "createdAt": {
@@ -2469,22 +2544,37 @@
                 },
                 "animalName": {
                   "type": "string",
-                  "description": "Name of the animal",
+                  "description": "Animal name",
                   "example": "Спарк"
                 },
                 "animalType": {
                   "type": "string",
-                  "description": "Type of the animal",
-                  "example": "собака"
+                  "description": "Animal type",
+                  "example": "dogs"
                 },
                 "breed": {
                   "type": "string",
-                  "description": "Breed of the animal",
+                  "description": "Animal breed",
                   "example": "Джек-рассел-тер'єр"
+                },
+                "size": {
+                  "type": "string",
+                  "description": "Animal size",
+                  "example": "Малий"
+                },
+                "weight": {
+                  "type": "string",
+                  "description": "Animal weight",
+                  "example": "5-8 кг"
+                },
+                "coat": {
+                  "type": "string",
+                  "description": "Animal coat",
+                  "example": "Середня"
                 },
                 "age": {
                   "type": "object",
-                  "description": "Age of the animal",
+                  "description": "Animal age",
                   "properties": {
                     "years": {
                       "type": "integer",
@@ -2500,7 +2590,7 @@
                 },
                 "gender": {
                   "type": "string",
-                  "description": "Gender of the animal",
+                  "description": "Animal gender",
                   "enum": ["male", "female", "unknown"],
                   "example": "male"
                 },
@@ -2511,7 +2601,7 @@
                 },
                 "adText": {
                   "type": "string",
-                  "description": "Description of the animal",
+                  "description": "Animal description",
                   "example": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами."
                 },
                 "animalImages": {
@@ -2535,7 +2625,7 @@
                 },
                 "owner": {
                   "type": "string",
-                  "description": "User ID of the owner",
+                  "description": "User ID of the animal owner",
                   "example": "67dadd700c7810a7f785decd"
                 },
                 "createdAt": {
@@ -2556,8 +2646,11 @@
               {
                 "id": "67dae0170c7810a7f785dee7",
                 "animalName": "Спарк",
-                "animalType": "собака",
+                "animalType": "dogs",
                 "breed": "Джек-рассел-тер'єр",
+                "size": "Малий",
+                "weight": "5-8 кг",
+                "coat": "Середня",
                 "age": {
                   "years": 4,
                   "months": 5
@@ -2577,8 +2670,11 @@
               {
                 "id": "67dae0170c7810a7f785dee8",
                 "animalName": "Луна",
-                "animalType": "собака",
+                "animalType": "dogs",
                 "breed": "Німецька вівчарка",
+                "size": "Великий",
+                "weight": "30-40 кг",
+                "coat": "Середня",
                 "age": {
                   "years": 3,
                   "months": 11
@@ -2618,22 +2714,37 @@
                 },
                 "animalName": {
                   "type": "string",
-                  "description": "Name of the animal",
+                  "description": "Animal name",
                   "example": "Спарк"
                 },
                 "animalType": {
                   "type": "string",
-                  "description": "Type of the animal",
-                  "example": "собака"
+                  "description": "Animal type",
+                  "example": "dogs"
                 },
                 "breed": {
                   "type": "string",
-                  "description": "Breed of the animal",
+                  "description": "Animal breed",
                   "example": "Джек-рассел-тер'єр"
+                },
+                "size": {
+                  "type": "string",
+                  "description": "Animal size",
+                  "example": "Малий"
+                },
+                "weight": {
+                  "type": "string",
+                  "description": "Animal weight",
+                  "example": "5-8 кг"
+                },
+                "coat": {
+                  "type": "string",
+                  "description": "Animal coat",
+                  "example": "Середня"
                 },
                 "age": {
                   "type": "object",
-                  "description": "Age of the animal",
+                  "description": "Animal age",
                   "properties": {
                     "years": {
                       "type": "integer",
@@ -2649,7 +2760,7 @@
                 },
                 "gender": {
                   "type": "string",
-                  "description": "Gender of the animal",
+                  "description": "Animal gender",
                   "enum": ["male", "female", "unknown"],
                   "example": "male"
                 },
@@ -2660,7 +2771,7 @@
                 },
                 "adText": {
                   "type": "string",
-                  "description": "Description of the animal",
+                  "description": "Animal description",
                   "example": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами."
                 },
                 "animalImages": {
@@ -2684,7 +2795,7 @@
                 },
                 "owner": {
                   "type": "string",
-                  "description": "User ID of the owner",
+                  "description": "User ID of the animal owner",
                   "example": "67dadd700c7810a7f785decd"
                 },
                 "createdAt": {
@@ -2705,8 +2816,11 @@
               {
                 "id": "67dae0170c7810a7f785dee7",
                 "animalName": "Спарк",
-                "animalType": "собака",
+                "animalType": "dogs",
                 "breed": "Джек-рассел-тер'єр",
+                "size": "Малий",
+                "weight": "5-8 кг",
+                "coat": "Середня",
                 "age": {
                   "years": 4,
                   "months": 5
@@ -2726,8 +2840,11 @@
               {
                 "id": "67dae0170c7810a7f785dee8",
                 "animalName": "Луна",
-                "animalType": "собака",
+                "animalType": "dogs",
                 "breed": "Німецька вівчарка",
+                "size": "Великий",
+                "weight": "30-40 кг",
+                "coat": "Середня",
                 "age": {
                   "years": 3,
                   "months": 11
@@ -2760,22 +2877,37 @@
                 },
               "animalName": {
                 "type": "string",
-                "description": "Name of the animal",
+                "description": "Animal name",
                 "example": "Спарк"
               },
               "animalType": {
                 "type": "string",
-                "description": "Type of the animal",
-                "example": "собака"
+                "description": "Animal type",
+                "example": "dogs"
               },
               "breed": {
                 "type": "string",
-                "description": "Breed of the animal",
+                "description": "Animal breed",
                 "example": "Джек-рассел-тер'єр"
+              },
+              "size": {
+                "type": "string",
+                "description": "Animal size",
+                "example": "Малий"
+              },
+              "weight": {
+                "type": "string",
+                "description": "Animal weight",
+                "example": "5-8 кг"
+              },
+              "coat": {
+                "type": "string",
+                "description": "Animal coat",
+                "example": "Середня"
               },
               "age": {
                   "type": "object",
-                  "description": "Age of the animal",
+                  "description": "Animal age",
                   "properties": {
                     "years": {
                       "type": "integer",
@@ -2791,7 +2923,7 @@
               },
               "gender": {
                 "type": "string",
-                "description": "Gender of the animal",
+                "description": "Animal gender",
                 "enum": ["male", "female", "unknown"],
                 "example": "male"
               },
@@ -2802,7 +2934,7 @@
               },
               "adText": {
                 "type": "string",
-                "description": "Description of the animal",
+                "description": "Animal description",
                 "example": "Спарк - життєрадісний та доброзичливий пес, який мріє про турботливих господарів. Він любить гратися на вулиці, із задоволенням бавиться з дітьми та швидко знаходить спільну мову з іншими тваринами."
               },
               "animalImages": {
@@ -2825,7 +2957,7 @@
               },
               "owner": {
                 "type": "string",
-                "description": "User ID of the owner",
+                "description": "User ID of the animal owner",
                 "example": "67dadd700c7810a7f785decd"
               },
               "createdAt": {
@@ -2851,7 +2983,7 @@
           "animalData": {
             "type": "string",
             "description": "JSON string containing animal data (animalName, animalType, breed, age, gender, animalLocation, adText)",
-            "example": "{\"animalName\": \"Спарк\", \"animalType\": \"собака\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": {\"years\": 3, \"months\": 1}, \"gender\": \"male\", \"animalLocation\": \"Львів\", \"adText\": \"Спарк - життєрадісний та доброзичливий пес, який мріє про турботливих господарів. Він любить гратися на вулиці, із задоволенням бавиться з дітьми та швидко знаходить спільну мову з іншими тваринами.\", \"status\": \"active\"}"
+            "example": "{\"animalName\": \"Спарк\", \"animalType\": \"dogs\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": {\"years\": 3, \"months\": 1}, \"gender\": \"male\", \"animalLocation\": \"Львів\", \"adText\": \"Спарк - життєрадісний та доброзичливий пес, який мріє про турботливих господарів. Він любить гратися на вулиці, із задоволенням бавиться з дітьми та швидко знаходить спільну мову з іншими тваринами.\", \"status\": \"active\"}"
           },
           "images": {
             "type": "array",
@@ -2881,22 +3013,37 @@
                 },
               "animalName": {
                 "type": "string",
-                "description": "Name of the animal",
+                "description": "Animal name",
                 "example": "Спарк"
               },
               "animalType": {
                 "type": "string",
-                "description": "Type of the animal",
-                "example": "собака"
+                "description": "Animal type",
+                "example": "dogs"
               },
               "breed": {
                 "type": "string",
-                "description": "Breed of the animal",
+                "description": "Animal breed",
                 "example": "Джек-рассел-тер'єр"
+              },
+              "size": {
+                "type": "string",
+                "description": "Animal size",
+                "example": "Малий"
+              },
+              "weight": {
+                "type": "string",
+                "description": "Animal weight",
+                "example": "5-8 кг"
+              },
+              "coat": {
+                "type": "string",
+                "description": "Animal coat",
+                "example": "Середня"
               },
               "age": {
                   "type": "object",
-                  "description": "Age of the animal",
+                  "description": "Animal age",
                   "properties": {
                     "years": {
                       "type": "integer",
@@ -2912,7 +3059,7 @@
               },
               "gender": {
                 "type": "string",
-                "description": "Gender of the animal",
+                "description": "Animal gender",
                 "enum": ["male", "female", "unknown"],
                 "example": "male"
               },
@@ -2923,7 +3070,7 @@
               },
               "adText": {
                 "type": "string",
-                "description": "Description of the animal",
+                "description": "Animal description",
                 "example": "Спарк - життєрадісний та доброзичливий пес, який мріє про турботливих господарів. Він любить гратися на вулиці, із задоволенням бавиться з дітьми та швидко знаходить спільну мову з іншими тваринами."
               },
               "animalImages": {
@@ -2946,7 +3093,7 @@
               },
               "owner": {
                 "type": "string",
-                "description": "User ID of the owner",
+                "description": "User ID of the animal owner",
                 "example": "67dadd700c7810a7f785decd"
               },
               "createdAt": {
