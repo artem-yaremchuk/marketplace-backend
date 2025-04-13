@@ -7,6 +7,7 @@ import {
 import {
   createAnimalAd,
   listActiveAnimals,
+  getFilteredAnimals,
   listUserAnimals,
   updateFavorite,
   updateAnimalAd,
@@ -52,6 +53,14 @@ export const createAnimal = catchAsync(async (req, res) => {
 
 export const getAllActiveAnimals = catchAsync(async (req, res) => {
   const { total, animals } = await listActiveAnimals(req.query);
+
+  const formattedAnimals = formatAnimals(animals);
+
+  res.status(200).json({ total, animals: formattedAnimals });
+});
+
+export const filterAnimals = catchAsync(async(req, res) => {
+  const { total, animals } = await getFilteredAnimals(req.query);
 
   const formattedAnimals = formatAnimals(animals);
 

@@ -90,6 +90,55 @@ export const listActiveAnimals = async (query) => {
   return { total, animals };
 };
 
+export const getFilteredAnimals = async (query) => {
+  const { animalType, gender, breed, location, age, size } = query;
+
+  const page = query.page ? +query.page : 1;
+  const limit = query.limit ? +query.limit : 12;
+
+  const docsToSkip = (page - 1) * limit;
+
+  const filter = {};
+
+  if (animalType) filter.animalType = animalType;
+  if (gender) filter.gender = gender;
+  if (breed) filter.breed = breed;
+  if (location) filter.animalLocation = location;
+  if (size) filter.size = size;
+
+  if (query.age) {
+    const ageFilter = query.age;
+
+    switch (ageFilter) {
+      case "до 1 року":
+        filter.$or = [
+          { "age.years": 0 },
+          { "age.years": 1, "age.months": { $lte: 0 } },
+        ];
+        break;
+      case "1-3 роки":
+        filter["age.years"] = { $gte: 1, $lte: 3 };
+        break;
+
+      case "3-5 років":
+        filter["age.years"] = { $gte: 3, $lte: 5 };
+        break;
+      case "Cтарше 5 років":
+        filter["age.years"] = { $gt: 5 };
+        break;
+    }
+  }
+
+  const animals = await Animal.find(filter)
+    .sort({ createdAt: -1 })
+    .skip(docsToSkip)
+    .limit(limit);
+
+  const total = await Animal.countDocuments(filter);
+
+  return { total, animals };
+};
+
 export const listUserAnimals = async (owner, query) => {
   const page = query.page ? +query.page : 1;
   const limit = query.limit ? +query.limit : 9;
