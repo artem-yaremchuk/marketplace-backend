@@ -98,7 +98,7 @@ export const getFilteredAnimals = async (query) => {
 
   const docsToSkip = (page - 1) * limit;
 
-  const filter = {};
+  const filter = { status: "active" };
 
   if (animalType) filter.animalType = animalType;
   if (gender) filter.gender = gender;
