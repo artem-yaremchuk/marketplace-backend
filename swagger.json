@@ -948,7 +948,114 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetAllAnimalsResponse"
+                  "$ref": "#/components/schemas/GetAnimalsResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/animals/filter": {
+      "get": {
+        "tags": ["Animal"],
+        "summary": "Filter animal ads",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "example": "1"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "description": "Limit ads per page",
+            "schema": {
+              "type": "integer",
+              "example": "12"
+            }
+          },
+          {
+            "name": "animalType",
+            "in": "query",
+            "description": "Animal type",
+            "schema": {
+              "type": "string",
+              "example": "dogs"
+            }
+          },
+          {
+            "name": "gender",
+            "in": "query",
+            "description": "Animal gender",
+            "schema": {
+              "type": "string",
+              "enum": ["male", "female"],
+              "example": "male"
+            }
+          },
+          {
+            "name": "breed",
+            "in": "query",
+            "description": "Animal breed",
+            "schema": {
+              "type": "string",
+              "example": "Німецька вівчарка"
+            }
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "description": "Current animal location",
+            "schema": {
+              "type": "string",
+              "example": "Житомир"
+            }
+          },
+          {
+            "name": "age",
+            "in": "query",
+            "description": "Animal age",
+            "schema": {
+              "type": "string",
+              "enum": ["до 1 року", "1-3 роки", "3-5 років", "Cтарше 5 років"],
+              "example": "3-5 років"
+            }
+          },
+          {
+          "name": "size",
+          "in": "query",
+          "description": "Animal size",
+            "schema": {
+              "type": "string",
+              "enum": ["Малий", "Середній", "Великий"],
+              "example": "Великий"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilterAnimalsResponse"
                 }
               }
             }
@@ -999,7 +1106,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetAllAnimalsResponse"
+                  "$ref": "#/components/schemas/GetAnimalsResponse"
                 }
               }
             }
@@ -2523,7 +2630,7 @@
           }
         }
       },
-      "GetAllAnimalsResponse": {
+      "GetAnimalsResponse": {
         "type": "object",
         "properties": {
           "total": {
@@ -2691,6 +2798,124 @@
                 "updatedAt": "2025-03-19T15:18:43.934Z"
               }
             ]
+          }
+        }
+      },
+      "FilterAnimalsResponse": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "Total number of animal ads",
+            "example": 1
+          },
+          "animals": {
+            "type": "array",
+            "description": "List of animal ads",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier for the animal ad",
+                  "example": "67fb8d82acab98789dfd1749"
+                },
+                "animalName": {
+                  "type": "string",
+                  "description": "Animal name",
+                  "example": "Боско"
+                },
+                "animalType": {
+                  "type": "string",
+                  "description": "Animal type",
+                  "example": "dogs"
+                },
+                "breed": {
+                  "type": "string",
+                  "description": "Animal breed",
+                  "example": "Німецька вівчарка"
+                },
+                "size": {
+                  "type": "string",
+                  "description": "Animal size",
+                  "example": "Великий"
+                },
+                "weight": {
+                  "type": "string",
+                  "description": "Animal weight",
+                  "example": "30-40 кг"
+                },
+                "coat": {
+                  "type": "string",
+                  "description": "Animal coat",
+                  "example": "Середня"
+                },
+                "age": {
+                  "type": "object",
+                  "description": "Animal age",
+                  "properties": {
+                    "years": {
+                      "type": "integer",
+                      "description": "Number of years of the animal",
+                      "example": "5"
+                    },
+                    "months": {
+                      "type": "integer",
+                      "description": "Number of months of the animal",
+                      "example": "0"
+                    }
+                  }
+                },
+                "gender": {
+                  "type": "string",
+                  "description": "Animal gender",
+                  "enum": ["male", "female", "unknown"],
+                  "example": "male"
+                },
+                "animalLocation": {
+                  "type": "string",
+                  "description": "Location where the animal is available",
+                  "example": "Житомир"
+                },
+                "adText": {
+                  "type": "string",
+                  "description": "Animal description",
+                  "example": "Боско - розумний і слухняний пес, ідеальний для охорони будинку або як службовий собака."
+                },
+                "animalImages": {
+                  "type": "array",
+                  "description": "List of URLs for animal images",
+                  "items": {
+                    "type": "string",
+                    "format": "uri",
+                    "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/ov4m9pwfexcpl1uakqfs?_a=BAMCkGP80"
+                  }
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Status of the animal ad",
+                  "enum": ["active", "inactive"],
+                  "example": "active"
+                },
+                "owner": {
+                  "type": "string",
+                  "description": "User ID of the animal owner",
+                  "example": "67eaba1a60eb693f37977d88"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Timestamp when the ad was created",
+                  "example": "2025-04-13T10:10:10.437Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Timestamp when the ad was last updated",
+                  "example": "2025-04-13T10:10:10.437Z"
+                }
+              }
+            }
           }
         }
       },
