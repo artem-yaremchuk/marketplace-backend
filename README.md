@@ -44,8 +44,17 @@ To create a user-friendly and efficient online platform that helps animals find 
 
 ✔ **Animal Listings**  
 - Creation of animal adoption listings (for authorized users)  
-- Display of all active listings on the homepage  
+- Display of all active listings on the homepage
+- View animal details
+- Edit and delete animal listings (by listing owner)
+- Add or remove animals from favorites
+- Filter animals by selected categories (type, gender, age, breed, location, size)
 
+✔ **Automatic Traits Integration Based on Animal Type and Breed**
+- On animal creation or update, size, weight, and coat are auto-filled based on animalType and breed using the static animalTraits collection.
+- Works for valid types (dogs, cats, birds) and existing breeds listed in animalTraits.
+- If no match is found, traits are simply not added — no error is thrown.
+  
 ## 📥 Installation & Setup
 
 ### Clone the Repository
