@@ -14,6 +14,7 @@ import {
 } from "../services/animalService.js";
 import removeFiles from "../helpers/removeFiles.js";
 import Animal from "../models/animalModel.js";
+import User from "../models/userModel.js";
 import getFormattedFavorites from "../helpers/getFormattedFavorites.js";
 import formatAnimals from "../helpers/formatAnimals.js";
 
@@ -99,10 +100,16 @@ export const getAnimalDetails = catchAsync(async (req, res) => {
 
   const animal = await Animal.findById(animalId);
 
+  const { owner } = animal;
+
+  const { name: ownerName, phone: ownerPhone } = await User.findById(owner);
+
   const { _id, ...rest } = animal.toObject();
 
   res.status(200).json({
     animal: { id: _id, ...rest },
+    ownerName,
+    ownerPhone,
   });
 });
 
