@@ -3198,6 +3198,16 @@
                 "example": "2025-03-19T15:17:43.934Z"
               }
             }
+          },
+          "ownerName": {
+            "type": "string",
+            "description": "Animal owner name",
+            "example": "Едріан Броуді"
+          },
+          "ownerPhone": {
+            "type": "string",
+            "description": "Animal owner phone",
+            "example": "+380637372966"
           }
         }
       },
