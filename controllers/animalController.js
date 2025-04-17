@@ -41,6 +41,11 @@ export const createAnimal = catchAsync(async (req, res) => {
     throw HttpError(400, error.message);
   }
 
+  if (value.age.years === 0 && value.age.months === 0) {
+    await removeFiles(req.files);
+    throw HttpError(400, "Age cannot be 0 years and 0 months");
+  }
+
   const newAnimal = await createAnimalAd(ownerId, value, req.files);
   const { _id, ...rest } = newAnimal.toObject();
 
@@ -60,7 +65,7 @@ export const getAllActiveAnimals = catchAsync(async (req, res) => {
   res.status(200).json({ total, animals: formattedAnimals });
 });
 
-export const filterAnimals = catchAsync(async(req, res) => {
+export const filterAnimals = catchAsync(async (req, res) => {
   const { total, animals } = await getFilteredAnimals(req.query);
 
   const formattedAnimals = formatAnimals(animals);
@@ -135,6 +140,11 @@ export const updateAnimal = catchAsync(async (req, res) => {
   if (error) {
     removeFiles(req.files);
     throw HttpError(400, error.message);
+  }
+
+  if (value.age.years === 0 && value.age.months === 0) {
+    await removeFiles(req.files);
+    throw HttpError(400, "Age cannot be 0 years and 0 months");
   }
 
   const updatedAnimal = await updateAnimalAd(animalId, value, req.files);
