@@ -47,10 +47,11 @@ export const createAnimalSchema = Joi.object({
     "any.required": "Breed is required",
   }),
   age: Joi.object({
-    years: Joi.number().integer().min(0).required().messages({
+    years: Joi.number().integer().min(0).max(30).required().messages({
       "number.base": "Years must be a number",
       "number.integer": "Years must be an integer",
       "number.min": "Years cannot be negative",
+      "number.max": "Years must be between 0 and 30",
       "any.required": "Years is required",
     }),
     months: Joi.number().integer().min(0).max(11).required().messages({
@@ -141,10 +142,11 @@ export const updateAnimalSchema = Joi.object({
     "any.required": "Breed is required",
   }),
   age: Joi.object({
-    years: Joi.number().integer().min(0).required().messages({
+    years: Joi.number().integer().min(0).max(30).required().messages({
       "number.base": "Years must be a number",
       "number.integer": "Years must be an integer",
       "number.min": "Years cannot be negative",
+      "number.max": "Years must be between 0 and 30",
       "any.required": "Years is required",
     }),
     months: Joi.number().integer().min(0).max(11).required().messages({
