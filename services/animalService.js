@@ -40,6 +40,8 @@ export const createAnimalAd = async (ownerId, animalData, files) => {
   if (animalImages.length === 0)
     throw HttpError(400, "At least 1 animal image is required");
 
+  animalData.animalType = animalData.animalType.toLowerCase();
+
   const { animalType, breed } = animalData;
 
   const animalsTraits = await AnimalTrait.findOne();
@@ -100,7 +102,7 @@ export const getFilteredAnimals = async (query) => {
 
   const filter = { status: "active" };
 
-  if (animalType) filter.animalType = animalType;
+  if (animalType) filter.animalType = animalType.toLowerCase();
   if (gender) filter.gender = gender;
   if (breed) filter.breed = breed;
   if (location) filter.animalLocation = location;
@@ -208,6 +210,8 @@ export const updateAnimalAd = async (animalId, animalData, files) => {
   if (animalImages.length === 0)
     throw HttpError(400, "At least 1 animal image is required");
 
+  animalData.animalType = animalData.animalType.toLowerCase();
+  
   const { animalType, breed } = animalData;
 
   const animalsTraits = await AnimalTrait.findOne();
