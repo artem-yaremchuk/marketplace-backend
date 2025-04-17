@@ -111,20 +111,17 @@ export const getFilteredAnimals = async (query) => {
 
     switch (ageFilter) {
       case "до 1 року":
-        filter.$or = [
-          { "age.years": 0 },
-          { "age.years": 1, "age.months": { $lte: 0 } },
-        ];
+        filter["age.years"] = 0;
         break;
       case "1-3 роки":
-        filter["age.years"] = { $gte: 1, $lte: 3 };
+        filter["age.years"] = { $gte: 1, $lt: 3 };
         break;
 
       case "3-5 років":
-        filter["age.years"] = { $gte: 3, $lte: 5 };
+        filter["age.years"] = { $gte: 3, $lt: 5 };
         break;
       case "Cтарше 5 років":
-        filter["age.years"] = { $gt: 5 };
+        filter["age.years"] = { $gte: 5 };
         break;
     }
   }
