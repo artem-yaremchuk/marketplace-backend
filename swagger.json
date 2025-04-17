@@ -1047,6 +1047,16 @@
               "enum": ["Малий", "Середній", "Великий"],
               "example": "Великий"
             }
+          },
+          {
+          "name": "sortByDate",
+          "in": "query",
+          "description": "Sort animals by date",
+            "schema": {
+              "type": "string",
+              "enum": ["newest", "oldest"],
+              "example": "newest"
+            }
           }
         ],
         "responses": {
