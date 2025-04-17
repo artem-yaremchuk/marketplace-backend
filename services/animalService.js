@@ -91,7 +91,7 @@ export const listActiveAnimals = async (query) => {
 };
 
 export const getFilteredAnimals = async (query) => {
-  const { animalType, gender, breed, location, age, size } = query;
+  const { animalType, gender, breed, location, age, size, sortByDate } = query;
 
   const page = query.page ? +query.page : 1;
   const limit = query.limit ? +query.limit : 12;
@@ -106,8 +106,8 @@ export const getFilteredAnimals = async (query) => {
   if (location) filter.animalLocation = location;
   if (size) filter.size = size;
 
-  if (query.age) {
-    const ageFilter = query.age;
+  if (age) {
+    const ageFilter = age;
 
     switch (ageFilter) {
       case "до 1 року":
@@ -129,8 +129,10 @@ export const getFilteredAnimals = async (query) => {
     }
   }
 
+  const sortOption = sortByDate === "oldest" ? 1 : -1;
+
   const animals = await Animal.find(filter)
-    .sort({ createdAt: -1 })
+    .sort({ createdAt: sortOption })
     .skip(docsToSkip)
     .limit(limit);
 
