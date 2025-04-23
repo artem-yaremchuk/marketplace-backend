@@ -122,7 +122,7 @@ export const getFilteredAnimals = async (query) => {
       case "3-5 років":
         filter["age.years"] = { $gte: 3, $lt: 5 };
         break;
-      case "Cтарше 5 років":
+      case "Старше 5 років":
         filter["age.years"] = { $gte: 5 };
         break;
     }
