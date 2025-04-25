@@ -141,17 +141,48 @@ export const getFilteredAnimals = async (query) => {
 };
 
 export const listUserAnimals = async (owner, query) => {
+  const { animalType, gender, breed, age, size, status, sortByDate } = query;
+
   const page = query.page ? +query.page : 1;
   const limit = query.limit ? +query.limit : 9;
 
   const docsToSkip = (page - 1) * limit;
 
-  const animals = await Animal.find({ owner })
-    .sort({ createdAt: -1 })
+  const filter = { owner };
+
+  if (animalType) filter.animalType = animalType.toLowerCase();
+  if (gender) filter.gender = gender;
+  if (breed) filter.breed = breed;
+  if (size) filter.size = size;
+
+  if (age) {
+    const ageFilter = age;
+
+    switch (ageFilter) {
+      case "до 1 року":
+        filter["age.years"] = 0;
+        break;
+      case "1-3 роки":
+        filter["age.years"] = { $gte: 1, $lt: 3 };
+        break;
+
+      case "3-5 років":
+        filter["age.years"] = { $gte: 3, $lt: 5 };
+        break;
+      case "Старше 5 років":
+        filter["age.years"] = { $gte: 5 };
+        break;
+    }
+  }
+
+  const sortOption = sortByDate === "oldest" ? 1 : -1;
+
+  const animals = await Animal.find(filter)
+    .sort({ createdAt: sortOption })
     .skip(docsToSkip)
     .limit(limit);
 
-  const total = await Animal.countDocuments({ owner });
+  const total = await Animal.countDocuments(filter);
 
   return { total, animals };
 };
