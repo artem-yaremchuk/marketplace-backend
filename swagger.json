@@ -2499,7 +2499,7 @@
         "properties": {
           "animalData": {
             "type": "string",
-            "description": "JSON string containing animal data (animalName, animalType, breed, age, gender, animalLocation, adText)",
+            "description": "JSON string containing animal data. Required fields: animalName, animalType, breed, age, gender, animalLocation, adText.",
             "example": "{\"animalName\": \"Спарк\", \"animalType\": \"dogs\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": {\"years\": 2, \"months\": 3}, \"gender\": \"male\", \"animalLocation\": \"Київ\", \"adText\": \"Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.\"}"
           },
           "images": {
@@ -3227,7 +3227,7 @@
         "properties": {
           "animalData": {
             "type": "string",
-            "description": "JSON string containing animal data (animalName, animalType, breed, age, gender, animalLocation, adText)",
+            "description": "JSON string containing animal data. Required fields: animalName, animalType, breed, age, gender, animalLocation, adText. Optional field: status.",
             "example": "{\"animalName\": \"Спарк\", \"animalType\": \"dogs\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": {\"years\": 3, \"months\": 1}, \"gender\": \"male\", \"animalLocation\": \"Львів\", \"adText\": \"Спарк - життєрадісний та доброзичливий пес, який мріє про турботливих господарів. Він любить гратися на вулиці, із задоволенням бавиться з дітьми та швидко знаходить спільну мову з іншими тваринами.\", \"status\": \"active\"}"
           },
           "images": {
