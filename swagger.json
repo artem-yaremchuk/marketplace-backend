@@ -1363,7 +1363,7 @@
           }
         }
       },
-      "put": {
+      "patch": {
         "tags": ["Animal"],
         "summary": "Update animal ad",
         "parameters": [
@@ -1685,7 +1685,7 @@
               "id": {
                 "type": "string",
                 "description": "Unique identifier for the user",
-                "example": "67e29d3fa5c25980c6a582c5"
+                "example": "67eaba1a60eb693f37977d88"
               },
               "name": {
                 "type": "string",
@@ -1736,7 +1736,7 @@
               "id": {
                 "type": "string",
                 "description": "Unique identifier for the user",
-                "example": "67e29d3fa5c25980c6a582c5"
+                "example": "67eaba1a60eb693f37977d88"
               },
               "name": {
                 "type": "string",
@@ -1804,7 +1804,7 @@
               "id": {
                 "type": "string",
                 "description": "Unique identifier for the user",
-                "example": "67e29d3fa5c25980c6a582c5"
+                "example": "67eaba1a60eb693f37977d88"
               },
               "name": {
                 "type": "string",
@@ -1852,7 +1852,7 @@
                     "id": {
                       "type": "string",
                       "description": "Unique identifier for the animal ad",
-                      "example": "67dae0170c7810a7f785dee7"
+                      "example": "67fb8c1cacab98789dfd11d1"
                     },
                     "animalName": {
                       "type": "string",
@@ -1909,7 +1909,7 @@
                     "animalLocation": {
                       "type": "string",
                       "description": "Location where the animal is available",
-                      "example": "Київ"
+                      "example": "Львів"
                     },
                     "adText": {
                       "type": "string",
@@ -1918,16 +1918,23 @@
                     },
                     "animalImages": {
                       "type": "array",
-                      "description": "List of URLs for animal images",
+                      "description": "List of animal image objects (Cloudinary)",
                       "items": {
-                        "type": "string",
-                        "format": "uri",
-                        "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80"
-                      },
-                      "example": [
-                        "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
-                        "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
-                      ]
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "Full URL of the image",
+                            "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80"
+                          },
+                          "publicId": {
+                            "type": "string",
+                            "description": "Cloudinary public ID of the image",
+                            "example": "animals/uov6o1ysoj8bhftxuzkd"
+                          }
+                        }
+                      }
                     },
                     "status": {
                       "type": "string",
@@ -1938,25 +1945,25 @@
                     "owner": {
                       "type": "string",
                       "description": "User ID of the animal owner",
-                      "example": "67dadd700c7810a7f785decd"
+                      "example": "67eaba1a60eb693f37977d88"
                     },
                     "createdAt": {
                       "type": "string",
                       "format": "date-time",
                       "description": "Timestamp when the ad was created",
-                      "example": "2025-03-19T15:17:43.934Z"
+                      "example": "2025-04-13T10:04:12.631Z"
                     },
                     "updatedAt": {
                       "type": "string",
                       "format": "date-time",
                       "description": "Timestamp when the ad was last updated",
-                      "example": "2025-03-19T15:17:43.934Z"
+                      "example": "2025-05-01T13:59:02.883Z"
                     }
                   }
                 },
                 "example": [
                   {
-                    "id": "67dae0170c7810a7f785dee7",
+                    "id": "67fb8c1cacab98789dfd11d1",
                     "animalName": "Спарк",
                     "animalType": "dogs",
                     "breed": "Джек-рассел-тер'єр",
@@ -1964,40 +1971,52 @@
                     "weight": "5-8 кг",
                     "coat": "Середня",
                     "age": {
-                      "years": 4,
-                      "months": 5
-                    },
-                    "gender": "male",
-                    "animalLocation": "Київ",
-                    "adText": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.",
-                    "animalImages": [
-                      "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
-                      "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
-                    ],
-                    "status": "active",
-                    "owner": "67dadd700c7810a7f785decd",
-                    "createdAt": "2025-03-19T15:17:43.934Z",
-                    "updatedAt": "2025-03-19T15:17:43.934Z"
-                  },
-                  {
-                    "id": "67dae0170c7810a7f785dee8",
-                    "animalName": "Луна",
-                    "animalType": "dogs",
-                    "breed": "Німецька вівчарка",
-                    "age": {
                       "years": 3,
                       "months": 11
                     },
-                    "gender": "female",
+                    "gender": "male",
                     "animalLocation": "Львів",
-                    "adText": "Луна - спокійна та віддана собака, шукає добрих господарів. Вона любить довгі прогулянки та добре ладнає з іншими тваринами.",
+                    "adText": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.",
                     "animalImages": [
-                      "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP81"
+                      {
+                        "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80",
+                        "publicId": "animals/uov6o1ysoj8bhftxuzkd"
+                      },
+                      {
+                        "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/afajkxlo5ggmkr995dnj?_a=BAMCkGP80",
+                        "publicId": "animals/afajkxlo5ggmkr995dnj"
+                      }
                     ],
                     "status": "active",
-                    "owner": "67dadd700c7810a7f785decd",
-                    "createdAt": "2025-03-19T15:18:43.934Z",
-                    "updatedAt": "2025-03-19T15:18:43.934Z"
+                    "owner": "67eaba1a60eb693f37977d88",
+                    "createdAt": "2025-04-13T10:04:12.631Z",
+                    "updatedAt": "2025-05-01T13:59:02.883Z"
+                  },
+                  {
+                    "id": "67fb8d82acab98789dfd1749",
+                    "animalName": "Боско",
+                    "animalType": "dogs",
+                    "breed": "Німецька вівчарка",
+                    "size": "Великий",
+                    "weight": "30-40 кг",
+                    "coat": "Середня",
+                    "age": {
+                      "years": 5,
+                      "months": 0
+                    },
+                    "gender": "male",
+                    "animalLocation": "Житомир",
+                    "adText": "Боско - розумний і слухняний пес, ідеальний для охорони будинку або як службовий собака.",
+                    "animalImages": [
+                      {
+                        "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/gqecbvqasowqnrp0zvab?_a=BAMCkGP80",
+                        "publicId": "animals/gqecbvqasowqnrp0zvab"
+                      }
+                    ],
+                    "status": "active",
+                    "owner": "67eaba1a60eb693f37977d88",
+                    "createdAt": "2025-04-13T10:10:10.437Z",
+                    "updatedAt": "2025-05-01T11:24:56.561Z"
                   }
                 ]
               }
@@ -2014,7 +2033,7 @@
               "id": {
                 "type": "string",
                 "description": "Unique identifier for the user",
-                "example": "67e29d3fa5c25980c6a582c5"
+                "example": "67eaba1a60eb693f37977d88"
               },
               "name": {
                 "type": "string",
@@ -2063,7 +2082,7 @@
                     "id": {
                       "type": "string",
                       "description": "Unique identifier for the animal ad",
-                      "example": "67dae0170c7810a7f785dee7"
+                      "example": "67fb8c1cacab98789dfd11d1"
                     },
                     "animalName": {
                       "type": "string",
@@ -2127,18 +2146,26 @@
                       "description": "Animal description",
                       "example": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами."
                     },
+                    
                     "animalImages": {
                       "type": "array",
-                      "description": "List of URLs for animal images",
+                      "description": "List of animal image objects (Cloudinary)",
                       "items": {
-                        "type": "string",
-                        "format": "uri",
-                        "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80"
-                      },
-                      "example": [
-                        "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
-                        "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
-                      ]
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "Full URL of the image",
+                            "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80"
+                          },
+                          "publicId": {
+                            "type": "string",
+                            "description": "Cloudinary public ID of the image",
+                            "example": "animals/uov6o1ysoj8bhftxuzkd"
+                          }
+                        }
+                      }
                     },
                     "status": {
                       "type": "string",
@@ -2149,25 +2176,25 @@
                     "owner": {
                       "type": "string",
                       "description": "User ID of the animal owner",
-                      "example": "67dadd700c7810a7f785decd"
+                      "example": "67eaba1a60eb693f37977d88"
                     },
                     "createdAt": {
                       "type": "string",
                       "format": "date-time",
                       "description": "Timestamp when the ad was created",
-                      "example": "2025-03-19T15:17:43.934Z"
+                      "example": "2025-04-13T10:04:12.631Z"
                     },
                     "updatedAt": {
                       "type": "string",
                       "format": "date-time",
                       "description": "Timestamp when the ad was last updated",
-                      "example": "2025-03-19T15:17:43.934Z"
+                      "example": "2025-05-01T13:59:02.883Z"
                     }
                   }
                 },
                 "example": [
                   {
-                    "id": "67dae0170c7810a7f785dee7",
+                    "id": "67fb8c1cacab98789dfd11d1",
                     "animalName": "Спарк",
                     "animalType": "dogs",
                     "breed": "Джек-рассел-тер'єр",
@@ -2175,43 +2202,52 @@
                     "weight": "5-8 кг",
                     "coat": "Середня",
                     "age": {
-                      "years": 4,
-                      "months": 5
+                      "years": 3,
+                      "months": 11
                     },
                     "gender": "male",
-                    "animalLocation": "Київ",
+                    "animalLocation": "Львів",
                     "adText": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.",
                     "animalImages": [
-                      "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
-                      "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
+                      {
+                        "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80",
+                        "publicId": "animals/uov6o1ysoj8bhftxuzkd"
+                      },
+                      {
+                        "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/afajkxlo5ggmkr995dnj?_a=BAMCkGP80",
+                        "publicId": "animals/afajkxlo5ggmkr995dnj"
+                      }
                     ],
                     "status": "active",
-                    "owner": "67dadd700c7810a7f785decd",
-                    "createdAt": "2025-03-19T15:17:43.934Z",
-                    "updatedAt": "2025-03-19T15:17:43.934Z"
+                    "owner": "67eaba1a60eb693f37977d88",
+                    "createdAt": "2025-04-13T10:04:12.631Z",
+                    "updatedAt": "2025-05-01T13:59:02.883Z"
                   },
                   {
-                    "id": "67dae0170c7810a7f785dee8",
-                    "animalName": "Луна",
+                    "id": "67fb8d82acab98789dfd1749",
+                    "animalName": "Боско",
                     "animalType": "dogs",
                     "breed": "Німецька вівчарка",
                     "size": "Великий",
                     "weight": "30-40 кг",
                     "coat": "Середня",
                     "age": {
-                      "years": 3,
-                      "months": 11
+                      "years": 5,
+                      "months": 0
                     },
-                    "gender": "female",
-                    "animalLocation": "Львів",
-                    "adText": "Луна - спокійна та віддана собака, шукає добрих господарів. Вона любить довгі прогулянки та добре ладнає з іншими тваринами.",
+                    "gender": "male",
+                    "animalLocation": "Житомир",
+                    "adText": "Боско - розумний і слухняний пес, ідеальний для охорони будинку або як службовий собака.",
                     "animalImages": [
-                      "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP81"
+                      {
+                        "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/gqecbvqasowqnrp0zvab?_a=BAMCkGP80",
+                        "publicId": "animals/gqecbvqasowqnrp0zvab"
+                      }
                     ],
                     "status": "active",
-                    "owner": "67dadd700c7810a7f785decd",
-                    "createdAt": "2025-03-19T15:18:43.934Z",
-                    "updatedAt": "2025-03-19T15:18:43.934Z"
+                    "owner": "67eaba1a60eb693f37977d88",
+                    "createdAt": "2025-04-13T10:10:10.437Z",
+                    "updatedAt": "2025-05-01T11:24:56.561Z"
                   }
                 ]
               }
@@ -2247,7 +2283,7 @@
               "id": {
                 "type": "string",
                 "description": "Unique identifier for the user",
-                "example": "67e29d3fa5c25980c6a582c5"
+                "example": "67eaba1a60eb693f37977d88"
               },
               "name": {
                 "type": "string",
@@ -2319,7 +2355,7 @@
               "id": {
                 "type": "string",
                 "description": "Unique identifier for the user",
-                "example": "67e29d3fa5c25980c6a582c5"
+                "example": "67eaba1a60eb693f37977d88"
               },
               "name": {
                 "type": "string",
@@ -2368,7 +2404,7 @@
                     "id": {
                       "type": "string",
                       "description": "Unique identifier for the animal ad",
-                      "example": "67dae0170c7810a7f785dee7"
+                      "example": "67fb8c1cacab98789dfd11d1"
                     },
                     "animalName": {
                       "type": "string",
@@ -2425,7 +2461,7 @@
                     "animalLocation": {
                       "type": "string",
                       "description": "Location where the animal is available",
-                      "example": "Київ"
+                      "example": "Львів"
                     },
                     "adText": {
                       "type": "string",
@@ -2434,16 +2470,23 @@
                     },
                     "animalImages": {
                       "type": "array",
-                      "description": "List of URLs for animal images",
+                      "description": "List of animal image objects (Cloudinary)",
                       "items": {
-                        "type": "string",
-                        "format": "uri",
-                        "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80"
-                      },
-                      "example": [
-                        "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
-                        "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
-                      ]
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "Full URL of the image",
+                            "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80"
+                          },
+                          "publicId": {
+                            "type": "string",
+                            "description": "Cloudinary public ID of the image",
+                            "example": "animals/uov6o1ysoj8bhftxuzkd"
+                          }
+                        }
+                      }
                     },
                     "status": {
                       "type": "string",
@@ -2454,7 +2497,7 @@
                     "owner": {
                       "type": "string",
                       "description": "User ID of the animal owner",
-                      "example": "67dadd700c7810a7f785decd"
+                      "example": "67eaba1a60eb693f37977d88"
                     },
                     "createdAt": {
                       "type": "string",
@@ -2472,7 +2515,7 @@
                 },
                 "example": [
                   {
-                    "id": "67dae0170c7810a7f785dee7",
+                    "id": "67fb8c1cacab98789dfd11d1",
                     "animalName": "Спарк",
                     "animalType": "dogs",
                     "breed": "Джек-рассел-тер'єр",
@@ -2480,43 +2523,52 @@
                     "weight": "5-8 кг",
                     "coat": "Середня",
                     "age": {
-                      "years": 4,
-                      "months": 5
+                      "years": 3,
+                      "months": 11
                     },
                     "gender": "male",
-                    "animalLocation": "Київ",
+                    "animalLocation": "Львів",
                     "adText": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.",
                     "animalImages": [
-                      "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
-                      "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
+                      {
+                        "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80",
+                        "publicId": "animals/uov6o1ysoj8bhftxuzkd"
+                      },
+                      {
+                        "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/afajkxlo5ggmkr995dnj?_a=BAMCkGP80",
+                        "publicId": "animals/afajkxlo5ggmkr995dnj"
+                      }
                     ],
                     "status": "active",
-                    "owner": "67dadd700c7810a7f785decd",
-                    "createdAt": "2025-03-19T15:17:43.934Z",
-                    "updatedAt": "2025-03-19T15:17:43.934Z"
+                    "owner": "67eaba1a60eb693f37977d88",
+                    "createdAt": "2025-04-13T10:04:12.631Z",
+                    "updatedAt": "2025-05-01T13:59:02.883Z"
                   },
                   {
-                    "id": "67dae0170c7810a7f785dee8",
-                    "animalName": "Луна",
+                    "id": "67fb8d82acab98789dfd1749",
+                    "animalName": "Боско",
                     "animalType": "dogs",
                     "breed": "Німецька вівчарка",
                     "size": "Великий",
                     "weight": "30-40 кг",
                     "coat": "Середня",
                     "age": {
-                      "years": 3,
-                      "months": 11
+                      "years": 5,
+                      "months": 0
                     },
-                    "gender": "female",
-                    "animalLocation": "Львів",
-                    "adText": "Луна - спокійна та віддана собака, шукає добрих господарів. Вона любить довгі прогулянки та добре ладнає з іншими тваринами.",
+                    "gender": "male",
+                    "animalLocation": "Житомир",
+                    "adText": "Боско - розумний і слухняний пес, ідеальний для охорони будинку або як службовий собака.",
                     "animalImages": [
-                      "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP81"
+                      {
+                        "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/gqecbvqasowqnrp0zvab?_a=BAMCkGP80",
+                        "publicId": "animals/gqecbvqasowqnrp0zvab"
+                      }
                     ],
                     "status": "active",
-                    "owner": "67dadd700c7810a7f785decd",
-                    "createdAt": "2025-03-19T15:18:43.934Z",
-                    "updatedAt": "2025-03-19T15:18:43.934Z"
+                    "owner": "67eaba1a60eb693f37977d88",
+                    "createdAt": "2025-04-13T10:10:10.437Z",
+                    "updatedAt": "2025-05-01T11:24:56.561Z"
                   }
                 ]
               }
@@ -2568,7 +2620,7 @@
           "animalData": {
             "type": "string",
             "description": "JSON string containing animal data. Required fields: animalName, animalType, breed, age, gender, animalLocation, adText.",
-            "example": "{\"animalName\": \"Спарк\", \"animalType\": \"dogs\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": {\"years\": 2, \"months\": 3}, \"gender\": \"male\", \"animalLocation\": \"Київ\", \"adText\": \"Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.\"}"
+            "example": "{\"animalName\": \"Спарк\", \"animalType\": \"dogs\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": {\"years\": 3, \"months\": 11}, \"gender\": \"male\", \"animalLocation\": \"Львів\", \"adText\": \"Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.\"}"
           },
           "images": {
             "type": "array",
@@ -2594,7 +2646,7 @@
               "id": {
                   "type": "string",
                   "description": "Unique identifier for the animal ad",
-                  "example": "67dae0170c7810a7f785dee7"
+                  "example": "67fb8c1cacab98789dfd11d1"
                 },
               "animalName": {
                 "type": "string",
@@ -2633,12 +2685,12 @@
                     "years": {
                       "type": "integer",
                       "description": "Number of years of the animal",
-                      "example": "2"
+                      "example": "3"
                     },
                     "months": {
                       "type": "integer",
                       "description": "Number of months of the animal",
-                      "example": "3"
+                      "example": "11"
                     }
                   }
               },
@@ -2651,7 +2703,7 @@
               "animalLocation": {
                 "type": "string",
                 "description": "Location where the animal is available",
-                "example": "Київ"
+                "example": "Львів"
               },
               "adText": {
                 "type": "string",
@@ -2660,16 +2712,23 @@
               },
               "animalImages": {
                 "type": "array",
-                "description": "List of URLs for animal images",
+                "description": "List of animal image objects (Cloudinary)",
                 "items": {
-                  "type": "string",
-                  "format": "uri",
-                  "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80"
-                },
-                "example": [
-                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
-                    "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
-                ]
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "Full URL of the image",
+                      "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80"
+                    },
+                    "publicId": {
+                      "type": "string",
+                      "description": "Cloudinary public ID of the image",
+                      "example": "animals/uov6o1ysoj8bhftxuzkd"
+                    }
+                  }
+                }
               },
               "status": {
                 "type": "string",
@@ -2680,19 +2739,19 @@
               "owner": {
                 "type": "string",
                 "description": "User ID of the animal owner",
-                "example": "67dadd700c7810a7f785decd"
+                "example": "67eaba1a60eb693f37977d88"
               },
               "createdAt": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Timestamp when the ad was created",
-                "example": "2025-03-19T15:17:43.934Z"
+                "example": "2025-04-13T10:04:12.631Z"
               },
               "updatedAt": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Timestamp when the ad was last updated",
-                "example": "2025-03-19T15:17:43.934Z"
+                "example": "2025-05-01T13:59:02.883Z"
               }
             }
           },
@@ -2725,7 +2784,7 @@
                 "id": {
                   "type": "string",
                   "description": "Unique identifier for the animal ad",
-                  "example": "67dae0170c7810a7f785dee7"
+                  "example": "67fb8c1cacab98789dfd11d1"
                 },
                 "animalName": {
                   "type": "string",
@@ -2782,7 +2841,7 @@
                 "animalLocation": {
                   "type": "string",
                   "description": "Location where the animal is available",
-                  "example": "Київ"
+                  "example": "Львів"
                 },
                 "adText": {
                   "type": "string",
@@ -2791,16 +2850,23 @@
                 },
                 "animalImages": {
                   "type": "array",
-                  "description": "List of URLs for animal images",
+                  "description": "List of animal image objects (Cloudinary)",
                   "items": {
-                    "type": "string",
-                    "format": "uri",
-                    "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80"
-                  },
-                  "example": [
-                    "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
-                    "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
-                  ]
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Full URL of the image",
+                        "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80"
+                      },
+                      "publicId": {
+                        "type": "string",
+                        "description": "Cloudinary public ID of the image",
+                        "example": "animals/uov6o1ysoj8bhftxuzkd"
+                      }
+                    }
+                  }
                 },
                 "status": {
                   "type": "string",
@@ -2811,25 +2877,25 @@
                 "owner": {
                   "type": "string",
                   "description": "User ID of the animal owner",
-                  "example": "67dadd700c7810a7f785decd"
+                  "example": "67eaba1a60eb693f37977d88"
                 },
                 "createdAt": {
                   "type": "string",
                   "format": "date-time",
                   "description": "Timestamp when the ad was created",
-                  "example": "2025-03-19T15:17:43.934Z"
+                  "example": "2025-04-13T10:04:12.631Z"
                 },
                 "updatedAt": {
                   "type": "string",
                   "format": "date-time",
                   "description": "Timestamp when the ad was last updated",
-                  "example": "2025-03-19T15:17:43.934Z"
+                  "example": "2025-05-01T13:59:02.883Z"
                 }
               }
             },
             "example": [
               {
-                "id": "67dae0170c7810a7f785dee7",
+                "id": "67fb8c1cacab98789dfd11d1",
                 "animalName": "Спарк",
                 "animalType": "dogs",
                 "breed": "Джек-рассел-тер'єр",
@@ -2837,43 +2903,52 @@
                 "weight": "5-8 кг",
                 "coat": "Середня",
                 "age": {
-                  "years": 4,
-                  "months": 5
+                  "years": 3,
+                  "months": 11
                 },
                 "gender": "male",
-                "animalLocation": "Київ",
+                "animalLocation": "Львів",
                 "adText": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.",
                 "animalImages": [
-                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
-                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
+                  {
+                    "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80",
+                    "publicId": "animals/uov6o1ysoj8bhftxuzkd"
+                  },
+                  {
+                    "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/afajkxlo5ggmkr995dnj?_a=BAMCkGP80",
+                    "publicId": "animals/afajkxlo5ggmkr995dnj"
+                  }
                 ],
                 "status": "active",
-                "owner": "67dadd700c7810a7f785decd",
-                "createdAt": "2025-03-19T15:17:43.934Z",
-                "updatedAt": "2025-03-19T15:17:43.934Z"
+                "owner": "67eaba1a60eb693f37977d88",
+                "createdAt": "2025-04-13T10:04:12.631Z",
+                "updatedAt": "2025-05-01T13:59:02.883Z"
               },
               {
-                "id": "67dae0170c7810a7f785dee8",
-                "animalName": "Луна",
+                "id": "67fb8d82acab98789dfd1749",
+                "animalName": "Боско",
                 "animalType": "dogs",
                 "breed": "Німецька вівчарка",
                 "size": "Великий",
                 "weight": "30-40 кг",
                 "coat": "Середня",
                 "age": {
-                  "years": 3,
-                  "months": 11
+                  "years": 5,
+                  "months": 0
                 },
-                "gender": "female",
-                "animalLocation": "Львів",
-                "adText": "Луна - спокійна та віддана собака, шукає добрих господарів. Вона любить довгі прогулянки та добре ладнає з іншими тваринами.",
+                "gender": "male",
+                "animalLocation": "Житомир",
+                "adText": "Боско - розумний і слухняний пес, ідеальний для охорони будинку або як службовий собака.",
                 "animalImages": [
-                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP81"
+                  {
+                    "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/gqecbvqasowqnrp0zvab?_a=BAMCkGP80",
+                    "publicId": "animals/gqecbvqasowqnrp0zvab"
+                  }
                 ],
                 "status": "active",
-                "owner": "67dadd700c7810a7f785decd",
-                "createdAt": "2025-03-19T15:18:43.934Z",
-                "updatedAt": "2025-03-19T15:18:43.934Z"
+                "owner": "67eaba1a60eb693f37977d88",
+                "createdAt": "2025-04-13T10:10:10.437Z",
+                "updatedAt": "2025-05-01T11:24:56.561Z"
               }
             ]
           }
@@ -2960,13 +3035,24 @@
                   "description": "Animal description",
                   "example": "Боско - розумний і слухняний пес, ідеальний для охорони будинку або як службовий собака."
                 },
-                "animalImages": {
+               "animalImages": {
                   "type": "array",
-                  "description": "List of URLs for animal images",
+                  "description": "List of animal image objects (Cloudinary)",
                   "items": {
-                    "type": "string",
-                    "format": "uri",
-                    "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/ov4m9pwfexcpl1uakqfs?_a=BAMCkGP80"
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Full URL of the image",
+                        "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/gqecbvqasowqnrp0zvab?_a=BAMCkGP80"
+                      },
+                      "publicId": {
+                        "type": "string",
+                        "description": "Cloudinary public ID of the image",
+                        "example": "animals/gqecbvqasowqnrp0zvab"
+                      }
+                    }
                   }
                 },
                 "status": {
@@ -2990,7 +3076,7 @@
                   "type": "string",
                   "format": "date-time",
                   "description": "Timestamp when the ad was last updated",
-                  "example": "2025-04-13T10:10:10.437Z"
+                  "example": "2025-05-01T11:24:56.561Z"
                 }
               }
             }
@@ -3013,7 +3099,7 @@
                 "id": {
                   "type": "string",
                   "description": "Unique identifier for the animal ad",
-                  "example": "67dae0170c7810a7f785dee7"
+                  "example": "67fb8c1cacab98789dfd11d1"
                 },
                 "animalName": {
                   "type": "string",
@@ -3070,25 +3156,32 @@
                 "animalLocation": {
                   "type": "string",
                   "description": "Location where the animal is available",
-                  "example": "Київ"
+                  "example": "Львів"
                 },
                 "adText": {
                   "type": "string",
                   "description": "Animal description",
                   "example": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами."
                 },
-                "animalImages": {
+               "animalImages": {
                   "type": "array",
-                  "description": "List of URLs for animal images",
+                  "description": "List of animal image objects (Cloudinary)",
                   "items": {
-                    "type": "string",
-                    "format": "uri",
-                    "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80"
-                  },
-                  "example": [
-                    "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
-                    "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
-                  ]
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Full URL of the image",
+                        "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80"
+                      },
+                      "publicId": {
+                        "type": "string",
+                        "description": "Cloudinary public ID of the image",
+                        "example": "animals/uov6o1ysoj8bhftxuzkd"
+                      }
+                    }
+                  }
                 },
                 "status": {
                   "type": "string",
@@ -3099,25 +3192,25 @@
                 "owner": {
                   "type": "string",
                   "description": "User ID of the animal owner",
-                  "example": "67dadd700c7810a7f785decd"
+                  "example": "67eaba1a60eb693f37977d88"
                 },
                 "createdAt": {
                   "type": "string",
                   "format": "date-time",
                   "description": "Timestamp when the ad was created",
-                  "example": "2025-03-19T15:17:43.934Z"
+                  "example": "2025-04-13T10:04:12.631Z"
                 },
                 "updatedAt": {
                   "type": "string",
                   "format": "date-time",
                   "description": "Timestamp when the ad was last updated",
-                  "example": "2025-03-19T15:17:43.934Z"
+                  "example": "2025-05-01T13:59:02.883Z"
                 }
               }
             },
-            "example": [
+           "example": [
               {
-                "id": "67dae0170c7810a7f785dee7",
+                "id": "67fb8c1cacab98789dfd11d1",
                 "animalName": "Спарк",
                 "animalType": "dogs",
                 "breed": "Джек-рассел-тер'єр",
@@ -3125,43 +3218,52 @@
                 "weight": "5-8 кг",
                 "coat": "Середня",
                 "age": {
-                  "years": 4,
-                  "months": 5
+                  "years": 3,
+                  "months": 11
                 },
                 "gender": "male",
-                "animalLocation": "Київ",
+                "animalLocation": "Львів",
                 "adText": "Спарк - енергійний та грайливий собака, який шукає люблячу родину. Він обожнює активні прогулянки, легко знаходить спільну мову з дітьми та добре ладнає з іншими тваринами.",
                 "animalImages": [
-                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP80",
-                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000, q_auto:best,w_1000/v1/animals/qfrutuujzqnlzft9inmm?_a=BAMCkGP80"
+                  {
+                    "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80",
+                    "publicId": "animals/uov6o1ysoj8bhftxuzkd"
+                  },
+                  {
+                    "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/afajkxlo5ggmkr995dnj?_a=BAMCkGP80",
+                    "publicId": "animals/afajkxlo5ggmkr995dnj"
+                  }
                 ],
                 "status": "active",
-                "owner": "67dadd700c7810a7f785decd",
-                "createdAt": "2025-03-19T15:17:43.934Z",
-                "updatedAt": "2025-03-19T15:17:43.934Z"
+                "owner": "67eaba1a60eb693f37977d88",
+                "createdAt": "2025-04-13T10:04:12.631Z",
+                "updatedAt": "2025-05-01T13:59:02.883Z"
               },
               {
-                "id": "67dae0170c7810a7f785dee8",
-                "animalName": "Луна",
+                "id": "67fb8d82acab98789dfd1749",
+                "animalName": "Боско",
                 "animalType": "dogs",
                 "breed": "Німецька вівчарка",
                 "size": "Великий",
                 "weight": "30-40 кг",
                 "coat": "Середня",
                 "age": {
-                  "years": 3,
-                  "months": 11
+                  "years": 5,
+                  "months": 0
                 },
-                "gender": "female",
-                "animalLocation": "Львів",
-                "adText": "Луна - спокійна та віддана собака, шукає добрих господарів. Вона любить довгі прогулянки та добре ладнає з іншими тваринами.",
+                "gender": "male",
+                "animalLocation": "Житомир",
+                "adText": "Боско - розумний і слухняний пес, ідеальний для охорони будинку або як службовий собака.",
                 "animalImages": [
-                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/qtjuryhmba0j5i1d3ziy?_a=BAMCkGP81"
+                  {
+                    "url": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/gqecbvqasowqnrp0zvab?_a=BAMCkGP80",
+                    "publicId": "animals/gqecbvqasowqnrp0zvab"
+                  }
                 ],
                 "status": "active",
-                "owner": "67dadd700c7810a7f785decd",
-                "createdAt": "2025-03-19T15:18:43.934Z",
-                "updatedAt": "2025-03-19T15:18:43.934Z"
+                "owner": "67eaba1a60eb693f37977d88",
+                "createdAt": "2025-04-13T10:10:10.437Z",
+                "updatedAt": "2025-05-01T11:24:56.561Z"
               }
             ]
           }
@@ -3176,7 +3278,7 @@
               "id": {
                   "type": "string",
                   "description": "Unique identifier for the animal ad",
-                  "example": "67dae0170c7810a7f785dee7"
+                  "example": "67fb8c1cacab98789dfd11d1"
                 },
               "animalName": {
                 "type": "string",
@@ -3220,7 +3322,7 @@
                     "months": {
                       "type": "integer",
                       "description": "Number of months of the animal",
-                      "example": "1"
+                      "example": "11"
                     }
                   }
               },
@@ -3240,17 +3342,25 @@
                 "description": "Animal description",
                 "example": "Спарк - життєрадісний та доброзичливий пес, який мріє про турботливих господарів. Він любить гратися на вулиці, із задоволенням бавиться з дітьми та швидко знаходить спільну мову з іншими тваринами."
               },
-              "animalImages": {
+             "animalImages": {
                 "type": "array",
-                "description": "List of URLs for animal images",
+                "description": "List of animal image objects (Cloudinary)",
                 "items": {
-                  "type": "string",
-                  "format": "uri",
-                  "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/zqdu7iecsxp7cpmm03a1?_a=BAMCkGP80"
-                },
-                "example": [
-                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/zqdu7iecsxp7cpmm03a1?_a=BAMCkGP80"
-                ]
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "Full URL of the image",
+                      "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80"
+                    },
+                    "publicId": {
+                      "type": "string",
+                      "description": "Cloudinary public ID of the image",
+                      "example": "animals/uov6o1ysoj8bhftxuzkd"
+                    }
+                  }
+                }
               },
               "status": {
                 "type": "string",
@@ -3261,19 +3371,19 @@
               "owner": {
                 "type": "string",
                 "description": "User ID of the animal owner",
-                "example": "67dadd700c7810a7f785decd"
+                "example": "67eaba1a60eb693f37977d88"
               },
               "createdAt": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Timestamp when the ad was created",
-                "example": "2025-03-19T15:17:43.934Z"
+                "example": "2025-04-13T10:04:12.631Z"
               },
               "updatedAt": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Timestamp when the ad was last updated",
-                "example": "2025-03-19T15:17:43.934Z"
+                "example": "2025-05-01T13:59:02.883Z"
               }
             }
           },
@@ -3291,12 +3401,12 @@
       },
       "UpdateAnimalRequest": {
         "type": "object",
-        "required": ["animalData", "images"],
+        "required": ["animalData"],
         "properties": {
           "animalData": {
             "type": "string",
-            "description": "JSON string containing animal data. Required fields: animalName, animalType, breed, age, gender, animalLocation, adText. Optional field: status.",
-            "example": "{\"animalName\": \"Спарк\", \"animalType\": \"dogs\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": {\"years\": 3, \"months\": 1}, \"gender\": \"male\", \"animalLocation\": \"Львів\", \"adText\": \"Спарк - життєрадісний та доброзичливий пес, який мріє про турботливих господарів. Він любить гратися на вулиці, із задоволенням бавиться з дітьми та швидко знаходить спільну мову з іншими тваринами.\", \"status\": \"active\"}"
+            "description": "JSON string containing animal data. Required fields: animalName, animalType, breed, age, gender, animalLocation, adText. Optional fields: status (enum: 'active' | 'inactive'), imagesToDelete (array of Cloudinary public IDs).",
+            "example": "{\"animalName\": \"Спарк\", \"animalType\": \"dogs\", \"breed\": \"Джек-рассел-тер'єр\", \"age\": {\"years\": 3, \"months\": 11}, \"gender\": \"male\", \"animalLocation\": \"Львів\", \"adText\": \"Спарк - життєрадісний та доброзичливий пес, який мріє про турботливих господарів. Він любить гратися на вулиці, із задоволенням бавиться з дітьми та швидко знаходить спільну мову з іншими тваринами.\", \"status\": \"active\", \"imagesToDelete\": [\"animals/afajkxlo5ggmkr995dnj\"]}"
           },
           "images": {
             "type": "array",
@@ -3304,8 +3414,8 @@
               "type": "string",
               "format": "binary"
             },
-            "description": "Array of image files (up to 4 images) for the animal ad",
-            "maxItems": 4
+            "description": "Optional array of new image files for the animal. An animal ad must contain at least 1 and no more than 4 images in total. Therefore, you can upload up to 3 new images during the update, depending on how many are already stored.",
+            "maxItems": 3
           }
         }
       },
@@ -3322,7 +3432,7 @@
               "id": {
                   "type": "string",
                   "description": "Unique identifier for the animal ad",
-                  "example": "67dae0170c7810a7f785dee7"
+                  "example": "67fb8c1cacab98789dfd11d1"
                 },
               "animalName": {
                 "type": "string",
@@ -3366,7 +3476,7 @@
                     "months": {
                       "type": "integer",
                       "description": "Number of months of the animal",
-                      "example": "1"
+                      "example": "11"
                     }
                   }
               },
@@ -3388,15 +3498,23 @@
               },
               "animalImages": {
                 "type": "array",
-                "description": "List of URLs for animal images",
+                "description": "List of animal image objects (Cloudinary)",
                 "items": {
-                  "type": "string",
-                  "format": "uri",
-                  "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/zqdu7iecsxp7cpmm03a1?_a=BAMCkGP80"
-                },
-                "example": [
-                  "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/zqdu7iecsxp7cpmm03a1?_a=BAMCkGP80"
-                ]
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "Full URL of the image",
+                      "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80"
+                    },
+                    "publicId": {
+                      "type": "string",
+                      "description": "Cloudinary public ID of the image",
+                      "example": "animals/uov6o1ysoj8bhftxuzkd"
+                    }
+                  }
+                }
               },
               "status": {
                 "type": "string",
@@ -3407,19 +3525,19 @@
               "owner": {
                 "type": "string",
                 "description": "User ID of the animal owner",
-                "example": "67dadd700c7810a7f785decd"
+                "example": "67eaba1a60eb693f37977d88"
               },
               "createdAt": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Timestamp when the ad was created",
-                "example": "2025-03-19T15:17:43.934Z"
+                "example": "2025-04-13T10:04:12.631Z"
               },
               "updatedAt": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Timestamp when the ad was last updated",
-                "example": "2025-03-19T15:17:43.934Z"
+                "example": "2025-05-01T13:59:02.883Z"
               }
             }
           }
