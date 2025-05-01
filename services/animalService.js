@@ -208,7 +208,7 @@ export const updateFavorite = async (animalId, userId, favoriteStatus) => {
 };
 
 export const updateAnimalAd = async (animalId, animalData, files) => {
-  let animalImages = [];
+  let newImages = [];
   let searchedTraits = null;
 
   try {
@@ -219,6 +219,7 @@ export const updateAnimalAd = async (animalId, animalData, files) => {
         });
 
         const { public_id } = uploadedImage;
+        console.log(public_id);
 
         const optimizedImageUrl = cloudinary.url(public_id, {
           fetch_format: "auto",
@@ -229,7 +230,7 @@ export const updateAnimalAd = async (animalId, animalData, files) => {
           height: 1000,
         });
 
-        animalImages.push(optimizedImageUrl);
+        newImages.push({ url: optimizedImageUrl, publicId: public_id });
 
         removeFiles(file);
       }
@@ -238,11 +239,27 @@ export const updateAnimalAd = async (animalId, animalData, files) => {
     throw HttpError(400, "Image upload failed");
   }
 
-  if (animalImages.length === 0)
-    throw HttpError(400, "At least 1 animal image is required");
+  const animal = await Animal.findById(animalId);
+  if (!animal) throw HttpError(404, "Animal not found");
+
+  let updatedAnimalImages = [...animal.animalImages];
+
+  if (animalData.imagesToDelete && Array.isArray(animalData.imagesToDelete)) {
+    updatedAnimalImages = updatedAnimalImages.filter(
+      (img) => !animalData.imagesToDelete.includes(img.publicId),
+    );
+
+    for (const publicId of animalData.imagesToDelete) {
+      await cloudinary.uploader.destroy(publicId);
+    }
+  }
+
+  if (newImages.length > 0) {
+    updatedAnimalImages.push(...newImages);
+  }
 
   animalData.animalType = animalData.animalType.toLowerCase();
-  
+
   const { animalType, breed } = animalData;
 
   const animalsTraits = await AnimalTrait.findOne();
@@ -270,7 +287,7 @@ export const updateAnimalAd = async (animalId, animalData, files) => {
 
   const updatedAnimal = await Animal.findOneAndUpdate(
     { _id: animalId },
-    { ...animalData, animalImages },
+    { ...animalData, animalImages: updatedAnimalImages },
     { new: true },
   );
 
