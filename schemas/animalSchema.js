@@ -193,7 +193,6 @@ export const updateAnimalSchema = Joi.object({
     .trim()
     .valid(...animalAdStatus)
     .messages({
-      "string.empty": "Animal ad status cannot be empty",
       "any.only": `Animal ad status must be one of: ${animalAdStatus.join(", ")}`,
     }),
   imagesToDelete: Joi.array().items(Joi.string()),
