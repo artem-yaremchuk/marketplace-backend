@@ -32,7 +32,7 @@ animalsRouter.patch(
   validateBody(updateFavoriteStatusSchema),
   updateFavoriteStatus,
 );
-animalsRouter.put(
+animalsRouter.patch(
   "/:id",
   authorization,
   checkAnimalId,

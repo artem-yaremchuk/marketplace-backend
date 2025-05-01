@@ -46,9 +46,19 @@ const animalSchema = new Schema(
       type: String,
       required: [true, "Ad text is required"],
     },
-    animalImages: {
-      type: [String],
-    },
+    animalImages: [
+      {
+        url: {
+          type: String,
+          required: [true, "Url is required"],
+        },
+        publicId: {
+          type: String,
+          required: [true, "Public ID is required"],
+        },
+        _id: false,
+      },
+    ],
     status: {
       type: String,
       enum: ["active", "inactive"],
