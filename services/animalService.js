@@ -28,7 +28,7 @@ export const createAnimalAd = async (ownerId, animalData, files) => {
             height: 1000,
           });
 
-          animalImages.push(optimizedImageUrl);
+          animalImages.push({ url: optimizedImageUrl, publicId: public_id });
 
           await removeFiles(file);
         }
@@ -219,7 +219,6 @@ export const updateAnimalAd = async (animalId, animalData, files) => {
         });
 
         const { public_id } = uploadedImage;
-        console.log(public_id);
 
         const optimizedImageUrl = cloudinary.url(public_id, {
           fetch_format: "auto",
