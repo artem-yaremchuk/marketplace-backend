@@ -13,6 +13,7 @@ import {
 } from "../services/userService.js";
 import { Email } from "../services/emailService.js";
 import User from "../models/userModel.js";
+import DeletedUser from "../models/deletedUserModel.js";
 import { updateUserSchema } from "../schemas/userSchema.js";
 import HttpError from "../helpers/HttpError.js";
 import removeFiles from "../helpers/removeFiles.js";
@@ -306,6 +307,9 @@ export const changeUserPassword = catchAsync(async (req, res) => {
 export const deleteUser = catchAsync(async (req, res) => {
   const { _id } = req.user;
 
+  const userToDelete = await User.findById(_id).lean();
+
+  await DeletedUser.create({ userData: userToDelete });
   await User.findByIdAndDelete(_id);
 
   res.status(204).send();
