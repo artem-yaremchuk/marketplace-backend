@@ -13,6 +13,7 @@ import {
 } from "../services/userService.js";
 import { Email } from "../services/emailService.js";
 import User from "../models/userModel.js";
+import Animal from "../models/animalModel.js";
 import DeletedUser from "../models/deletedUserModel.js";
 import { updateUserSchema } from "../schemas/userSchema.js";
 import HttpError from "../helpers/HttpError.js";
@@ -311,6 +312,7 @@ export const deleteUser = catchAsync(async (req, res) => {
 
   await DeletedUser.create({ userData: userToDelete });
   await User.findByIdAndDelete(_id);
+  await Animal.deleteMany({ owner: _id });
 
   res.status(204).send();
 });
