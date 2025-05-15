@@ -100,6 +100,25 @@ export const updateFavoriteStatus = catchAsync(async (req, res) => {
   });
 });
 
+export const updateHiddenStatus = catchAsync(async (req, res) => {
+  const { id: animalId } = req.params;
+  const { _id: userId } = req.user;
+  const { isHidden } = req.body;
+
+  const updatedAnimal = await Animal.findOneAndUpdate(
+    { _id: animalId, owner: userId },
+    { isHidden },
+    { new: true },
+  );
+
+  const { _id, ...rest } = updatedAnimal.toObject();
+
+  res.status(200).json({
+    message: isHidden ? "Animal has been hidden" : "Animal is now visible",
+    animal: { id: _id, ...rest },
+  });
+});
+
 export const getAnimalDetails = catchAsync(async (req, res) => {
   const { id: animalId } = req.params;
 
