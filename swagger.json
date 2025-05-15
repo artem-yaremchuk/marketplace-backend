@@ -1303,6 +1303,97 @@
         }
       }
     },
+    "/animals/{animalId}/hide": {
+      "patch": {
+        "tags": ["Animal"],
+        "summary": "Toogle animal ad hidden status",
+        "parameters": [
+          {
+            "name": "animalId",
+            "in": "path",
+            "required": true,
+            "description": "Unique animal ad identifier",
+            "schema": {
+              "type": "string",
+              "description": "Unique identifier for the animal ad",
+              "example": "67dae0170c7810a7f785dee7"
+            }
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Set animal ad visibility: hidden or visible",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["isHidden"],
+                "properties": {
+                  "isHidden": {
+                    "type": "boolean",
+                    "description": "Animal ad hidden status",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateAnimalHiddenStatusResponse"
+                }
+              }
+            }
+          },
+           "400": {
+            "description": "Invalid hidden status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid user token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Animal not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/animals/{animalId}": {
       "get": {
         "tags": ["Animal"],
@@ -1942,6 +2033,11 @@
                       "enum": ["active", "inactive"],
                       "example": "active"
                     },
+                    "isHidden": {
+                      "type": "boolean",
+                      "description": "Animal ad hidden status",
+                      "example": false
+                    },
                     "owner": {
                       "type": "string",
                       "description": "User ID of the animal owner",
@@ -1988,6 +2084,7 @@
                       }
                     ],
                     "status": "active",
+                    "isHidden": false,
                     "owner": "67eaba1a60eb693f37977d88",
                     "createdAt": "2025-04-13T10:04:12.631Z",
                     "updatedAt": "2025-05-01T13:59:02.883Z"
@@ -2014,6 +2111,7 @@
                       }
                     ],
                     "status": "active",
+                    "isHidden": false,
                     "owner": "67eaba1a60eb693f37977d88",
                     "createdAt": "2025-04-13T10:10:10.437Z",
                     "updatedAt": "2025-05-01T11:24:56.561Z"
@@ -2173,6 +2271,11 @@
                       "enum": ["active", "inactive"],
                       "example": "active"
                     },
+                     "isHidden": {
+                      "type": "boolean",
+                      "description": "Animal ad hidden status",
+                      "example": false
+                    },
                     "owner": {
                       "type": "string",
                       "description": "User ID of the animal owner",
@@ -2219,6 +2322,7 @@
                       }
                     ],
                     "status": "active",
+                    "isHidden": false,
                     "owner": "67eaba1a60eb693f37977d88",
                     "createdAt": "2025-04-13T10:04:12.631Z",
                     "updatedAt": "2025-05-01T13:59:02.883Z"
@@ -2245,6 +2349,7 @@
                       }
                     ],
                     "status": "active",
+                    "isHidden": false,
                     "owner": "67eaba1a60eb693f37977d88",
                     "createdAt": "2025-04-13T10:10:10.437Z",
                     "updatedAt": "2025-05-01T11:24:56.561Z"
@@ -2494,6 +2599,11 @@
                       "enum": ["active", "inactive"],
                       "example": "active"
                     },
+                     "isHidden": {
+                      "type": "boolean",
+                      "description": "Animal ad hidden status",
+                      "example": false
+                    },
                     "owner": {
                       "type": "string",
                       "description": "User ID of the animal owner",
@@ -2540,6 +2650,7 @@
                       }
                     ],
                     "status": "active",
+                    "isHidden": false,
                     "owner": "67eaba1a60eb693f37977d88",
                     "createdAt": "2025-04-13T10:04:12.631Z",
                     "updatedAt": "2025-05-01T13:59:02.883Z"
@@ -2566,6 +2677,7 @@
                       }
                     ],
                     "status": "active",
+                    "isHidden": false,
                     "owner": "67eaba1a60eb693f37977d88",
                     "createdAt": "2025-04-13T10:10:10.437Z",
                     "updatedAt": "2025-05-01T11:24:56.561Z"
@@ -2736,6 +2848,11 @@
                 "enum": ["active", "inactive"],
                 "example": "active"
               },
+              "isHidden": {
+                "type": "boolean",
+                "description": "Animal ad hidden status",
+                "example": false
+              },
               "owner": {
                 "type": "string",
                 "description": "User ID of the animal owner",
@@ -2874,6 +2991,11 @@
                   "enum": ["active", "inactive"],
                   "example": "active"
                 },
+                "isHidden": {
+                  "type": "boolean",
+                  "description": "Animal ad hidden status",
+                  "example": false
+                },
                 "owner": {
                   "type": "string",
                   "description": "User ID of the animal owner",
@@ -2920,6 +3042,7 @@
                   }
                 ],
                 "status": "active",
+                "isHidden": false,
                 "owner": "67eaba1a60eb693f37977d88",
                 "createdAt": "2025-04-13T10:04:12.631Z",
                 "updatedAt": "2025-05-01T13:59:02.883Z"
@@ -2946,6 +3069,7 @@
                   }
                 ],
                 "status": "active",
+                "isHidden": false,
                 "owner": "67eaba1a60eb693f37977d88",
                 "createdAt": "2025-04-13T10:10:10.437Z",
                 "updatedAt": "2025-05-01T11:24:56.561Z"
@@ -3060,6 +3184,11 @@
                   "description": "Status of the animal ad",
                   "enum": ["active", "inactive"],
                   "example": "active"
+                },
+                "isHidden": {
+                  "type": "boolean",
+                  "description": "Animal ad hidden status",
+                  "example": false
                 },
                 "owner": {
                   "type": "string",
@@ -3189,6 +3318,11 @@
                   "enum": ["active", "inactive"],
                   "example": "active"
                 },
+                "isHidden": {
+                  "type": "boolean",
+                  "description": "Animal ad hidden status",
+                  "example": false
+                },
                 "owner": {
                   "type": "string",
                   "description": "User ID of the animal owner",
@@ -3235,6 +3369,7 @@
                   }
                 ],
                 "status": "active",
+                "isHidden": false,
                 "owner": "67eaba1a60eb693f37977d88",
                 "createdAt": "2025-04-13T10:04:12.631Z",
                 "updatedAt": "2025-05-01T13:59:02.883Z"
@@ -3261,6 +3396,7 @@
                   }
                 ],
                 "status": "active",
+                "isHidden": false,
                 "owner": "67eaba1a60eb693f37977d88",
                 "createdAt": "2025-04-13T10:10:10.437Z",
                 "updatedAt": "2025-05-01T11:24:56.561Z"
@@ -3268,6 +3404,135 @@
             ]
           }
         }
+      },
+      "UpdateAnimalHiddenStatusResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Animal has been hidden"
+          },
+          "animal": {
+            "type": "object",
+            "properties": {
+              "id": {
+                  "type": "string",
+                  "description": "Unique identifier for the animal ad",
+                  "example": "67fb8c1cacab98789dfd11d1"
+                },
+              "animalName": {
+                "type": "string",
+                "description": "Animal name",
+                "example": "Спарк"
+              },
+              "animalType": {
+                "type": "string",
+                "description": "Animal type",
+                "example": "dogs"
+              },
+              "breed": {
+                "type": "string",
+                "description": "Animal breed",
+                "example": "Джек-рассел-тер'єр"
+              },
+              "size": {
+                "type": "string",
+                "description": "Animal size",
+                "example": "Малий"
+              },
+              "weight": {
+                "type": "string",
+                "description": "Animal weight",
+                "example": "5-8 кг"
+              },
+              "coat": {
+                "type": "string",
+                "description": "Animal coat",
+                "example": "Середня"
+              },
+              "age": {
+                  "type": "object",
+                  "description": "Animal age",
+                  "properties": {
+                    "years": {
+                      "type": "integer",
+                      "description": "Number of years of the animal",
+                      "example": "3"
+                    },
+                    "months": {
+                      "type": "integer",
+                      "description": "Number of months of the animal",
+                      "example": "11"
+                    }
+                  }
+              },
+              "gender": {
+                "type": "string",
+                "description": "Animal gender",
+                "enum": ["male", "female", "unknown"],
+                "example": "male"
+              },
+              "animalLocation": {
+                "type": "string",
+                "description": "Location where the animal is available",
+                "example": "Львів"
+              },
+              "adText": {
+                "type": "string",
+                "description": "Animal description",
+                "example": "Спарк - життєрадісний та доброзичливий пес, який мріє про турботливих господарів. Він любить гратися на вулиці, із задоволенням бавиться з дітьми та швидко знаходить спільну мову з іншими тваринами."
+              },
+             "animalImages": {
+                "type": "array",
+                "description": "List of animal image objects (Cloudinary)",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "Full URL of the image",
+                      "example": "https://res.cloudinary.com/djahbmk0e/image/upload/c_auto,f_auto,g_auto,h_1000,q_auto:best,w_1000/v1/animals/uov6o1ysoj8bhftxuzkd?_a=BAMCkGP80"
+                    },
+                    "publicId": {
+                      "type": "string",
+                      "description": "Cloudinary public ID of the image",
+                      "example": "animals/uov6o1ysoj8bhftxuzkd"
+                    }
+                  }
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "Status of the animal ad",
+                "enum": ["active", "inactive"],
+                "example": "active"
+              },
+              "isHidden": {
+                "type": "boolean",
+                "description": "Animal ad hidden status",
+                "example": true
+              },
+              "owner": {
+                "type": "string",
+                "description": "User ID of the animal owner",
+                "example": "67eaba1a60eb693f37977d88"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Timestamp when the ad was created",
+                "example": "2025-04-13T10:04:12.631Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Timestamp when the ad was last updated",
+                "example": "2025-05-01T13:59:02.883Z"
+              }
+            }
+          }
+        }  
       },
       "AnimalDetailsResponse": {
         "type": "object",
@@ -3367,6 +3632,11 @@
                 "description": "Status of the animal ad",
                 "enum": ["active", "inactive"],
                 "example": "active"
+              },
+              "isHidden": {
+                "type": "boolean",
+                "description": "Animal ad hidden status",
+                "example": false
               },
               "owner": {
                 "type": "string",
@@ -3521,6 +3791,11 @@
                 "description": "Status of the animal ad",
                 "enum": ["active", "inactive"],
                 "example": "active"
+              },
+              "isHidden": {
+                "type": "boolean",
+                "description": "Animal ad hidden status",
+                "example": false
               },
               "owner": {
                 "type": "string",
