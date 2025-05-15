@@ -12,11 +12,15 @@ import {
   getUserProfileAnimals,
   getAnimalDetails,
   updateFavoriteStatus,
+  updateHiddenStatus,
   updateAnimal,
   deleteAnimal,
 } from "../controllers/animalController.js";
 import validateBody from "../helpers/validateBody.js";
-import { updateFavoriteStatusSchema } from "../schemas/animalSchema.js";
+import {
+  updateFavoriteStatusSchema,
+  updateHiddenStatusSchema,
+} from "../schemas/animalSchema.js";
 
 const animalsRouter = express.Router();
 
@@ -31,6 +35,14 @@ animalsRouter.patch(
   checkAnimalId,
   validateBody(updateFavoriteStatusSchema),
   updateFavoriteStatus,
+);
+animalsRouter.patch(
+  "/:id/hide",
+  authorization,
+  checkAnimalId,
+  checkOwner,
+  validateBody(updateHiddenStatusSchema),
+  updateHiddenStatus,
 );
 animalsRouter.patch(
   "/:id",

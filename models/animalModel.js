@@ -64,6 +64,10 @@ const animalSchema = new Schema(
       enum: ["active", "inactive"],
       default: "active",
     },
+    isHidden: {
+      type: Boolean,
+      default: false,
+    },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",

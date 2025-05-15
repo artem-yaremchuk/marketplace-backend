@@ -98,8 +98,15 @@ export const createAnimalSchema = Joi.object({
 
 export const updateFavoriteStatusSchema = Joi.object({
   favorite: Joi.boolean().required().messages({
-    "any.required": "Favorite status bis required",
+    "any.required": "Favorite status is required",
     "boolean.base": "Favorite status must be a boolean value",
+  }),
+});
+
+export const updateHiddenStatusSchema = Joi.object({
+  isHidden: Joi.boolean().required().messages({
+    "any.required": "Hidden status is required",
+    "boolean.base": "Hidden status must be a boolean value",
   }),
 });
 
