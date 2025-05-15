@@ -82,12 +82,17 @@ export const listActiveAnimals = async (query) => {
 
   const docsToSkip = (page - 1) * limit;
 
-  const animals = await Animal.find({ status: "active" })
+  const filter = {
+    status: "active",
+    isHidden: false,
+  };
+
+  const animals = await Animal.find(filter)
     .sort({ createdAt: -1 })
     .skip(docsToSkip)
     .limit(limit);
 
-  const total = await Animal.countDocuments({ status: "active" });
+  const total = await Animal.countDocuments(filter);
 
   return { total, animals };
 };
@@ -100,7 +105,10 @@ export const getFilteredAnimals = async (query) => {
 
   const docsToSkip = (page - 1) * limit;
 
-  const filter = { status: "active" };
+  const filter = {
+    status: "active",
+    isHidden: false,
+  };
 
   if (animalType) filter.animalType = animalType.toLowerCase();
   if (gender) filter.gender = gender;
