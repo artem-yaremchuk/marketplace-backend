@@ -8,10 +8,10 @@ dotenv.config();
 
 export class Email {
   constructor(user, options = {}) {
-    this.name = user.name;
+    this.name = user.name ?? "Користувач";
     this.to = user.email;
-    this.url = options.url || null;
-    this.resetCode = user.resetPasswordCode;
+    this.url = options.url ?? null;
+    this.resetCode = user.resetPasswordCode ?? null;
     this.from = process.env.META_USER;
   }
 
@@ -36,7 +36,6 @@ export class Email {
         name: this.name,
         url: this.url,
         resetCode: this.resetCode,
-        subject,
       },
     );
 
@@ -57,5 +56,29 @@ export class Email {
 
   async sendResetPasswordCode() {
     await this._send("reset-password", "Скидання пароля")
+  }
+
+  async sendUserFeedback(feedback) {
+    const html = pug.renderFile(
+      path.join(process.cwd(), "views", "email", "user-feedback.pug"),
+      {
+        feedback,
+        email: this.to,
+      }
+    );
+
+    const emailConfig = {
+      from: this.from,
+      to: this.from,
+      subject: "Новий запит від користувача",
+      html,
+      text: convert(html),
+    };
+
+    await this._initTransporter().sendMail(emailConfig);
+  }
+
+  async sendSupportReply() {
+    await this._send("support-reply", "Дякуємо за ваш зворотній зв'язок")
   }
 }
