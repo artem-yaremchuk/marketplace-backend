@@ -21,6 +21,10 @@
       "description": "Everything about your Animals"
     },
     {
+      "name": "Feedback",
+      "description": "User feedback management"
+    },
+    {
       "name": "Reference",
       "description": "Static reference data used for form inputs and filters"
     }
@@ -1593,6 +1597,78 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedback": {
+      "post": {
+        "tags": ["Feedback"],
+        "summary": "Manage user feedback",
+        "parameters": [],
+        "requestBody": {
+          "description": "User email and feedback",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Feedback email has been sent"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email or feedback data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to send user feedback message"
+                    }
+                  }
                 }
               }
             }
@@ -3815,6 +3891,23 @@
                 "example": "2025-05-01T13:59:02.883Z"
               }
             }
+          }
+        }
+      },
+      "FeedbackRequest": {
+        "type": "object",
+        "required": ["email", "feedback"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "adrien.brody@gmail.com",
+            "format": "email"
+          },
+          "feedback": {
+            "type": "string",
+            "description": "User's feedback",
+            "example": "Вітаю! Ваш застосунок неймовірний. Дуже дякую!"
           }
         }
       },
