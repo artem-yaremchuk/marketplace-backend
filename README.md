@@ -19,7 +19,7 @@ To create a user-friendly and efficient online platform that helps animals find 
 - **Swagger API Documentation:**  
   [https://marketplace-backend-wrk2.onrender.com/api-docs/](https://marketplace-backend-wrk2.onrender.com/api-docs/)  
 - **Dim Tvaryn Organization Repository:**  
-  [https://github.com/orgs/Dim-Tvarin/repositories](https://github.com/orgs/Dim-Tvarin/repositories)  
+  [https://github.com/orgs/Dim-Tvaryn/repositories](https://github.com/orgs/Dim-Tvaryn/repositories)  
 - **Figma Design Mockup:**  
   [https://www.figma.com/design/EGid5p8wkxaLKjidPmeO6b/DimTvaryn?node-id=129-636&t=g511edTVlzHEYcfT-0](https://www.figma.com/design/EGid5p8wkxaLKjidPmeO6b/DimTvaryn?node-id=129-636&t=g511edTVlzHEYcfT-0)  
 
