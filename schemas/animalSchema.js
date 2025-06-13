@@ -82,7 +82,7 @@ export const createAnimalSchema = Joi.object({
   }),
   adText: Joi.string()
     .trim()
-    .min(50)
+    .min(10)
     .max(500)
     .pattern(ANIMAL_AD_TEXT_REGEX)
     .required()
@@ -184,7 +184,7 @@ export const updateAnimalSchema = Joi.object({
   }),
   adText: Joi.string()
     .trim()
-    .min(50)
+    .min(10)
     .max(500)
     .pattern(ANIMAL_AD_TEXT_REGEX)
     .required()
