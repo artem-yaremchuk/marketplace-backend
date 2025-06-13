@@ -13,7 +13,7 @@ export const registerUserSchema = Joi.object({
     .trim()
     .email({
       minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io"] },
+      tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io", "email", "me"] },
     })
     .max(50)
     .required()
@@ -56,7 +56,7 @@ export const verifyUserSchema = Joi.object({
     .trim()
     .email({
       minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io"] },
+      tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io", "email", "me"] },
     })
     .max(50)
     .required()
@@ -73,7 +73,7 @@ export const loginUserSchema = Joi.object({
     .trim()
     .email({
       minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io"] },
+      tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io", "email", "me"] },
     })
     .max(50)
     .required()
@@ -112,7 +112,7 @@ export const updateUserSchema = Joi.object({
     .trim()
     .email({
       minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io"] },
+      tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io", "email", "me"] },
     })
     .max(50)
     .messages({
@@ -134,7 +134,7 @@ export const forgotPasswordSchema = Joi.object({
     .trim()
     .email({
       minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io"] },
+      tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io", "email", "me"] },
     })
     .max(50)
     .required()
