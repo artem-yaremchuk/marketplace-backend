@@ -11,6 +11,7 @@ export const registerUserSchema = Joi.object({
   }),
   email: Joi.string()
     .trim()
+    .lowercase()
     .email({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io", "email", "me"] },
@@ -54,6 +55,7 @@ export const registerUserSchema = Joi.object({
 export const verifyUserSchema = Joi.object({
   email: Joi.string()
     .trim()
+    .lowercase()
     .email({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io", "email", "me"] },
@@ -71,6 +73,7 @@ export const verifyUserSchema = Joi.object({
 export const loginUserSchema = Joi.object({
   email: Joi.string()
     .trim()
+    .lowercase()
     .email({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io", "email", "me"] },
@@ -110,6 +113,7 @@ export const updateUserSchema = Joi.object({
   }),
   email: Joi.string()
     .trim()
+    .lowercase()
     .email({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io", "email", "me"] },
@@ -132,6 +136,7 @@ export const updateUserSchema = Joi.object({
 export const forgotPasswordSchema = Joi.object({
   email: Joi.string()
     .trim()
+    .lowercase()
     .email({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net", "org", "ua", "gov", "edu", "io", "email", "me"] },
