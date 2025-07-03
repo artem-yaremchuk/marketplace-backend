@@ -136,8 +136,6 @@ export const verifyResetPasswordCode = async (resetPasswordCode) => {
   user.resetPasswordCode = null;
   user.resetPasswordExpires = null;
 
-  user.token = signToken(user.id);
-
   await user.save();
 
   return user;
@@ -150,7 +148,11 @@ export const resetPassword = async (userId, newPassword) => {
 
   user.password = newPassword;
 
+  user.token = signToken(user.id);
+
   await user.save();
+
+  return user;
 };
 
 export const changePassword = async (userId, newPassword) => {
