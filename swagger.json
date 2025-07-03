@@ -707,13 +707,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "User password has been updated"
-                    }
-                  }
+                  "$ref": "#/components/schemas/ResetPasswordResponse"
                 }
               }
             }
@@ -2525,6 +2519,41 @@
             "type": "string",
             "example": "Reset password verification successful"
           },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the user",
+                "example": "67eaba1a60eb693f37977d88"
+              }
+            }
+          }
+        }
+      },
+      "ResetPasswordRequest": {
+        "type": "object",
+        "required": ["password", "repeat_password"],
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "New password for the user",
+            "example": "Brutalist_0001"
+          },
+          "repeat_password": {
+            "type": "string",
+            "description": "Repeat new password for the user",
+            "example": "Brutalist_0001"
+          }
+        }
+      },
+      "ResetPasswordResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User password has been updated"
+          },
           "token": {
             "type": "string",
             "description": "User's token",
@@ -2761,22 +2790,6 @@
                 ]
               }
             }
-          }
-        }
-      },
-      "ResetPasswordRequest": {
-        "type": "object",
-        "required": ["password", "repeat_password"],
-        "properties": {
-          "password": {
-            "type": "string",
-            "description": "New password for the user",
-            "example": "Brutalist_0001"
-          },
-          "repeat_password": {
-            "type": "string",
-            "description": "Repeat new password for the user",
-            "example": "Brutalist_0001"
           }
         }
       },
