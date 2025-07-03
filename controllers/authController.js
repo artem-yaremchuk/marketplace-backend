@@ -248,7 +248,24 @@ export const requestResetPassword = catchAsync(async (req, res) => {
 export const confirmResetPassword = catchAsync(async (req, res) => {
   const { resetPasswordCode } = req.body;
 
-  const verifiedUser = await verifyResetPasswordCode(resetPasswordCode);
+  const user = await verifyResetPasswordCode(resetPasswordCode);
+
+  const { _id: id } = user;
+
+  res.status(200).json({
+    message: "Reset password verification successful",
+    user: {
+      id,
+    },
+  });
+});
+
+export const resetUserPassword = catchAsync(async (req, res) => {
+  const { id: userId } = req.params;
+
+  const { password: newPassword } = req.body;
+
+  const user = await resetPassword(userId, newPassword);
 
   const {
     token,
@@ -260,12 +277,12 @@ export const confirmResetPassword = catchAsync(async (req, res) => {
     userType,
     avatarURL,
     theme,
-  } = verifiedUser;
+  } = user;
 
   const favorites = await getFormattedFavorites(id);
 
   res.status(200).json({
-    message: "Reset password verification successful",
+    message: "User password has been updated",
     token,
     user: {
       id,
@@ -278,18 +295,6 @@ export const confirmResetPassword = catchAsync(async (req, res) => {
       theme,
       favorites,
     },
-  });
-});
-
-export const resetUserPassword = catchAsync(async (req, res) => {
-  const { _id: userId } = req.user;
-
-  const { password: newPassword } = req.body;
-
-  await resetPassword(userId, newPassword);
-
-  res.status(200).json({
-    message: "User password has been updated",
   });
 });
 

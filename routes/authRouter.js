@@ -54,8 +54,7 @@ authRouter.post(
   confirmResetPassword,
 );
 authRouter.patch(
-  "/reset-password",
-  authorization,
+  "/reset-password/:id",
   validateBody(resetPasswordSchema),
   resetUserPassword,
 );
