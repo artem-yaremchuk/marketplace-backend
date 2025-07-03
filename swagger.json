@@ -685,12 +685,24 @@
             }
           }
         }
-      },
+      }
+    },
+    "/users/reset-password/{id}": {
       "patch": {
         "tags": ["User"],
         "summary": "Reset user's password",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the user",
+            "schema": {
+              "type": "string",
+              "example": "67eaba1a60eb693f37977d88"
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
