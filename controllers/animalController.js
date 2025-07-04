@@ -17,6 +17,7 @@ import Animal from "../models/animalModel.js";
 import User from "../models/userModel.js";
 import getFormattedFavorites from "../helpers/getFormattedFavorites.js";
 import formatAnimals from "../helpers/formatAnimals.js";
+import { getRandomAnimals } from "../helpers/getRandomAnimals.js";
 
 export const createAnimal = catchAsync(async (req, res) => {
   const { _id: ownerId, name: ownerName, phone: ownerPhone } = req.user;
@@ -68,7 +69,8 @@ export const getAllActiveAnimals = catchAsync(async (req, res) => {
 export const filterAnimals = catchAsync(async (req, res) => {
   const { total, animals } = await getFilteredAnimals(req.query);
 
-  const formattedAnimals = formatAnimals(animals);
+  const finalAnimals = total > 0 ? animals : await getRandomAnimals(10);
+  const formattedAnimals = formatAnimals(finalAnimals);
 
   res.status(200).json({ total, animals: formattedAnimals });
 });
