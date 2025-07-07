@@ -175,7 +175,9 @@ export const getCurrentUser = catchAsync(async (req, res) => {
 export const updateUserTheme = catchAsync(async (req, res) => {
   const { _id } = req.user;
 
-  const { theme } = await User.findByIdAndUpdate(_id, req.body, { new: true });
+  const { theme } = await User.findByIdAndUpdate(_id, req.body, { new: true })
+    .lean()
+    .exec();
 
   res.status(200).json({
     message: "User theme has been updated",
@@ -313,11 +315,13 @@ export const changeUserPassword = catchAsync(async (req, res) => {
 export const deleteUser = catchAsync(async (req, res) => {
   const { _id } = req.user;
 
-  const userToDelete = await User.findById(_id).lean();
+  const userToDelete = await User.findById(_id).lean().exec();
 
-  await DeletedUser.create({ userData: userToDelete });
-  await User.findByIdAndDelete(_id);
-  await Animal.deleteMany({ owner: _id });
+  await Promise.all([
+    DeletedUser.create({ userData: userToDelete }),
+    User.findByIdAndDelete(_id),
+    Animal.deleteMany({ owner: _id }),
+  ]);
 
   res.status(204).send();
 });

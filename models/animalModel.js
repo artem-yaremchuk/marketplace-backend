@@ -76,6 +76,15 @@ const animalSchema = new Schema(
   { versionKey: false, timestamps: true },
 );
 
+animalSchema.index({ status: 1, isHidden: 1 });
+animalSchema.index({ animalType: 1 });
+animalSchema.index({ breed: 1 });
+animalSchema.index({ gender: 1 });
+animalSchema.index({ size: 1 });
+animalSchema.index({ "age.years": 1 });
+animalSchema.index({ animalLocation: 1 });
+animalSchema.index({ owner: 1 });  
+
 const Animal = model("Animal", animalSchema);
 
 export default Animal;

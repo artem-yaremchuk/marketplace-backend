@@ -4,6 +4,7 @@ import User from "../models/userModel.js";
 import cloudinary from "../helpers/cloudinary.js";
 import HttpError from "../helpers/HttpError.js";
 import removeFiles from "../helpers/removeFiles.js";
+import getAnimalTraits from "../helpers/getAnimalTraits.js";
 
 export const createAnimalAd = async (ownerId, animalData, files) => {
   let animalImages = [];
@@ -40,11 +41,9 @@ export const createAnimalAd = async (ownerId, animalData, files) => {
   if (animalImages.length === 0)
     throw HttpError(400, "At least 1 animal image is required");
 
-  animalData.animalType = animalData.animalType.toLowerCase();
-
   const { animalType, breed } = animalData;
 
-  const animalsTraits = await AnimalTrait.findOne();
+  const animalsTraits = await getAnimalTraits();
 
   if (
     animalsTraits &&
@@ -87,12 +86,15 @@ export const listActiveAnimals = async (query) => {
     isHidden: false,
   };
 
-  const animals = await Animal.find(filter)
-    .sort({ createdAt: -1 })
-    .skip(docsToSkip)
-    .limit(limit);
-
-  const total = await Animal.countDocuments(filter);
+  const [animals, total] = await Promise.all([
+    Animal.find(filter)
+      .sort({ createdAt: -1 })
+      .skip(docsToSkip)
+      .limit(limit)
+      .lean()
+      .exec(),
+    Animal.countDocuments(filter),
+  ]);
 
   return { total, animals };
 };
@@ -138,18 +140,21 @@ export const getFilteredAnimals = async (query) => {
 
   const sortOption = sortByDate === "oldest" ? 1 : -1;
 
-  const animals = await Animal.find(filter)
-    .sort({ createdAt: sortOption })
-    .skip(docsToSkip)
-    .limit(limit);
-
-  const total = await Animal.countDocuments(filter);
+  const [ animals, total ] = await Promise.all([
+    Animal.find(filter)
+      .sort({ createdAt: sortOption })
+      .skip(docsToSkip)
+      .limit(limit)
+      .lean()
+      .exec(),
+    Animal.countDocuments(filter),
+  ]);
 
   return { total, animals };
 };
 
 export const listUserAnimals = async (owner, query) => {
-  const { animalType, gender, breed, age, size, status, sortByDate } = query;
+  const { animalType, gender, breed, age, size, sortByDate } = query;
 
   const page = query.page ? +query.page : 1;
   const limit = query.limit ? +query.limit : 9;
@@ -185,18 +190,21 @@ export const listUserAnimals = async (owner, query) => {
 
   const sortOption = sortByDate === "oldest" ? 1 : -1;
 
-  const animals = await Animal.find(filter)
-    .sort({ createdAt: sortOption })
-    .skip(docsToSkip)
-    .limit(limit);
-
-  const total = await Animal.countDocuments(filter);
+  const [ animals, total ] = await Promise.all([
+    Animal.find(filter)
+      .sort({ createdAt: sortOption })
+      .skip(docsToSkip)
+      .limit(limit)
+      .lean()
+      .exec(),
+    Animal.countDocuments(filter),
+  ]);
 
   return { total, animals };
 };
 
 export const updateFavorite = async (animalId, userId, favoriteStatus) => {
-  const user = await User.findById(userId);
+  const user = await User.findById(userId).select("favorites");
 
   const index = user.favorites.indexOf(animalId);
 
@@ -265,11 +273,9 @@ export const updateAnimalAd = async (animalId, animalData, files) => {
     updatedAnimalImages.push(...newImages);
   }
 
-  animalData.animalType = animalData.animalType.toLowerCase();
-
   const { animalType, breed } = animalData;
 
-  const animalsTraits = await AnimalTrait.findOne();
+  const animalsTraits = await getAnimalTraits();
 
   if (
     animalsTraits &&
@@ -296,7 +302,9 @@ export const updateAnimalAd = async (animalId, animalData, files) => {
     { _id: animalId },
     { ...animalData, animalImages: updatedAnimalImages },
     { new: true },
-  );
+  )
+    .lean()
+    .exec();
 
   return updatedAnimal;
 };

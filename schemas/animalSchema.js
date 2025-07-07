@@ -26,6 +26,7 @@ export const createAnimalSchema = Joi.object({
     }),
   animalType: Joi.string()
     .trim()
+    .lowercase()
     .min(2)
     .max(30)
     .pattern(ANIMAL_TYPE_REGEX)
@@ -128,6 +129,7 @@ export const updateAnimalSchema = Joi.object({
     }),
   animalType: Joi.string()
     .trim()
+    .lowercase()
     .min(2)
     .max(30)
     .pattern(ANIMAL_TYPE_REGEX)
