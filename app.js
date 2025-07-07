@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import fs from "fs";
 import swaggerUi from "swagger-ui-express";
+import compression from "compression";
 
 import authRouter from "./routes/authRouter.js";
 import animalsRouter from "./routes/animalsRouter.js";
@@ -26,6 +27,8 @@ mongoose
     console.log(err);
     process.exit(1);
   });
+
+app.use(compression());
 
 app.use(morgan("tiny"));
 app.use(cors());

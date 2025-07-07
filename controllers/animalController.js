@@ -14,7 +14,6 @@ import {
 } from "../services/animalService.js";
 import removeFiles from "../helpers/removeFiles.js";
 import Animal from "../models/animalModel.js";
-import User from "../models/userModel.js";
 import getFormattedFavorites from "../helpers/getFormattedFavorites.js";
 import formatAnimals from "../helpers/formatAnimals.js";
 import { getRandomAnimals } from "../helpers/getRandomAnimals.js";
@@ -111,9 +110,11 @@ export const updateHiddenStatus = catchAsync(async (req, res) => {
     { _id: animalId, owner: userId },
     { isHidden },
     { new: true },
-  );
+   )
+    .lean()
+    .exec();
 
-  const { _id, ...rest } = updatedAnimal.toObject();
+  const { _id, ...rest } = updatedAnimal;
 
   res.status(200).json({
     message: isHidden ? "Animal has been hidden" : "Animal is now visible",
@@ -124,18 +125,17 @@ export const updateHiddenStatus = catchAsync(async (req, res) => {
 export const getAnimalDetails = catchAsync(async (req, res) => {
   const { id: animalId } = req.params;
 
-  const animal = await Animal.findById(animalId);
+  const animal = await Animal.findById(animalId)
+    .populate({ path: "owner", select: "name phone" })
+    .lean()
+    .exec();
 
-  const { owner } = animal;
-
-  const { name: ownerName, phone: ownerPhone } = await User.findById(owner);
-
-  const { _id, ...rest } = animal.toObject();
+  const { _id, owner, ...rest } = animal;
 
   res.status(200).json({
     animal: { id: _id, ...rest },
-    ownerName,
-    ownerPhone,
+    ownerName: owner.name,
+    ownerPhone: owner.phone,
   });
 });
 
@@ -170,7 +170,7 @@ export const updateAnimal = catchAsync(async (req, res) => {
 
   const updatedAnimal = await updateAnimalAd(animalId, value, req.files);
 
-  const { _id, ...rest } = updatedAnimal.toObject();
+  const { _id, ...rest } = updatedAnimal;
 
   res.status(200).json({
     message: "Animal ad has been updated",
