@@ -241,8 +241,8 @@ export const updateAnimalAd = async (animalId, animalData, files) => {
           quality: "auto:best",
           crop: "auto",
           gravity: "auto",
-          width: 1000,
-          height: 1000,
+          width: 600,
+          height: 600,
         });
 
         newImages.push({ url: optimizedImageUrl, publicId: public_id });
