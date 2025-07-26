@@ -12,7 +12,7 @@ export const createAnimalSchema = Joi.object({
   animalName: Joi.string()
     .trim()
     .min(2)
-    .max(50)
+    .max(15)
     .pattern(NAME_REGEX)
     .required()
     .messages({
@@ -115,7 +115,7 @@ export const updateAnimalSchema = Joi.object({
   animalName: Joi.string()
     .trim()
     .min(2)
-    .max(50)
+    .max(15)
     .pattern(NAME_REGEX)
     .required()
     .messages({
