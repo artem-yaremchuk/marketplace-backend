@@ -3,8 +3,12 @@ import pug from "pug";
 import { convert } from "html-to-text";
 import path from "path";
 import dotenv from "dotenv";
+import { fileURLToPath } from "url";
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export class Email {
   constructor(user, options = {}) {
@@ -31,7 +35,7 @@ export class Email {
 
   async _send(template, subject) {
     const html = pug.renderFile(
-      path.join(process.cwd(), "views", "email", `${template}.pug`),
+      path.join(__dirname, "../views/email", `${template}.pug`),
       {
         name: this.name,
         url: this.url,
@@ -60,7 +64,7 @@ export class Email {
 
   async sendUserFeedback(feedback) {
     const html = pug.renderFile(
-      path.join(process.cwd(), "views", "email", "user-feedback.pug"),
+      path.join(__dirname, "../views/email", "user-feedback.pug"),
       {
         feedback,
         email: this.to,

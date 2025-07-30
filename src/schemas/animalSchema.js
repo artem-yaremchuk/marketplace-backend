@@ -6,7 +6,7 @@ import {
   animalGender,
   ANIMAL_AD_TEXT_REGEX,
   animalAdStatus,
-} from "../constants.js";
+} from "../constants/constants.js";
 
 export const createAnimalSchema = Joi.object({
   animalName: Joi.string()

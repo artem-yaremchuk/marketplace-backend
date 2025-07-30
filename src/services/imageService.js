@@ -3,15 +3,19 @@ import multer from "multer";
 import path from "path";
 import fse from "fs-extra";
 import { v4 } from "uuid";
+import { fileURLToPath } from "url";
 import HttpError from "../helpers/HttpError.js";
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const MAX_IMAGE_SIZE = Number(process.env.MAX_IMAGE_SIZE) || 5;
 
 export class ImageService {
   static initUploadImageMiddleware(name, maxCount = 1) {
-    const uploadDir = path.join(process.cwd(), "uploads");
+    const uploadDir = path.join(__dirname, "../../uploads");
 
     fse.ensureDir(uploadDir);
 

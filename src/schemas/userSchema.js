@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { NAME_REGEX, PASSWD_REGEX, PHONE_REGEX, themeTypes, userTypes } from "../constants.js";
+import { NAME_REGEX, PASSWD_REGEX, PHONE_REGEX, themeTypes, userTypes } from "../constants/constants.js";
 
 export const registerUserSchema = Joi.object({
   name: Joi.string().trim().min(2).max(50).pattern(NAME_REGEX).required().messages({
