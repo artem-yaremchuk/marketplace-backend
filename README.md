@@ -21,7 +21,7 @@ To create a user-friendly and efficient online platform that helps animals find 
 - **Dim Tvaryn Organization Repository:**  
   [https://github.com/orgs/Dim-Tvaryn/repositories](https://github.com/orgs/Dim-Tvaryn/repositories)  
 - **Figma Design Mockup:**  
-  [https://www.figma.com/design/EGid5p8wkxaLKjidPmeO6b/DimTvaryn?node-id=129-636&t=g511edTVlzHEYcfT-0](https://www.figma.com/design/EGid5p8wkxaLKjidPmeO6b/DimTvaryn?node-id=129-636&t=g511edTVlzHEYcfT-0)  
+  [https://www.figma.com/design/JHaZpBoccNZOxeZzCVt5mq/Pet-Haven-Dim-Tvaryn?node-id=0-1&p=f&t=FTRSpTMdn6jisRX4-0](https://www.figma.com/design/JHaZpBoccNZOxeZzCVt5mq/Pet-Haven-Dim-Tvaryn?node-id=0-1&p=f&t=FTRSpTMdn6jisRX4-0)  
 
 ## 📌 Implemented Features
 

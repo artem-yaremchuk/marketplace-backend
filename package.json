@@ -2,14 +2,14 @@
   "name": "marketplace-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "./src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./app.js",
-    "dev": "nodemon ./app.js",
-    "import:traits": "node ./scripts/importAnimalTraits.js",
-    "import:cities": "node ./scripts/importCities.js",
-    "import:regions": "node ./scripts/importRegions.js"
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js",
+    "import:traits": "node ./src/scripts/importAnimalTraits.js",
+    "import:cities": "node ./src/scripts/importCities.js",
+    "import:regions": "node ./src/scripts/importRegions.js"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +24,6 @@
     "express": "^4.21.2",
     "fs-extra": "^11.3.0",
     "html-to-text": "^9.0.5",
-    "jimp": "^1.6.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.13.0",

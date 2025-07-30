@@ -4,6 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import swaggerUi from "swagger-ui-express";
 import compression from "compression";
 
@@ -16,7 +18,12 @@ dotenv.config();
 
 const app = express();
 
-const swaggerDocument = JSON.parse(fs.readFileSync("./swagger.json", "utf-8"));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const swaggerDocument = JSON.parse(
+  fs.readFileSync(path.join(__dirname, "../swagger.json"), "utf-8")
+);
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -40,10 +47,8 @@ app.use("/animals", animalsRouter);
 app.use("/references", referencesRouter);
 app.use("/feedback", feedbackRouter);
 
-app.use(express.static("public"));
-
 app.set("view engine", "pug");
-app.set("views", "views");
+app.set("views", path.join(__dirname, "./views"));
 
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });

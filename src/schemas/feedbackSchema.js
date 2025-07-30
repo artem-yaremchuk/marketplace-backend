@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { ANIMAL_AD_TEXT_REGEX } from "../constants.js";
+import { ANIMAL_AD_TEXT_REGEX } from "../constants/constants.js";
 
 export const feedbackSchema = Joi.object({
   email: Joi.string()

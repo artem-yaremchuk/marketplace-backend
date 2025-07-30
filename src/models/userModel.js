@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 import { compare, genSalt, hash } from "bcrypt";
-import { themeTypes } from "../constants.js";
+import { themeTypes } from "../constants/constants.js";
 
 const userSchema = new Schema(
   {
