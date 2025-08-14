@@ -200,8 +200,8 @@ export const updateUser = catchAsync(async (req, res) => {
 
     Object.keys(userData).forEach((key) => {
       if (
-        userData[key] === "" ||
-        userData[key] === null ||
+        userData[key] === "" &&
+        userData[key] === null &&
         userData[key] === undefined
       ) {
         delete userData[key];
