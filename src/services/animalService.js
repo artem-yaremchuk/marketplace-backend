@@ -1,5 +1,4 @@
 import Animal from "../models/animalModel.js";
-import AnimalTrait from "../models/animalTraitModel.js";
 import User from "../models/userModel.js";
 import cloudinary from "../helpers/cloudinary.js";
 import HttpError from "../helpers/HttpError.js";
